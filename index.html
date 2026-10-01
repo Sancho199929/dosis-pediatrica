@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Dosis Pediátrica AR</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f1f5f9;
+    color: #172033;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.app {
+    max-width: 520px;
+    margin: auto;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+/* HEADER */
+
+.header {
+    background: #0f172a;
+    color: white;
+    padding: 24px 18px 28px;
+    border-radius: 0 0 28px 28px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.version {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 10px;
+}
+
+.header h1 {
+    margin: 20px 0 5px;
+    font-size: 29px;
+}
+
+.header p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+/* MAIN */
+
+main {
+    padding: 16px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 17px;
+    margin-bottom: 14px;
+    box-shadow: 0 5px 20px rgba(15,23,42,.05);
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 13px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+input,
+select {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #cbd5e1;
+    border-radius: 13px;
+    background: white;
+    color: #172033;
+    font-size: 16px;
+    padding: 0 12px;
+}
+
+input:focus,
+select:focus {
+    outline: 3px solid #dbeafe;
+    border-color: #2563eb;
+}
+
+.weight-wrapper {
+    position: relative;
+}
+
+.weight-wrapper input {
+    padding-right: 40px;
+}
+
+.unit {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+button {
+    width: 100%;
+    height: 53px;
+    margin-top: 15px;
+    border: 0;
+    border-radius: 15px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 850;
+    cursor: pointer;
+    box-shadow: 0 7px 17px rgba(37,99,235,.25);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* RESULTADO */
+
+.result {
+    display: none;
+}
+
+.result-main {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 18px;
+    padding: 18px;
+    text-align: center;
+}
+
+.result-label {
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .8px;
+}
+
+.result-volume {
+    margin: 5px 0;
+    color: #1d4ed8;
+    font-size: 40px;
+    line-height: 1.1;
+    font-weight: 950;
+}
+
+.result-frequency {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.stat {
+    background: #f8fafc;
+    border-radius: 13px;
+    padding: 12px;
+}
+
+.stat span {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.stat strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+details {
+    margin-top: 14px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 13px;
+}
+
+summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.formula {
+    margin-top: 10px;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 13px;
+    padding: 14px;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.warning {
+    margin-top: 13px;
+    padding: 12px;
+    border-radius: 13px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #92400e;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.info {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+/* OCULTAR */
+
+.hidden {
+    display: none !important;
+}
+
+/* NAV */
+
+.bottom-nav {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 9px 16px calc(9px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid #e2e8f0;
+}
+
+.nav-item {
+    text-align: center;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.nav-item.active {
+    color: #2563eb;
+}
+
+.nav-icon {
+    display: block;
+    font-size: 19px;
+    line-height: 20px;
+}
+
+@media(max-width:390px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <div class="header-top">
+        <div class="logo">💊 Dosis Pediátrica AR</div>
+        <div class="version">v1.0</div>
+    </div>
+
+    <h1>Calculadora</h1>
+
+    <p>
+        Cálculo pediátrico y conversión automática a mL
+    </p>
+
+</header>
+
+
+<main>
+
+<!-- MEDICAMENTO -->
+
+<section class="card">
+
+    <div class="section-title">
+        1 · Medicamento e indicación
+    </div>
+
+    <div class="grid">
+
+        <div class="full">
+
+            <label>
+                Medicamento / indicación
+            </label>
+
+            <select id="medication">
+
+                <option value="amoxicilina">
+                    Amoxicilina - OMA
+                </option>
+
+                <option value="paracetamol">
+                    Paracetamol - Analgesia / antipiresis
+                </option>
+
+                <option value="dipirona">
+                    Dipirona - Analgesia / antipiresis
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PACIENTE -->
+
+<section class="card">
+
+    <div class="section-title">
+        2 · Datos del paciente
+    </div>
+
+    <div class="grid">
+
+        <div>
+
+            <label>
+                Peso
+            </label>
+
+            <div class="weight-wrapper">
+
+                <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="0.1"
+                    step="0.1"
+                    value="15"
+                >
+
+                <span class="unit">
+                    kg
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Dosis
+            </label>
+
+            <select id="dose">
+
+                <!-- SE RELLENA CON JAVASCRIPT -->
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Frecuencia
+            </label>
+
+            <select id="frequency">
+
+                <!-- SE RELLENA CON JAVASCRIPT -->
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Presentación
+            </label>
+
+            <select id="form">
+
+                <!-- SE RELLENA CON JAVASCRIPT -->
+
+            </select>
+
+        </div>
+
+
+        <div
+            id="concentrationContainer"
+            class="full"
+        >
+
+            <label>
+                Concentración
+            </label>
+
+            <select id="concentration">
+
+                <!-- SE RELLENA CON JAVASCRIPT -->
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button id="calculate">
+        CALCULAR DOSIS
+    </button>
+
+</section>
+
+
+<!-- RESULTADO -->
+
+<section
+    class="card result"
+    id="result"
+>
+
+    <div class="result-main">
+
+        <div class="result-label">
+            DAR POR TOMA
+        </div>
+
+        <div
+            class="result-volume"
+            id="resultVolume"
+        >
+            —
+        </div>
+
+        <div
+            class="result-frequency"
+            id="resultFrequency"
+        >
+            —
+        </div>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <span>
+                Dosis por toma
+            </span>
+
+            <strong id="resultMg">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                Frecuencia
+            </span>
+
+            <strong id="resultTakes">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                Peso
+            </span>
+
+            <strong id="resultWeight">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                Volumen diario
+            </span>
+
+            <strong id="resultDailyMl">
+                —
+            </strong>
+
+        </div>
+
+
+        <div
+            class="stat"
+            id="dailyDoseBox"
+        >
+
+            <span>
+                Dosis diaria
+            </span>
+
+            <strong id="resultDailyMg">
+                —
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <details>
+
+        <summary>
+            Ver cómo se calculó
+        </summary>
+
+        <div
+            class="formula"
+            id="formula"
+        >
+        </div>
+
+    </details>
+
+
+    <div class="warning">
+
+        <strong>⚠️ Verificar antes de administrar:</strong>
+
+        indicación, edad, peso, alergias, función renal,
+        contraindicaciones, dosis máxima, concentración disponible
+        y prescripción profesional.
+
+        Esta herramienta es educativa y no reemplaza la indicación médica.
+
+    </div>
+
+</section>
+
+
+<!-- INFORMACIÓN -->
+
+<section class="card">
+
+    <div class="section-title">
+        📚 Sobre esta calculadora
+    </div>
+
+    <div class="info">
+
+        Las dosis cargadas corresponden a los esquemas
+        definidos para esta versión de la herramienta.
+
+        <br><br>
+
+        La aplicación distingue entre medicamentos cuya dosis
+        se expresa en <strong>mg/kg/día</strong> y aquellos cuya
+        dosis se expresa en <strong>mg/kg/dosis</strong>.
+
+        <br><br>
+
+        Antes de incorporar nuevos medicamentos deben verificarse
+        dosis, frecuencia, concentraciones y dosis máximas en
+        fuentes pediátricas actualizadas.
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- BARRA INFERIOR -->
+
+<nav class="bottom-nav">
+
+    <div class="nav-item active">
+
+        <span class="nav-icon">⌕</span>
+
+        Calcular
+
+    </div>
+
+
+    <div class="nav-item">
+
+        <span class="nav-icon">＋</span>
+
+        Medicamentos
+
+    </div>
+
+
+    <div class="nav-item">
+
+        <span class="nav-icon">ⓘ</span>
+
+        Info
+
+    </div>
+
+</nav>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   BASE DE DATOS DE MEDICAMENTOS
+   ============================================================ */
+
+const medicines = {
+
+    amoxicilina: {
+
+        name: "Amoxicilina - OMA",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 80,
+                label: "80 mg/kg/día"
+            },
+            {
+                value: 85,
+                label: "85 mg/kg/día"
+            },
+            {
+                value: 90,
+                label: "90 mg/kg/día"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            }
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 125,
+                        label: "125 mg / 5 mL"
+                    },
+                    {
+                        value: 250,
+                        label: "250 mg / 5 mL"
+                    },
+                    {
+                        value: 400,
+                        label: "400 mg / 5 mL"
+                    },
+                    {
+                        value: 500,
+                        label: "500 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    paracetamol: {
+
+        name: "Paracetamol - Analgesia / antipiresis",
+
+        type: "mgkgdose",
+
+        doses: [
+            {
+                value: 10,
+                label: "10 mg/kg/dosis"
+            },
+            {
+                value: 12.5,
+                label: "12,5 mg/kg/dosis"
+            },
+            {
+                value: 15,
+                label: "15 mg/kg/dosis"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 4,
+                label: "Cada 4 horas"
+            },
+            {
+                hours: 6,
+                label: "Cada 6 horas"
+            }
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 20,
+                        label: "100 mg / 5 mL"
+                    },
+                    {
+                        value: 24,
+                        label: "120 mg / 5 mL"
+                    }
+                ]
+
+            },
+
+            gotas: {
+
+                label: "Gotas",
+
+                concentrations: [
+                    {
+                        value: 100,
+                        label: "100 mg / mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    dipirona: {
+
+        name: "Dipirona - Analgesia / antipiresis",
+
+        type: "mgkgdose",
+
+        doses: [
+            {
+                value: 10,
+                label: "10 mg/kg/dosis"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 6,
+                label: "Cada 6 horas"
+            }
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 250,
+                        label: "250 mg / 5 mL"
+                    }
+                ]
+
+            },
+
+            gotas: {
+
+                label: "Gotas",
+
+                concentrations: [
+                    {
+                        value: 500,
+                        label: "500 mg / mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    }
+
+};
+
+
+/* ============================================================
+   ELEMENTOS
+   ============================================================ */
+
+const medicationSelect =
+    document.getElementById("medication");
+
+const weightInput =
+    document.getElementById("weight");
+
+const doseSelect =
+    document.getElementById("dose");
+
+const frequencySelect =
+    document.getElementById("frequency");
+
+const formSelect =
+    document.getElementById("form");
+
+const concentrationSelect =
+    document.getElementById("concentration");
+
+const concentrationContainer =
+    document.getElementById("concentrationContainer");
+
+const calculateButton =
+    document.getElementById("calculate");
+
+const result =
+    document.getElementById("result");
+
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+
+function formatNumber(number) {
+
+    if (Number.isInteger(number)) {
+        return number.toString();
+    }
+
+    return number
+        .toFixed(2)
+        .replace(/\.00$/, "")
+        .replace(/(\.\d)0$/, "$1");
+
+}
+
+
+function clearSelect(select) {
+
+    select.innerHTML = "";
+
+}
+
+
+/* ============================================================
+   ACTUALIZAR MEDICAMENTO
+   ============================================================ */
+
+function updateMedicine() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    clearSelect(doseSelect);
+    clearSelect(frequencySelect);
+    clearSelect(formSelect);
+
+    /* DOSIS */
+
+    medicine.doses.forEach(dose => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = dose.value;
+        option.textContent = dose.label;
+
+        doseSelect.appendChild(option);
+
+    });
+
+
+    /* FRECUENCIA */
+
+    medicine.frequencies.forEach(freq => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = freq.hours;
+        option.textContent = freq.label;
+
+        frequencySelect.appendChild(option);
+
+    });
+
+
+    /* PRESENTACIONES */
+
+    Object.entries(medicine.forms)
+        .forEach(([key, form]) => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = key;
+            option.textContent = form.label;
+
+            formSelect.appendChild(option);
+
+        });
+
+
+    updateConcentrations();
+
+}
+
+
+/* ============================================================
+   ACTUALIZAR CONCENTRACIONES
+   ============================================================ */
+
+function updateConcentrations() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    const form =
+        medicine.forms[formSelect.value];
+
+    clearSelect(concentrationSelect);
+
+    form.concentrations.forEach(concentration => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = concentration.value;
+
+        option.textContent =
+            concentration.label;
+
+        concentrationSelect.appendChild(option);
+
+    });
+
+    concentrationContainer.classList.remove("hidden");
+
+}
+
+
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+
+medicationSelect.addEventListener(
+    "change",
+    updateMedicine
+);
+
+formSelect.addEventListener(
+    "change",
+    updateConcentrations
+);
+
+
+/* ============================================================
+   CALCULAR
+   ============================================================ */
+
+calculateButton.addEventListener(
+    "click",
+    calculateDose
+);
+
+
+function calculateDose() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    const weight =
+        parseFloat(weightInput.value);
+
+    const dose =
+        parseFloat(doseSelect.value);
+
+    const hours =
+        parseInt(frequencySelect.value);
+
+    const concentration =
+        parseFloat(concentrationSelect.value);
+
+
+    /* VALIDACIONES */
+
+    if (
+        !weight ||
+        weight <= 0 ||
+        !dose ||
+        !concentration ||
+        concentration <= 0
+    ) {
+
+        alert(
+            "Completá correctamente el peso, dosis y concentración."
+        );
+
+        return;
+
+    }
+
+
+    const numberOfDoses =
+        24 / hours;
+
+
+    let dailyMg = null;
+    let mgPerDose;
+    let mlPerDose;
+
+
+    /* ========================================================
+       MEDICAMENTOS EN mg/kg/día
+       ======================================================== */
+
+    if (medicine.type === "mgkgday") {
+
+        dailyMg =
+            weight * dose;
+
+        mgPerDose =
+            dailyMg / numberOfDoses;
+
+    }
+
+
+    /* ========================================================
+       MEDICAMENTOS EN mg/kg/dosis
+       ======================================================== */
+
+    else {
+
+        mgPerDose =
+            weight * dose;
+
+        dailyMg =
+            mgPerDose * numberOfDoses;
+
+    }
+
+
+    /*
+       La concentración está expresada como mg por 5 mL
+       para los jarabes y como mg/mL para gotas.
+    */
+
+    let mgPerMl;
+
+
+    const form =
+        medicine.forms[formSelect.value];
+
+
+    if (formSelect.value === "jarabe") {
+
+        mgPerMl =
+            concentration / 5;
+
+    } else {
+
+        mgPerMl =
+            concentration;
+
+    }
+
+
+    mlPerDose =
+        mgPerDose / mgPerMl;
+
+
+    const dailyMl =
+        mlPerDose * numberOfDoses;
+
+
+    /* ========================================================
+       MOSTRAR RESULTADO
+       ======================================================== */
+
+    document.getElementById(
+        "resultVolume"
+    ).textContent =
+        formatNumber(mlPerDose) + " mL";
+
+
+    document.getElementById(
+        "resultFrequency"
+    ).textContent =
+        "cada " + hours + " horas";
+
+
+    document.getElementById(
+        "resultMg"
+    ).textContent =
+        formatNumber(mgPerDose) + " mg";
+
+
+    document.getElementById(
+        "resultTakes"
+    ).textContent =
+        formatNumber(numberOfDoses) +
+        " toma(s)/día";
+
+
+    document.getElementById(
+        "resultWeight"
+    ).textContent =
+        formatNumber(weight) + " kg";
+
+
+    document.getElementById(
+        "resultDailyMl"
+    ).textContent =
+        formatNumber(dailyMl) + " mL/día";
+
+
+    document.getElementById(
+        "resultDailyMg"
+    ).textContent =
+        formatNumber(dailyMg) + " mg/día";
+
+
+    /* ========================================================
+       FÓRMULA
+       ======================================================== */
+
+    let formula = "";
+
+
+    if (medicine.type === "mgkgday") {
+
+        formula +=
+            weight +
+            " kg × " +
+            dose +
+            " mg/kg/día = " +
+            formatNumber(dailyMg) +
+            " mg/día\n";
+
+        formula +=
+            "24 ÷ " +
+            hours +
+            " h = " +
+            formatNumber(numberOfDoses) +
+            " tomas/día\n";
+
+        formula +=
+            formatNumber(dailyMg) +
+            " mg ÷ " +
+            formatNumber(numberOfDoses) +
+            " = " +
+            formatNumber(mgPerDose) +
+            " mg/toma\n";
+
+    } else {
+
+        formula +=
+            weight +
+            " kg × " +
+            dose +
+            " mg/kg/dosis = " +
+            formatNumber(mgPerDose) +
+            " mg/toma\n";
+
+        formula +=
+            "24 ÷ " +
+            hours +
+            " h = " +
+            formatNumber(numberOfDoses) +
+            " tomas/día\n";
+
+        formula +=
+            formatNumber(mgPerDose) +
+            " mg × " +
+            formatNumber(numberOfDoses) +
+            " = " +
+            formatNumber(dailyMg) +
+            " mg/día\n";
+
+    }
+
+
+    if (formSelect.value === "jarabe") {
+
+        formula +=
+            formatNumber(concentration) +
+            " mg / 5 mL = " +
+            formatNumber(mgPerMl) +
+            " mg/mL\n";
+
+    } else {
+
+        formula +=
+            formatNumber(concentration) +
+            " mg/mL\n";
+
+    }
+
+
+    formula +=
+        formatNumber(mgPerDose) +
+        " mg ÷ " +
+        formatNumber(mgPerMl) +
+        " mg/mL = " +
+        formatNumber(mlPerDose) +
+        " mL/toma";
+
+
+    document.getElementById(
+        "formula"
+    ).textContent = formula;
+
+
+    /* MOSTRAR RESULTADO */
+
+    result.style.display = "block";
+
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+/* ============================================================
+   INICIO
+   ============================================================ */
+
+updateMedicine();
+
+</script>
+
+</body>
+</html>
