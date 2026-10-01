@@ -346,6 +346,10 @@ summary {
                     Dipirona - Analgesia / antipiresis
                 </option>
 
+                <option value="ibuprofeno">
+                    Ibuprofeno - Analgesia / antipiresis
+                </option>
+
             </select>
 
         </div>
@@ -658,11 +662,6 @@ const medicines = {
             }
         ],
 
-        /*
-         * Frecuencias disponibles para el cálculo.
-         * La selección no constituye una recomendación terapéutica.
-         */
-
         frequencies: [
             {
                 hours: 4,
@@ -858,6 +857,62 @@ const medicines = {
                     {
                         value: 500,
                         label: "500 mg / mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    /* ========================================================
+       IBUPROFENO
+       ======================================================== */
+
+    ibuprofeno: {
+
+        name: "Ibuprofeno - Analgesia / antipiresis",
+
+        type: "mgkgdose",
+
+        doses: [
+            {
+                value: 5,
+                label: "5 mg/kg/dosis"
+            },
+            {
+                value: 10,
+                label: "10 mg/kg/dosis"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 6,
+                label: "Cada 6 horas"
+            },
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 20,
+                        label: "2% · 100 mg / 5 mL"
+                    },
+                    {
+                        value: 40,
+                        label: "4% · 200 mg / 5 mL"
                     }
                 ]
 
@@ -1126,7 +1181,7 @@ function calculateDose() {
 
     /*
        La concentración está expresada como mg por 5 mL
-       para los jarabes y como mg/mL para gotas.
+       para las suspensiones y como mg/mL para gotas.
     */
 
     let mgPerMl;
@@ -1135,7 +1190,10 @@ function calculateDose() {
         medicine.forms[formSelect.value];
 
 
-    if (formSelect.value === "jarabe") {
+    if (
+        formSelect.value === "jarabe" ||
+        formSelect.value === "suspension"
+    ) {
 
         mgPerMl =
             concentration / 5;
@@ -1263,7 +1321,10 @@ function calculateDose() {
     }
 
 
-    if (formSelect.value === "jarabe") {
+    if (
+        formSelect.value === "jarabe" ||
+        formSelect.value === "suspension"
+    ) {
 
         formula +=
             formatNumber(concentration) +
