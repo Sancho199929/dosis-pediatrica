@@ -27,8 +27,6 @@ body {
     background: #f8fafc;
 }
 
-/* HEADER */
-
 .header {
     background: #0f172a;
     color: white;
@@ -65,8 +63,6 @@ body {
     color: #cbd5e1;
     font-size: 13px;
 }
-
-/* MAIN */
 
 main {
     padding: 16px;
@@ -157,8 +153,6 @@ button {
 button:active {
     transform: translateY(1px);
 }
-
-/* RESULTADO */
 
 .result {
     display: none;
@@ -259,13 +253,9 @@ summary {
     line-height: 1.55;
 }
 
-/* OCULTAR */
-
 .hidden {
     display: none !important;
 }
-
-/* NAV */
 
 .bottom-nav {
     position: sticky;
@@ -326,10 +316,7 @@ summary {
 
 </header>
 
-
 <main>
-
-<!-- MEDICAMENTO -->
 
 <section class="card">
 
@@ -367,9 +354,6 @@ summary {
 
 </section>
 
-
-<!-- PACIENTE -->
-
 <section class="card">
 
     <div class="section-title">
@@ -403,7 +387,6 @@ summary {
 
         </div>
 
-
         <div>
 
             <label>
@@ -411,13 +394,9 @@ summary {
             </label>
 
             <select id="dose">
-
-                <!-- SE RELLENA CON JAVASCRIPT -->
-
             </select>
 
         </div>
-
 
         <div>
 
@@ -426,13 +405,9 @@ summary {
             </label>
 
             <select id="frequency">
-
-                <!-- SE RELLENA CON JAVASCRIPT -->
-
             </select>
 
         </div>
-
 
         <div>
 
@@ -441,13 +416,9 @@ summary {
             </label>
 
             <select id="form">
-
-                <!-- SE RELLENA CON JAVASCRIPT -->
-
             </select>
 
         </div>
-
 
         <div
             id="concentrationContainer"
@@ -459,24 +430,17 @@ summary {
             </label>
 
             <select id="concentration">
-
-                <!-- SE RELLENA CON JAVASCRIPT -->
-
             </select>
 
         </div>
 
     </div>
 
-
     <button id="calculate">
         CALCULAR DOSIS
     </button>
 
 </section>
-
-
-<!-- RESULTADO -->
 
 <section
     class="card result"
@@ -505,7 +469,6 @@ summary {
 
     </div>
 
-
     <div class="stats">
 
         <div class="stat">
@@ -520,7 +483,6 @@ summary {
 
         </div>
 
-
         <div class="stat">
 
             <span>
@@ -532,7 +494,6 @@ summary {
             </strong>
 
         </div>
-
 
         <div class="stat">
 
@@ -546,7 +507,6 @@ summary {
 
         </div>
 
-
         <div class="stat">
 
             <span>
@@ -558,7 +518,6 @@ summary {
             </strong>
 
         </div>
-
 
         <div
             class="stat"
@@ -577,7 +536,6 @@ summary {
 
     </div>
 
-
     <details>
 
         <summary>
@@ -592,7 +550,6 @@ summary {
 
     </details>
 
-
     <div class="warning">
 
         <strong>⚠️ Verificar antes de administrar:</strong>
@@ -606,9 +563,6 @@ summary {
     </div>
 
 </section>
-
-
-<!-- INFORMACIÓN -->
 
 <section class="card">
 
@@ -629,6 +583,12 @@ summary {
 
         <br><br>
 
+        La frecuencia puede seleccionarse para realizar el
+        cálculo matemático. La frecuencia elegida debe ser
+        compatible con el esquema terapéutico correspondiente.
+
+        <br><br>
+
         Antes de incorporar nuevos medicamentos deben verificarse
         dosis, frecuencia, concentraciones y dosis máximas en
         fuentes pediátricas actualizadas.
@@ -638,9 +598,6 @@ summary {
 </section>
 
 </main>
-
-
-<!-- BARRA INFERIOR -->
 
 <nav class="bottom-nav">
 
@@ -652,7 +609,6 @@ summary {
 
     </div>
 
-
     <div class="nav-item">
 
         <span class="nav-icon">＋</span>
@@ -660,7 +616,6 @@ summary {
         Medicamentos
 
     </div>
-
 
     <div class="nav-item">
 
@@ -673,7 +628,6 @@ summary {
 </nav>
 
 </div>
-
 
 <script>
 
@@ -704,10 +658,31 @@ const medicines = {
             }
         ],
 
+        /*
+         * Frecuencias disponibles para el cálculo.
+         * La selección no constituye una recomendación terapéutica.
+         */
+
         frequencies: [
+            {
+                hours: 4,
+                label: "Cada 4 horas"
+            },
+            {
+                hours: 6,
+                label: "Cada 6 horas"
+            },
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            },
             {
                 hours: 12,
                 label: "Cada 12 horas"
+            },
+            {
+                hours: 24,
+                label: "Cada 24 horas"
             }
         ],
 
@@ -772,6 +747,18 @@ const medicines = {
             {
                 hours: 6,
                 label: "Cada 6 horas"
+            },
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            },
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            },
+            {
+                hours: 24,
+                label: "Cada 24 horas"
             }
         ],
 
@@ -827,8 +814,24 @@ const medicines = {
 
         frequencies: [
             {
+                hours: 4,
+                label: "Cada 4 horas"
+            },
+            {
                 hours: 6,
                 label: "Cada 6 horas"
+            },
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            },
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            },
+            {
+                hours: 24,
+                label: "Cada 24 horas"
             }
         ],
 
@@ -912,7 +915,7 @@ function formatNumber(number) {
     return number
         .toFixed(2)
         .replace(/\.00$/, "")
-        .replace(/(\.\d)0$/, "$1");
+        .replace(/(\.\d)0$/, "");
 
 }
 
@@ -1035,16 +1038,15 @@ formSelect.addEventListener(
     updateConcentrations
 );
 
-
-/* ============================================================
-   CALCULAR
-   ============================================================ */
-
 calculateButton.addEventListener(
     "click",
     calculateDose
 );
 
+
+/* ============================================================
+   CALCULAR
+   ============================================================ */
 
 function calculateDose() {
 
@@ -1128,7 +1130,6 @@ function calculateDose() {
     */
 
     let mgPerMl;
-
 
     const form =
         medicine.forms[formSelect.value];
@@ -1292,8 +1293,6 @@ function calculateDose() {
         "formula"
     ).textContent = formula;
 
-
-    /* MOSTRAR RESULTADO */
 
     result.style.display = "block";
 
