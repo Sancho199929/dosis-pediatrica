@@ -44,10 +44,6 @@ body.pink-theme {
     --button-shadow: rgba(219,39,119,.25);
 }
 
-/* ============================================================
-   MODO OSCURO AZUL
-   ============================================================ */
-
 body.dark-theme {
     --primary: #3b82f6;
     --primary-dark: #60a5fa;
@@ -66,10 +62,6 @@ body.dark-theme {
     --stat-bg: #0f172a;
     --nav-bg: rgba(15,23,42,.94);
 }
-
-/* ============================================================
-   MODO OSCURO ROSA
-   ============================================================ */
 
 body.dark-theme.pink-theme {
     --primary: #ec4899;
@@ -459,7 +451,7 @@ summary {
         </div>
 
         <div class="version">
-            v1.2
+            v1.3
         </div>
 
     </div>
@@ -601,6 +593,21 @@ summary {
         </div>
 
 
+        <div
+            id="routeContainer"
+            class="full hidden"
+        >
+
+            <label>
+                Vía de administración
+            </label>
+
+            <select id="route">
+            </select>
+
+        </div>
+
+
         <div>
 
             <label>
@@ -676,7 +683,7 @@ summary {
     <div class="result-main">
 
         <div class="result-label">
-            DAR POR TOMA
+            DAR POR DOSIS
         </div>
 
         <div
@@ -701,7 +708,7 @@ summary {
         <div class="stat">
 
             <span>
-                Dosis por toma
+                Dosis por dosis
             </span>
 
             <strong id="resultMg">
@@ -800,7 +807,7 @@ summary {
 
         <strong>⚠️ Verificar antes de administrar:</strong>
 
-        indicación, edad, peso, alergias, función renal,
+        indicación, edad, peso, vía, alergias, función renal,
         contraindicaciones, dosis máxima, concentración disponible
         y prescripción profesional.
 
@@ -872,16 +879,21 @@ summary {
 
         <br><br>
 
+        En paracetamol y dipirona se pueden seleccionar
+        determinadas vías de administración. Las presentaciones,
+        concentraciones, dosis y frecuencias se cargan de forma
+        específica para cada vía.
+
+        <br><br>
+
         En los antihistamínicos, la edad determina el esquema
         disponible y la dosis correspondiente.
 
         <br><br>
 
-        La frecuencia se encuentra cargada según el esquema
-        correspondiente. Antes de incorporar nuevos medicamentos
-        deben verificarse dosis, frecuencia, concentraciones,
-        edad mínima y dosis máximas en fuentes pediátricas
-        actualizadas.
+        Antes de incorporar nuevos medicamentos deben verificarse
+        dosis, frecuencia, concentraciones, edad mínima y dosis
+        máximas en fuentes pediátricas actualizadas.
 
     </div>
 
@@ -1028,73 +1040,195 @@ const medicines = {
 
         type: "mgkgdose",
 
-        doses: [
-            {
-                value: 10,
-                label: "10 mg/kg/dosis"
-            },
-            {
-                value: 12.5,
-                label: "12,5 mg/kg/dosis"
-            },
-            {
-                value: 15,
-                label: "15 mg/kg/dosis"
-            }
-        ],
+        routes: {
 
-        frequencies: [
-            {
-                hours: 4,
-                label: "Cada 4 horas"
-            },
-            {
-                hours: 6,
-                label: "Cada 6 horas"
-            },
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            },
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            },
-            {
-                hours: 24,
-                label: "Cada 24 horas"
-            }
-        ],
+            oral: {
 
-        forms: {
+                label: "VO · Oral",
 
-            jarabe: {
-
-                label: "Jarabe",
-
-                concentrations: [
+                doses: [
                     {
-                        value: 20,
-                        label: "100 mg / 5 mL"
+                        value: 10,
+                        label: "10 mg/kg/dosis"
                     },
                     {
-                        value: 24,
-                        label: "120 mg / 5 mL"
+                        value: 12.5,
+                        label: "12,5 mg/kg/dosis"
+                    },
+                    {
+                        value: 15,
+                        label: "15 mg/kg/dosis"
                     }
-                ]
+                ],
+
+                frequencies: [
+                    {
+                        hours: 4,
+                        label: "Cada 4 horas"
+                    },
+                    {
+                        hours: 6,
+                        label: "Cada 6 horas"
+                    },
+                    {
+                        hours: 8,
+                        label: "Cada 8 horas"
+                    },
+                    {
+                        hours: 12,
+                        label: "Cada 12 horas"
+                    },
+                    {
+                        hours: 24,
+                        label: "Cada 24 horas"
+                    }
+                ],
+
+                forms: {
+
+                    jarabe: {
+
+                        label: "Jarabe",
+
+                        concentrations: [
+                            {
+                                value: 20,
+                                label: "100 mg / 5 mL"
+                            },
+                            {
+                                value: 24,
+                                label: "120 mg / 5 mL"
+                            }
+                        ]
+
+                    },
+
+                    gotas: {
+
+                        label: "Gotas",
+
+                        concentrations: [
+                            {
+                                value: 100,
+                                label: "100 mg / mL"
+                            }
+                        ]
+
+                    }
+
+                }
 
             },
 
-            gotas: {
+            iv: {
 
-                label: "Gotas",
+                label: "EV · Intravenosa",
 
-                concentrations: [
+                type: "ageRoute",
+
+                ageRules: [
+
                     {
-                        value: 100,
-                        label: "100 mg / mL"
+                        minMonths: 0,
+                        maxMonths: 0,
+                        doses: [
+                            {
+                                value: 12.5,
+                                label: "12,5 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            }
+                        ],
+                        note:
+                            "Neonatos: esquema específico de 12,5 mg/kg cada 6 horas. Verificar edad gestacional y situación clínica."
+                    },
+
+                    {
+                        minMonths: 0,
+                        maxMonths: 0.9,
+                        doses: [
+                            {
+                                value: 12.5,
+                                label: "12,5 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            }
+                        ]
+                    },
+
+                    {
+                        minMonths: 1,
+                        maxMonths: 23,
+                        doses: [
+                            {
+                                value: 15,
+                                label: "15 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            }
+                        ]
+                    },
+
+                    {
+                        minMonths: 24,
+                        maxMonths: 143,
+                        doses: [
+                            {
+                                value: 12.5,
+                                label: "12,5 mg/kg/dosis"
+                            },
+                            {
+                                value: 15,
+                                label: "15 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 4,
+                                label: "Cada 4 horas"
+                            },
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            }
+                        ],
+                        note:
+                            "En niños de 2–12 años, 12,5 mg/kg cada 4 horas o 15 mg/kg cada 6 horas. Máximo diario según esquema y ficha técnica."
                     }
-                ]
+
+                ],
+
+                forms: {
+
+                    infusion: {
+
+                        label: "Solución para infusión EV",
+
+                        concentrations: [
+                            {
+                                value: 10,
+                                label: "10 mg / mL"
+                            }
+                        ]
+
+                    }
+
+                },
+
+                note:
+                    "Administración exclusivamente intravenosa. La solución inyectable debe administrarse mediante infusión IV según la presentación correspondiente."
 
             }
 
@@ -1113,61 +1247,230 @@ const medicines = {
 
         type: "mgkgdose",
 
-        doses: [
-            {
-                value: 10,
-                label: "10 mg/kg/dosis"
-            }
-        ],
+        routes: {
 
-        frequencies: [
-            {
-                hours: 4,
-                label: "Cada 4 horas"
-            },
-            {
-                hours: 6,
-                label: "Cada 6 horas"
-            },
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            },
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            },
-            {
-                hours: 24,
-                label: "Cada 24 horas"
-            }
-        ],
+            oral: {
 
-        forms: {
+                label: "VO · Oral",
 
-            jarabe: {
-
-                label: "Jarabe",
-
-                concentrations: [
+                doses: [
                     {
-                        value: 250,
-                        label: "250 mg / 5 mL"
+                        value: 10,
+                        label: "10 mg/kg/dosis"
                     }
-                ]
+                ],
+
+                frequencies: [
+                    {
+                        hours: 4,
+                        label: "Cada 4 horas"
+                    },
+                    {
+                        hours: 6,
+                        label: "Cada 6 horas"
+                    },
+                    {
+                        hours: 8,
+                        label: "Cada 8 horas"
+                    },
+                    {
+                        hours: 12,
+                        label: "Cada 12 horas"
+                    },
+                    {
+                        hours: 24,
+                        label: "Cada 24 horas"
+                    }
+                ],
+
+                forms: {
+
+                    jarabe: {
+
+                        label: "Jarabe",
+
+                        concentrations: [
+                            {
+                                value: 250,
+                                label: "250 mg / 5 mL"
+                            }
+                        ]
+
+                    },
+
+                    gotas: {
+
+                        label: "Gotas",
+
+                        concentrations: [
+                            {
+                                value: 500,
+                                label: "500 mg / mL"
+                            }
+                        ]
+
+                    }
+
+                }
 
             },
 
-            gotas: {
+            parenteral: {
 
-                label: "Gotas",
+                label: "EV / IM · Inyectable",
 
-                concentrations: [
+                type: "ageRoute",
+
+                ageRules: [
+
                     {
-                        value: 500,
-                        label: "500 mg / mL"
+                        minMonths: 3,
+                        maxMonths: 11,
+                        doses: [
+                            {
+                                value: 10,
+                                label: "10 mg/kg/dosis"
+                            },
+                            {
+                                value: 16,
+                                label: "16 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            },
+                            {
+                                hours: 8,
+                                label: "Cada 8 horas"
+                            }
+                        ],
+                        note:
+                            "En lactantes de 3–11 meses, la ficha técnica consultada establece administración parenteral por vía IM."
+                    },
+
+                    {
+                        minMonths: 12,
+                        maxMonths: 35,
+                        doses: [
+                            {
+                                value: 10,
+                                label: "10 mg/kg/dosis"
+                            },
+                            {
+                                value: 16,
+                                label: "16 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            },
+                            {
+                                hours: 8,
+                                label: "Cada 8 horas"
+                            }
+                        ]
+                    },
+
+                    {
+                        minMonths: 36,
+                        maxMonths: 71,
+                        doses: [
+                            {
+                                value: 10,
+                                label: "10 mg/kg/dosis"
+                            },
+                            {
+                                value: 16,
+                                label: "16 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            },
+                            {
+                                hours: 8,
+                                label: "Cada 8 horas"
+                            }
+                        ]
+                    },
+
+                    {
+                        minMonths: 72,
+                        maxMonths: 119,
+                        doses: [
+                            {
+                                value: 10,
+                                label: "10 mg/kg/dosis"
+                            },
+                            {
+                                value: 16,
+                                label: "16 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            },
+                            {
+                                hours: 8,
+                                label: "Cada 8 horas"
+                            }
+                        ]
+                    },
+
+                    {
+                        minMonths: 120,
+                        maxMonths: 167,
+                        doses: [
+                            {
+                                value: 10,
+                                label: "10 mg/kg/dosis"
+                            },
+                            {
+                                value: 16,
+                                label: "16 mg/kg/dosis"
+                            }
+                        ],
+                        frequencies: [
+                            {
+                                hours: 6,
+                                label: "Cada 6 horas"
+                            },
+                            {
+                                hours: 8,
+                                label: "Cada 8 horas"
+                            }
+                        ]
                     }
-                ]
+
+                ],
+
+                forms: {
+
+                    injection: {
+
+                        label: "Solución inyectable",
+
+                        concentrations: [
+                            {
+                                value: 500,
+                                label: "500 mg / mL"
+                            }
+                        ]
+
+                    }
+
+                },
+
+                note:
+                    "La administración EV/IM se reserva cuando la vía oral no es adecuada. La inyección EV debe administrarse muy lentamente y bajo vigilancia médica."
 
             }
 
@@ -1178,6 +1481,7 @@ const medicines = {
 
     /* ========================================================
        IBUPROFENO
+       SIN CAMBIOS
        ======================================================== */
 
     ibuprofeno: {
@@ -1493,6 +1797,12 @@ const ageUnitSelect =
 const weightInput =
     document.getElementById("weight");
 
+const routeContainer =
+    document.getElementById("routeContainer");
+
+const routeSelect =
+    document.getElementById("route");
+
 const doseSelect =
     document.getElementById("dose");
 
@@ -1630,6 +1940,39 @@ function getAgeRules(medicine) {
 }
 
 
+function getRouteMedicine() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    if (!medicine.routes) {
+        return medicine;
+    }
+
+    return medicine.routes[routeSelect.value];
+
+}
+
+
+function getRouteLabel() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    if (!medicine.routes) {
+        return "";
+    }
+
+    const route =
+        medicine.routes[routeSelect.value];
+
+    return route
+        ? route.label
+        : "";
+
+}
+
+
 /* ============================================================
    ACTUALIZAR MEDICAMENTO
    ============================================================ */
@@ -1639,6 +1982,7 @@ function updateMedicine() {
     const medicine =
         medicines[medicationSelect.value];
 
+    clearSelect(routeSelect);
     clearSelect(doseSelect);
     clearSelect(frequencySelect);
     clearSelect(formSelect);
@@ -1648,8 +1992,252 @@ function updateMedicine() {
 
 
     /* ========================================================
-       MEDICAMENTOS CON DOSIS SEGÚN EDAD
+       MEDICAMENTOS CON VÍAS
        ======================================================== */
+
+    if (medicine.routes) {
+
+        routeContainer.classList.remove("hidden");
+
+        Object.entries(medicine.routes)
+            .forEach(([key, route]) => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = key;
+                option.textContent = route.label;
+
+                routeSelect.appendChild(option);
+
+            });
+
+        updateRoute();
+
+        return;
+
+    }
+
+
+    routeContainer.classList.add("hidden");
+
+    updateMedicineData(medicine);
+
+}
+
+
+/* ============================================================
+   ACTUALIZAR VÍA
+   ============================================================ */
+
+function updateRoute() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    if (!medicine.routes) {
+        return;
+    }
+
+    const route =
+        medicine.routes[routeSelect.value];
+
+    clearSelect(doseSelect);
+    clearSelect(frequencySelect);
+    clearSelect(formSelect);
+
+    ageNote.classList.add("hidden");
+    ageNote.textContent = "";
+
+
+    if (route.type === "ageRoute") {
+
+        const ageMonths =
+            getAgeMonths();
+
+        let rule = null;
+
+        if (ageMonths !== null) {
+
+            rule =
+                route.ageRules.find(r =>
+                    ageMonths >= r.minMonths &&
+                    ageMonths <= r.maxMonths
+                );
+
+        }
+
+
+        if (!rule) {
+
+            const option =
+                document.createElement("option");
+
+            option.value = "";
+
+            option.textContent =
+                "Edad fuera del esquema cargado";
+
+            doseSelect.appendChild(option);
+
+
+            const freqOption =
+                document.createElement("option");
+
+            freqOption.value = "";
+
+            freqOption.textContent =
+                "No disponible";
+
+            frequencySelect.appendChild(freqOption);
+
+
+            ageNote.classList.remove("hidden");
+
+            ageNote.textContent =
+                route.note ||
+                "La edad ingresada no corresponde a un esquema cargado para esta vía.";
+
+        }
+
+        else {
+
+            rule.doses.forEach(dose => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    dose.value;
+
+                option.textContent =
+                    dose.label;
+
+                doseSelect.appendChild(option);
+
+            });
+
+
+            rule.frequencies.forEach(freq => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    freq.hours;
+
+                option.textContent =
+                    freq.label;
+
+                frequencySelect.appendChild(option);
+
+            });
+
+
+            if (route.note || rule.note) {
+
+                ageNote.classList.remove("hidden");
+
+                ageNote.textContent =
+                    rule.note ||
+                    route.note;
+
+            }
+
+        }
+
+    }
+
+
+    else {
+
+        if (route.doses) {
+
+            route.doses.forEach(dose => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    dose.value;
+
+                option.textContent =
+                    dose.label;
+
+                doseSelect.appendChild(option);
+
+            });
+
+        }
+
+
+        if (route.frequencies) {
+
+            route.frequencies.forEach(freq => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    freq.hours;
+
+                option.textContent =
+                    freq.label;
+
+                frequencySelect.appendChild(option);
+
+            });
+
+        }
+
+
+        if (route.note) {
+
+            ageNote.classList.remove("hidden");
+
+            ageNote.textContent =
+                route.note;
+
+        }
+
+    }
+
+
+    Object.entries(route.forms)
+        .forEach(([key, form]) => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                key;
+
+            option.textContent =
+                form.label;
+
+            formSelect.appendChild(option);
+
+        });
+
+
+    updateConcentrations();
+
+}
+
+
+/* ============================================================
+   ACTUALIZAR DATOS DE MEDICAMENTO SIN VÍAS
+   ============================================================ */
+
+function updateMedicineData(medicine) {
+
+    clearSelect(doseSelect);
+    clearSelect(frequencySelect);
+    clearSelect(formSelect);
+
+    ageNote.classList.add("hidden");
+    ageNote.textContent = "";
+
 
     if (medicine.type === "fixedAge") {
 
@@ -1662,10 +2250,12 @@ function updateMedicine() {
                 document.createElement("option");
 
             option.value = "";
+
             option.textContent =
                 "Edad fuera del esquema cargado";
 
             doseSelect.appendChild(option);
+
 
             const freqOption =
                 document.createElement("option");
@@ -1676,6 +2266,7 @@ function updateMedicine() {
                 "No disponible";
 
             frequencySelect.appendChild(freqOption);
+
 
             ageNote.classList.remove("hidden");
 
@@ -1691,14 +2282,17 @@ function updateMedicine() {
 
             }
 
-        } else {
+        }
+
+        else {
 
             rules.forEach(rule => {
 
                 const option =
                     document.createElement("option");
 
-                option.value = rule.dose;
+                option.value =
+                    rule.dose;
 
                 option.textContent =
                     rule.label;
@@ -1732,7 +2326,8 @@ function updateMedicine() {
                 const option =
                     document.createElement("option");
 
-                option.value = hours;
+                option.value =
+                    hours;
 
                 option.textContent =
                     "Cada " +
@@ -1758,10 +2353,6 @@ function updateMedicine() {
     }
 
 
-    /* ========================================================
-       MEDICAMENTOS CON DOSIS TRADICIONAL
-       ======================================================== */
-
     else {
 
         medicine.doses.forEach(dose => {
@@ -1769,8 +2360,11 @@ function updateMedicine() {
             const option =
                 document.createElement("option");
 
-            option.value = dose.value;
-            option.textContent = dose.label;
+            option.value =
+                dose.value;
+
+            option.textContent =
+                dose.label;
 
             doseSelect.appendChild(option);
 
@@ -1782,8 +2376,11 @@ function updateMedicine() {
             const option =
                 document.createElement("option");
 
-            option.value = freq.hours;
-            option.textContent = freq.label;
+            option.value =
+                freq.hours;
+
+            option.textContent =
+                freq.label;
 
             frequencySelect.appendChild(option);
 
@@ -1792,18 +2389,17 @@ function updateMedicine() {
     }
 
 
-    /* ========================================================
-       PRESENTACIONES
-       ======================================================== */
-
     Object.entries(medicine.forms)
         .forEach(([key, form]) => {
 
             const option =
                 document.createElement("option");
 
-            option.value = key;
-            option.textContent = form.label;
+            option.value =
+                key;
+
+            option.textContent =
+                form.label;
 
             formSelect.appendChild(option);
 
@@ -1824,7 +2420,13 @@ function updateAgeDependentFields() {
     const medicine =
         medicines[medicationSelect.value];
 
-    if (
+    if (medicine.routes) {
+
+        updateRoute();
+
+    }
+
+    else if (
         medicine.type === "fixedAge"
     ) {
 
@@ -1844,14 +2446,37 @@ function updateConcentrations() {
     const medicine =
         medicines[medicationSelect.value];
 
-    const form =
-        medicine.forms[formSelect.value];
+    let form;
+
+
+    if (medicine.routes) {
+
+        const route =
+            medicine.routes[routeSelect.value];
+
+        if (!route) {
+            return;
+        }
+
+        form =
+            route.forms[formSelect.value];
+
+    }
+
+    else {
+
+        form =
+            medicine.forms[formSelect.value];
+
+    }
+
 
     clearSelect(concentrationSelect);
 
     if (!form) {
         return;
     }
+
 
     form.concentrations.forEach(concentration => {
 
@@ -1868,6 +2493,7 @@ function updateConcentrations() {
 
     });
 
+
     concentrationContainer.classList.remove("hidden");
 
 }
@@ -1880,6 +2506,11 @@ function updateConcentrations() {
 medicationSelect.addEventListener(
     "change",
     updateMedicine
+);
+
+routeSelect.addEventListener(
+    "change",
+    updateRoute
 );
 
 ageInput.addEventListener(
@@ -1925,8 +2556,6 @@ function calculateDose() {
         parseFloat(concentrationSelect.value);
 
 
-    /* VALIDACIONES */
-
     if (
         !weight ||
         weight <= 0
@@ -1937,6 +2566,41 @@ function calculateDose() {
         );
 
         return;
+
+    }
+
+
+    /* VALIDACIÓN DE EDAD PARA VÍAS */
+
+    if (medicine.routes) {
+
+        const route =
+            medicine.routes[routeSelect.value];
+
+        if (
+            route.type === "ageRoute"
+        ) {
+
+            const ageMonths =
+                getAgeMonths();
+
+            const rule =
+                route.ageRules.find(r =>
+                    ageMonths >= r.minMonths &&
+                    ageMonths <= r.maxMonths
+                );
+
+            if (!rule) {
+
+                alert(
+                    "La edad ingresada no corresponde a un esquema cargado para esta vía."
+                );
+
+                return;
+
+            }
+
+        }
 
     }
 
@@ -2043,6 +2707,7 @@ function calculateDose() {
 
     let mgPerMl;
 
+
     if (
         formSelect.value === "jarabe" ||
         formSelect.value === "suspension"
@@ -2051,7 +2716,9 @@ function calculateDose() {
         mgPerMl =
             concentration / 5;
 
-    } else {
+    }
+
+    else {
 
         mgPerMl =
             concentration;
@@ -2068,6 +2735,14 @@ function calculateDose() {
 
 
     /* ========================================================
+       TEXTO DE VÍA
+       ======================================================== */
+
+    const routeLabel =
+        getRouteLabel();
+
+
+    /* ========================================================
        MOSTRAR RESULTADO
        ======================================================== */
 
@@ -2081,6 +2756,11 @@ function calculateDose() {
     document.getElementById(
         "resultFrequency"
     ).textContent =
+        (
+            routeLabel
+                ? routeLabel + " · "
+                : ""
+        ) +
         "cada " +
         hours +
         " horas";
@@ -2097,7 +2777,7 @@ function calculateDose() {
         "resultTakes"
     ).textContent =
         formatNumber(numberOfDoses) +
-        " toma(s)/día";
+        " dosis/día";
 
 
     document.getElementById(
@@ -2134,6 +2814,16 @@ function calculateDose() {
     let formula = "";
 
 
+    if (routeLabel) {
+
+        formula +=
+            "Vía: " +
+            routeLabel +
+            "\n";
+
+    }
+
+
     if (
         medicine.type === "mgkgday"
     ) {
@@ -2151,7 +2841,7 @@ function calculateDose() {
             hours +
             " h = " +
             formatNumber(numberOfDoses) +
-            " tomas/día\n";
+            " dosis/día\n";
 
         formula +=
             formatNumber(dailyMg) +
@@ -2159,7 +2849,7 @@ function calculateDose() {
             formatNumber(numberOfDoses) +
             " = " +
             formatNumber(mgPerDose) +
-            " mg/toma\n";
+            " mg/dosis\n";
 
     }
 
@@ -2174,14 +2864,14 @@ function calculateDose() {
             dose +
             " mg/kg/dosis = " +
             formatNumber(mgPerDose) +
-            " mg/toma\n";
+            " mg/dosis\n";
 
         formula +=
             "24 ÷ " +
             hours +
             " h = " +
             formatNumber(numberOfDoses) +
-            " tomas/día\n";
+            " dosis/día\n";
 
         formula +=
             formatNumber(mgPerDose) +
@@ -2204,14 +2894,14 @@ function calculateDose() {
         formula +=
             "Dosis correspondiente a la edad = " +
             formatNumber(mgPerDose) +
-            " mg/toma\n";
+            " mg/dosis\n";
 
         formula +=
             "24 ÷ " +
             hours +
             " h = " +
             formatNumber(numberOfDoses) +
-            " tomas/día\n";
+            " dosis/día\n";
 
         formula +=
             formatNumber(mgPerDose) +
@@ -2235,7 +2925,9 @@ function calculateDose() {
             formatNumber(mgPerMl) +
             " mg/mL\n";
 
-    } else {
+    }
+
+    else {
 
         formula +=
             formatNumber(concentration) +
@@ -2250,7 +2942,7 @@ function calculateDose() {
         formatNumber(mgPerMl) +
         " mg/mL = " +
         formatNumber(mlPerDose) +
-        " mL/toma";
+        " mL/dosis";
 
 
     document.getElementById(
