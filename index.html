@@ -23,10 +23,13 @@
     --text: #172033;
     --muted: #64748b;
     --border: #e2e8f0;
+    --input-bg: #ffffff;
     --result-bg: #eff6ff;
     --result-border: #bfdbfe;
     --focus: #dbeafe;
     --button-shadow: rgba(37,99,235,.25);
+    --stat-bg: #f8fafc;
+    --nav-bg: rgba(255,255,255,.94);
 }
 
 body.pink-theme {
@@ -41,12 +44,60 @@ body.pink-theme {
     --button-shadow: rgba(219,39,119,.25);
 }
 
+/* ============================================================
+   MODO OSCURO AZUL
+   ============================================================ */
+
+body.dark-theme {
+    --primary: #3b82f6;
+    --primary-dark: #60a5fa;
+    --header: #020617;
+    --background: #020617;
+    --app-bg: #0f172a;
+    --card: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #334155;
+    --input-bg: #0f172a;
+    --result-bg: #172554;
+    --result-border: #1d4ed8;
+    --focus: #1e3a8a;
+    --button-shadow: rgba(59,130,246,.25);
+    --stat-bg: #0f172a;
+    --nav-bg: rgba(15,23,42,.94);
+}
+
+/* ============================================================
+   MODO OSCURO ROSA
+   ============================================================ */
+
+body.dark-theme.pink-theme {
+    --primary: #ec4899;
+    --primary-dark: #f472b6;
+    --header: #500724;
+    --background: #0f0710;
+    --app-bg: #1a0b16;
+    --card: #261321;
+    --text: #fce7f3;
+    --muted: #c4a7b7;
+    --border: #4a253b;
+    --input-bg: #180a14;
+    --result-bg: #3b102b;
+    --result-border: #9d174d;
+    --focus: #831843;
+    --button-shadow: rgba(236,72,153,.25);
+    --stat-bg: #180a14;
+    --nav-bg: rgba(26,11,22,.94);
+}
+
 body {
     margin: 0;
     background: var(--background);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    transition: background .25s ease;
+    transition:
+        background .25s ease,
+        color .25s ease;
 }
 
 .app {
@@ -54,6 +105,7 @@ body {
     margin: auto;
     min-height: 100vh;
     background: var(--app-bg);
+    transition: background .25s ease;
 }
 
 .header {
@@ -106,6 +158,9 @@ main {
     padding: 17px;
     margin-bottom: 14px;
     box-shadow: 0 5px 20px rgba(15,23,42,.05);
+    transition:
+        background .25s ease,
+        border-color .25s ease;
 }
 
 .section-title {
@@ -127,7 +182,7 @@ main {
 label {
     display: block;
     margin-bottom: 6px;
-    color: #475569;
+    color: var(--muted);
     font-size: 12px;
     font-weight: 700;
 }
@@ -136,12 +191,16 @@ input,
 select {
     width: 100%;
     height: 48px;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--border);
     border-radius: 13px;
-    background: white;
+    background: var(--input-bg);
     color: var(--text);
     font-size: 16px;
     padding: 0 12px;
+    transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease;
 }
 
 input:focus,
@@ -185,7 +244,9 @@ button {
     font-weight: 850;
     cursor: pointer;
     box-shadow: 0 7px 17px var(--button-shadow);
-    transition: background .25s ease, transform .1s ease;
+    transition:
+        background .25s ease,
+        transform .1s ease;
 }
 
 button:active {
@@ -210,6 +271,16 @@ button:active {
 
 .theme-pink {
     background: #db2777;
+}
+
+.theme-dark-blue {
+    background: #0f172a;
+    border: 1px solid #475569;
+}
+
+.theme-dark-pink {
+    background: #831843;
+    border: 1px solid #9d174d;
 }
 
 .result {
@@ -252,14 +323,14 @@ button:active {
 }
 
 .stat {
-    background: #f8fafc;
+    background: var(--stat-bg);
     border-radius: 13px;
     padding: 12px;
 }
 
 .stat span {
     display: block;
-    color: #64748b;
+    color: var(--muted);
     font-size: 11px;
 }
 
@@ -271,7 +342,7 @@ button:active {
 
 details {
     margin-top: 14px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
     padding-top: 13px;
 }
 
@@ -306,7 +377,7 @@ summary {
 }
 
 .info {
-    color: #64748b;
+    color: var(--muted);
     font-size: 11px;
     line-height: 1.55;
 }
@@ -315,9 +386,9 @@ summary {
     margin-top: 8px;
     padding: 9px 10px;
     border-radius: 10px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    color: #64748b;
+    background: var(--stat-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
     font-size: 11px;
     line-height: 1.4;
 }
@@ -332,14 +403,17 @@ summary {
     display: flex;
     justify-content: space-around;
     padding: 9px 16px calc(9px + env(safe-area-inset-bottom));
-    background: rgba(255,255,255,.94);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
+    transition:
+        background .25s ease,
+        border-color .25s ease;
 }
 
 .nav-item {
     text-align: center;
-    color: #64748b;
+    color: var(--muted);
     font-size: 10px;
     font-weight: 700;
 }
@@ -367,6 +441,7 @@ summary {
     .age-wrapper {
         grid-template-columns: 1fr 90px;
     }
+
 }
 </style>
 </head>
@@ -384,7 +459,7 @@ summary {
         </div>
 
         <div class="version">
-            v1.1
+            v1.2
         </div>
 
     </div>
@@ -430,7 +505,7 @@ summary {
                 </option>
 
                 <option value="ibuprofeno">
-                    Ibuprofeno - Analgesia / antipiresis
+                    Ibuprofeno - Analgesia / antipiresis / antiinflamatorio
                 </option>
 
                 <option value="loratadina">
@@ -748,14 +823,28 @@ summary {
             class="theme-button theme-blue"
             id="blueTheme"
         >
-            🔵 Azul
+            🔵 Claro azul
         </button>
 
         <button
             class="theme-button theme-pink"
             id="pinkTheme"
         >
-            🌸 Rosa
+            🌸 Claro rosa
+        </button>
+
+        <button
+            class="theme-button theme-dark-blue"
+            id="darkBlueTheme"
+        >
+            🌑 Oscuro azul
+        </button>
+
+        <button
+            class="theme-button theme-dark-pink"
+            id="darkPinkTheme"
+        >
+            🌑🌸 Oscuro rosa
         </button>
 
     </div>
@@ -1093,7 +1182,7 @@ const medicines = {
 
     ibuprofeno: {
 
-        name: "Ibuprofeno - Analgesia / antipiresis",
+        name: "Ibuprofeno - Analgesia / antipiresis / antiinflamatorio",
 
         type: "mgkgdose",
 
@@ -1433,6 +1522,12 @@ const blueThemeButton =
 
 const pinkThemeButton =
     document.getElementById("pinkTheme");
+
+const darkBlueThemeButton =
+    document.getElementById("darkBlueTheme");
+
+const darkPinkThemeButton =
+    document.getElementById("darkPinkTheme");
 
 
 /* ============================================================
@@ -2182,9 +2277,13 @@ function calculateDose() {
 
 function setTheme(theme) {
 
-    if (
-        theme === "pink"
-    ) {
+    document.body.classList.remove(
+        "pink-theme",
+        "dark-theme"
+    );
+
+
+    if (theme === "pink") {
 
         document.body.classList.add(
             "pink-theme"
@@ -2202,11 +2301,53 @@ function setTheme(theme) {
                 "#831843"
             );
 
-    } else {
+    }
 
-        document.body.classList.remove(
+
+    else if (theme === "dark-blue") {
+
+        document.body.classList.add(
+            "dark-theme"
+        );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "dark-blue"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#020617"
+            );
+
+    }
+
+
+    else if (theme === "dark-pink") {
+
+        document.body.classList.add(
+            "dark-theme",
             "pink-theme"
         );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "dark-pink"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#500724"
+            );
+
+    }
+
+
+    else {
 
         localStorage.setItem(
             "dosisPediatricaTheme",
@@ -2224,6 +2365,10 @@ function setTheme(theme) {
 
 }
 
+
+/* ============================================================
+   BOTONES DE TEMAS
+   ============================================================ */
 
 blueThemeButton.addEventListener(
     "click",
@@ -2245,6 +2390,26 @@ pinkThemeButton.addEventListener(
 );
 
 
+darkBlueThemeButton.addEventListener(
+    "click",
+    function() {
+
+        setTheme("dark-blue");
+
+    }
+);
+
+
+darkPinkThemeButton.addEventListener(
+    "click",
+    function() {
+
+        setTheme("dark-pink");
+
+    }
+);
+
+
 /* ============================================================
    INICIO
    ============================================================ */
@@ -2261,7 +2426,28 @@ if (
 
     setTheme("pink");
 
-} else {
+}
+
+
+else if (
+    savedTheme === "dark-blue"
+) {
+
+    setTheme("dark-blue");
+
+}
+
+
+else if (
+    savedTheme === "dark-pink"
+) {
+
+    setTheme("dark-pink");
+
+}
+
+
+else {
 
     setTheme("blue");
 
