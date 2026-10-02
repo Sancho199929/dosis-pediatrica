@@ -13,31 +13,62 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --header: #0f172a;
+    --background: #f1f5f9;
+    --app-bg: #f8fafc;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --result-bg: #eff6ff;
+    --result-border: #bfdbfe;
+    --focus: #dbeafe;
+    --button-shadow: rgba(37,99,235,.25);
+}
+
+body.pink-theme {
+    --primary: #db2777;
+    --primary-dark: #be185d;
+    --header: #831843;
+    --background: #fdf2f8;
+    --app-bg: #fff7fb;
+    --result-bg: #fdf2f8;
+    --result-border: #f9a8d4;
+    --focus: #fce7f3;
+    --button-shadow: rgba(219,39,119,.25);
+}
+
 body {
     margin: 0;
-    background: #f1f5f9;
-    color: #172033;
+    background: var(--background);
+    color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    transition: background .25s ease;
 }
 
 .app {
     max-width: 520px;
     margin: auto;
     min-height: 100vh;
-    background: #f8fafc;
+    background: var(--app-bg);
 }
 
 .header {
-    background: #0f172a;
+    background: var(--header);
     color: white;
     padding: 24px 18px 28px;
     border-radius: 0 0 28px 28px;
+    transition: background .25s ease;
 }
 
 .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .logo {
@@ -69,8 +100,8 @@ main {
 }
 
 .card {
-    background: white;
-    border: 1px solid #e2e8f0;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 17px;
     margin-bottom: 14px;
@@ -108,15 +139,15 @@ select {
     border: 1px solid #cbd5e1;
     border-radius: 13px;
     background: white;
-    color: #172033;
+    color: var(--text);
     font-size: 16px;
     padding: 0 12px;
 }
 
 input:focus,
 select:focus {
-    outline: 3px solid #dbeafe;
-    border-color: #2563eb;
+    outline: 3px solid var(--focus);
+    border-color: var(--primary);
 }
 
 .weight-wrapper {
@@ -131,9 +162,15 @@ select:focus {
     position: absolute;
     right: 12px;
     top: 14px;
-    color: #64748b;
+    color: var(--muted);
     font-size: 13px;
     font-weight: 700;
+}
+
+.age-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 95px;
+    gap: 7px;
 }
 
 button {
@@ -142,16 +179,37 @@ button {
     margin-top: 15px;
     border: 0;
     border-radius: 15px;
-    background: #2563eb;
+    background: var(--primary);
     color: white;
     font-size: 16px;
     font-weight: 850;
     cursor: pointer;
-    box-shadow: 0 7px 17px rgba(37,99,235,.25);
+    box-shadow: 0 7px 17px var(--button-shadow);
+    transition: background .25s ease, transform .1s ease;
 }
 
 button:active {
     transform: translateY(1px);
+}
+
+.theme-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.theme-button {
+    margin-top: 0;
+    height: 45px;
+    font-size: 13px;
+}
+
+.theme-blue {
+    background: #2563eb;
+}
+
+.theme-pink {
+    background: #db2777;
 }
 
 .result {
@@ -159,15 +217,15 @@ button:active {
 }
 
 .result-main {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: var(--result-bg);
+    border: 1px solid var(--result-border);
     border-radius: 18px;
     padding: 18px;
     text-align: center;
 }
 
 .result-label {
-    color: #1d4ed8;
+    color: var(--primary-dark);
     font-size: 11px;
     font-weight: 900;
     letter-spacing: .8px;
@@ -175,7 +233,7 @@ button:active {
 
 .result-volume {
     margin: 5px 0;
-    color: #1d4ed8;
+    color: var(--primary-dark);
     font-size: 40px;
     line-height: 1.1;
     font-weight: 950;
@@ -253,6 +311,17 @@ summary {
     line-height: 1.55;
 }
 
+.age-note {
+    margin-top: 8px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
 .hidden {
     display: none !important;
 }
@@ -276,7 +345,7 @@ summary {
 }
 
 .nav-item.active {
-    color: #2563eb;
+    color: var(--primary);
 }
 
 .nav-icon {
@@ -286,12 +355,17 @@ summary {
 }
 
 @media(max-width:390px) {
+
     .grid {
         grid-template-columns: 1fr;
     }
 
     .full {
         grid-column: auto;
+    }
+
+    .age-wrapper {
+        grid-template-columns: 1fr 90px;
     }
 }
 </style>
@@ -304,11 +378,20 @@ summary {
 <header class="header">
 
     <div class="header-top">
-        <div class="logo">💊 Dosis Pediátrica AR</div>
-        <div class="version">v1.0</div>
+
+        <div class="logo">
+            💊 Dosis Pediátrica AR
+        </div>
+
+        <div class="version">
+            v1.1
+        </div>
+
     </div>
 
-    <h1>Calculadora</h1>
+    <h1>
+        Calculadora
+    </h1>
 
     <p>
         Cálculo pediátrico y conversión automática a mL
@@ -350,6 +433,22 @@ summary {
                     Ibuprofeno - Analgesia / antipiresis
                 </option>
 
+                <option value="loratadina">
+                    Loratadina - Rinitis alérgica
+                </option>
+
+                <option value="cetirizina">
+                    Cetirizina - Rinitis alérgica
+                </option>
+
+                <option value="desloratadina">
+                    Desloratadina - Rinitis alérgica
+                </option>
+
+                <option value="fexofenadina">
+                    Fexofenadina - Rinitis alérgica
+                </option>
+
             </select>
 
         </div>
@@ -358,6 +457,7 @@ summary {
 
 </section>
 
+
 <section class="card">
 
     <div class="section-title">
@@ -365,6 +465,40 @@ summary {
     </div>
 
     <div class="grid">
+
+        <div>
+
+            <label>
+                Edad
+            </label>
+
+            <div class="age-wrapper">
+
+                <input
+                    id="age"
+                    type="number"
+                    inputmode="decimal"
+                    min="0"
+                    step="0.1"
+                    value="5"
+                >
+
+                <select id="ageUnit">
+
+                    <option value="years">
+                        años
+                    </option>
+
+                    <option value="months">
+                        meses
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
 
         <div>
 
@@ -391,6 +525,7 @@ summary {
 
         </div>
 
+
         <div>
 
             <label>
@@ -401,6 +536,7 @@ summary {
             </select>
 
         </div>
+
 
         <div>
 
@@ -413,6 +549,7 @@ summary {
 
         </div>
 
+
         <div>
 
             <label>
@@ -423,6 +560,7 @@ summary {
             </select>
 
         </div>
+
 
         <div
             id="concentrationContainer"
@@ -438,13 +576,22 @@ summary {
 
         </div>
 
+
+        <div
+            id="ageNote"
+            class="full age-note hidden"
+        >
+        </div>
+
     </div>
+
 
     <button id="calculate">
         CALCULAR DOSIS
     </button>
 
 </section>
+
 
 <section
     class="card result"
@@ -473,6 +620,7 @@ summary {
 
     </div>
 
+
     <div class="stats">
 
         <div class="stat">
@@ -487,6 +635,7 @@ summary {
 
         </div>
 
+
         <div class="stat">
 
             <span>
@@ -498,6 +647,20 @@ summary {
             </strong>
 
         </div>
+
+
+        <div class="stat">
+
+            <span>
+                Edad
+            </span>
+
+            <strong id="resultAge">
+                —
+            </strong>
+
+        </div>
+
 
         <div class="stat">
 
@@ -511,6 +674,7 @@ summary {
 
         </div>
 
+
         <div class="stat">
 
             <span>
@@ -522,6 +686,7 @@ summary {
             </strong>
 
         </div>
+
 
         <div
             class="stat"
@@ -540,6 +705,7 @@ summary {
 
     </div>
 
+
     <details>
 
         <summary>
@@ -553,6 +719,7 @@ summary {
         </div>
 
     </details>
+
 
     <div class="warning">
 
@@ -568,6 +735,34 @@ summary {
 
 </section>
 
+
+<section class="card">
+
+    <div class="section-title">
+        🎨 Personalizar apariencia
+    </div>
+
+    <div class="theme-buttons">
+
+        <button
+            class="theme-button theme-blue"
+            id="blueTheme"
+        >
+            🔵 Azul
+        </button>
+
+        <button
+            class="theme-button theme-pink"
+            id="pinkTheme"
+        >
+            🌸 Rosa
+        </button>
+
+    </div>
+
+</section>
+
+
 <section class="card">
 
     <div class="section-title">
@@ -582,20 +777,22 @@ summary {
         <br><br>
 
         La aplicación distingue entre medicamentos cuya dosis
-        se expresa en <strong>mg/kg/día</strong> y aquellos cuya
-        dosis se expresa en <strong>mg/kg/dosis</strong>.
+        se expresa en <strong>mg/kg/día</strong>, aquellos cuya
+        dosis se expresa en <strong>mg/kg/dosis</strong> y
+        medicamentos con dosis fija según edad.
 
         <br><br>
 
-        La frecuencia puede seleccionarse para realizar el
-        cálculo matemático. La frecuencia elegida debe ser
-        compatible con el esquema terapéutico correspondiente.
+        En los antihistamínicos, la edad determina el esquema
+        disponible y la dosis correspondiente.
 
         <br><br>
 
-        Antes de incorporar nuevos medicamentos deben verificarse
-        dosis, frecuencia, concentraciones y dosis máximas en
-        fuentes pediátricas actualizadas.
+        La frecuencia se encuentra cargada según el esquema
+        correspondiente. Antes de incorporar nuevos medicamentos
+        deben verificarse dosis, frecuencia, concentraciones,
+        edad mínima y dosis máximas en fuentes pediátricas
+        actualizadas.
 
     </div>
 
@@ -603,27 +800,36 @@ summary {
 
 </main>
 
+
 <nav class="bottom-nav">
 
     <div class="nav-item active">
 
-        <span class="nav-icon">⌕</span>
+        <span class="nav-icon">
+            ⌕
+        </span>
 
         Calcular
 
     </div>
 
+
     <div class="nav-item">
 
-        <span class="nav-icon">＋</span>
+        <span class="nav-icon">
+            ＋
+        </span>
 
         Medicamentos
 
     </div>
 
+
     <div class="nav-item">
 
-        <span class="nav-icon">ⓘ</span>
+        <span class="nav-icon">
+            ⓘ
+        </span>
 
         Info
 
@@ -633,6 +839,7 @@ summary {
 
 </div>
 
+
 <script>
 
 /* ============================================================
@@ -640,6 +847,11 @@ summary {
    ============================================================ */
 
 const medicines = {
+
+
+    /* ========================================================
+       AMOXICILINA
+       ======================================================== */
 
     amoxicilina: {
 
@@ -716,6 +928,10 @@ const medicines = {
 
     },
 
+
+    /* ========================================================
+       PARACETAMOL
+       ======================================================== */
 
     paracetamol: {
 
@@ -797,6 +1013,10 @@ const medicines = {
 
     },
 
+
+    /* ========================================================
+       DIPIRONA
+       ======================================================== */
 
     dipirona: {
 
@@ -920,6 +1140,249 @@ const medicines = {
 
         }
 
+    },
+
+
+    /* ========================================================
+       LORATADINA
+       ======================================================== */
+
+    loratadina: {
+
+        name: "Loratadina - Rinitis alérgica",
+
+        type: "fixedAge",
+
+        ageRules: [
+
+            {
+                minMonths: 24,
+                maxMonths: 71,
+                dose: 5,
+                label: "5 mg/dosis · 2–5 años",
+                frequency: 24
+            },
+
+            {
+                minMonths: 72,
+                maxMonths: Infinity,
+                dose: 10,
+                label: "10 mg/dosis · ≥6 años",
+                frequency: 24
+            }
+
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 1,
+                        label: "5 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    /* ========================================================
+       CETIRIZINA
+       ======================================================== */
+
+    cetirizina: {
+
+        name: "Cetirizina - Rinitis alérgica",
+
+        type: "fixedAge",
+
+        ageRules: [
+
+            {
+                minMonths: 6,
+                maxMonths: 23,
+                dose: 2.5,
+                label: "2,5 mg/dosis · 6–23 meses",
+                frequency: 24
+            },
+
+            {
+                minMonths: 24,
+                maxMonths: 71,
+                dose: 2.5,
+                label: "2,5 mg/dosis · 2–5 años",
+                frequency: 24
+            },
+
+            {
+                minMonths: 24,
+                maxMonths: 71,
+                dose: 5,
+                label: "5 mg/dosis · 2–5 años",
+                frequency: 24
+            },
+
+            {
+                minMonths: 72,
+                maxMonths: Infinity,
+                dose: 5,
+                label: "5 mg/dosis · ≥6 años",
+                frequency: 24
+            }
+
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 1,
+                        label: "1 mg / mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    /* ========================================================
+       DESLORATADINA
+       ======================================================== */
+
+    desloratadina: {
+
+        name: "Desloratadina - Rinitis alérgica",
+
+        type: "fixedAge",
+
+        ageRules: [
+
+            {
+                minMonths: 6,
+                maxMonths: 11,
+                dose: 1,
+                label: "1 mg/dosis · 6–11 meses",
+                frequency: 24
+            },
+
+            {
+                minMonths: 12,
+                maxMonths: 71,
+                dose: 1.25,
+                label: "1,25 mg/dosis · 1–5 años",
+                frequency: 24
+            },
+
+            {
+                minMonths: 72,
+                maxMonths: 143,
+                dose: 2.5,
+                label: "2,5 mg/dosis · 6–11 años",
+                frequency: 24
+            },
+
+            {
+                minMonths: 144,
+                maxMonths: Infinity,
+                dose: 5,
+                label: "5 mg/dosis · ≥12 años",
+                frequency: 24
+            }
+
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    {
+                        value: 0.5,
+                        label: "0,5 mg / mL"
+                    }
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    /* ========================================================
+       FEXOFENADINA
+       ======================================================== */
+
+    fexofenadina: {
+
+        name: "Fexofenadina - Rinitis alérgica",
+
+        type: "fixedAge",
+
+        ageRules: [
+
+            {
+                minMonths: 24,
+                maxMonths: 71,
+                dose: 30,
+                label: "30 mg/dosis · 2–5 años",
+                frequency: 12
+            },
+
+            {
+                minMonths: 72,
+                maxMonths: 143,
+                dose: 30,
+                label: "30 mg/dosis · 6–11 años",
+                frequency: 12
+            },
+
+            {
+                minMonths: 144,
+                maxMonths: Infinity,
+                dose: 60,
+                label: "60 mg/dosis · ≥12 años",
+                frequency: 12
+            }
+
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión pediátrica",
+
+                concentrations: [
+                    {
+                        value: 6,
+                        label: "30 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "En fexofenadina, la edad mínima y la concentración pueden variar según la presentación y la indicación. Verificar ficha técnica local antes de administrar."
+
     }
 
 };
@@ -931,6 +1394,12 @@ const medicines = {
 
 const medicationSelect =
     document.getElementById("medication");
+
+const ageInput =
+    document.getElementById("age");
+
+const ageUnitSelect =
+    document.getElementById("ageUnit");
 
 const weightInput =
     document.getElementById("weight");
@@ -950,11 +1419,20 @@ const concentrationSelect =
 const concentrationContainer =
     document.getElementById("concentrationContainer");
 
+const ageNote =
+    document.getElementById("ageNote");
+
 const calculateButton =
     document.getElementById("calculate");
 
 const result =
     document.getElementById("result");
+
+const blueThemeButton =
+    document.getElementById("blueTheme");
+
+const pinkThemeButton =
+    document.getElementById("pinkTheme");
 
 
 /* ============================================================
@@ -982,6 +1460,81 @@ function clearSelect(select) {
 }
 
 
+function getAgeMonths() {
+
+    const age =
+        parseFloat(ageInput.value);
+
+    if (
+        isNaN(age) ||
+        age < 0
+    ) {
+        return null;
+    }
+
+    if (ageUnitSelect.value === "months") {
+        return age;
+    }
+
+    return age * 12;
+
+}
+
+
+function getAgeLabel() {
+
+    const age =
+        parseFloat(ageInput.value);
+
+    if (
+        isNaN(age) ||
+        age < 0
+    ) {
+        return "—";
+    }
+
+    return (
+        formatNumber(age) +
+        " " +
+        (
+            ageUnitSelect.value === "months"
+                ? "meses"
+                : "años"
+        )
+    );
+
+}
+
+
+/* ============================================================
+   ENCONTRAR REGLAS SEGÚN EDAD
+   ============================================================ */
+
+function getAgeRules(medicine) {
+
+    if (!medicine.ageRules) {
+        return [];
+    }
+
+    const ageMonths =
+        getAgeMonths();
+
+    if (ageMonths === null) {
+        return [];
+    }
+
+    return medicine.ageRules.filter(rule => {
+
+        return (
+            ageMonths >= rule.minMonths &&
+            ageMonths <= rule.maxMonths
+        );
+
+    });
+
+}
+
+
 /* ============================================================
    ACTUALIZAR MEDICAMENTO
    ============================================================ */
@@ -995,37 +1548,158 @@ function updateMedicine() {
     clearSelect(frequencySelect);
     clearSelect(formSelect);
 
-    /* DOSIS */
-
-    medicine.doses.forEach(dose => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = dose.value;
-        option.textContent = dose.label;
-
-        doseSelect.appendChild(option);
-
-    });
+    ageNote.classList.add("hidden");
+    ageNote.textContent = "";
 
 
-    /* FRECUENCIA */
+    /* ========================================================
+       MEDICAMENTOS CON DOSIS SEGÚN EDAD
+       ======================================================== */
 
-    medicine.frequencies.forEach(freq => {
+    if (medicine.type === "fixedAge") {
 
-        const option =
-            document.createElement("option");
+        const rules =
+            getAgeRules(medicine);
 
-        option.value = freq.hours;
-        option.textContent = freq.label;
+        if (rules.length === 0) {
 
-        frequencySelect.appendChild(option);
+            const option =
+                document.createElement("option");
 
-    });
+            option.value = "";
+            option.textContent =
+                "Edad fuera del esquema cargado";
+
+            doseSelect.appendChild(option);
+
+            const freqOption =
+                document.createElement("option");
+
+            freqOption.value = "";
+
+            freqOption.textContent =
+                "No disponible";
+
+            frequencySelect.appendChild(freqOption);
+
+            ageNote.classList.remove("hidden");
+
+            if (medicine.note) {
+
+                ageNote.textContent =
+                    medicine.note;
+
+            } else {
+
+                ageNote.textContent =
+                    "Ingresá una edad compatible con el esquema pediátrico cargado.";
+
+            }
+
+        } else {
+
+            rules.forEach(rule => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = rule.dose;
+
+                option.textContent =
+                    rule.label;
+
+                doseSelect.appendChild(option);
+
+            });
 
 
-    /* PRESENTACIONES */
+            const uniqueFrequencies = [];
+
+            rules.forEach(rule => {
+
+                if (
+                    !uniqueFrequencies.includes(
+                        rule.frequency
+                    )
+                ) {
+
+                    uniqueFrequencies.push(
+                        rule.frequency
+                    );
+
+                }
+
+            });
+
+
+            uniqueFrequencies.forEach(hours => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = hours;
+
+                option.textContent =
+                    "Cada " +
+                    hours +
+                    " horas";
+
+                frequencySelect.appendChild(option);
+
+            });
+
+
+            if (medicine.note) {
+
+                ageNote.classList.remove("hidden");
+
+                ageNote.textContent =
+                    medicine.note;
+
+            }
+
+        }
+
+    }
+
+
+    /* ========================================================
+       MEDICAMENTOS CON DOSIS TRADICIONAL
+       ======================================================== */
+
+    else {
+
+        medicine.doses.forEach(dose => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = dose.value;
+            option.textContent = dose.label;
+
+            doseSelect.appendChild(option);
+
+        });
+
+
+        medicine.frequencies.forEach(freq => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = freq.hours;
+            option.textContent = freq.label;
+
+            frequencySelect.appendChild(option);
+
+        });
+
+    }
+
+
+    /* ========================================================
+       PRESENTACIONES
+       ======================================================== */
 
     Object.entries(medicine.forms)
         .forEach(([key, form]) => {
@@ -1047,6 +1721,26 @@ function updateMedicine() {
 
 
 /* ============================================================
+   ACTUALIZAR DOSIS AL CAMBIAR EDAD
+   ============================================================ */
+
+function updateAgeDependentFields() {
+
+    const medicine =
+        medicines[medicationSelect.value];
+
+    if (
+        medicine.type === "fixedAge"
+    ) {
+
+        updateMedicine();
+
+    }
+
+}
+
+
+/* ============================================================
    ACTUALIZAR CONCENTRACIONES
    ============================================================ */
 
@@ -1060,12 +1754,17 @@ function updateConcentrations() {
 
     clearSelect(concentrationSelect);
 
+    if (!form) {
+        return;
+    }
+
     form.concentrations.forEach(concentration => {
 
         const option =
             document.createElement("option");
 
-        option.value = concentration.value;
+        option.value =
+            concentration.value;
 
         option.textContent =
             concentration.label;
@@ -1086,6 +1785,16 @@ function updateConcentrations() {
 medicationSelect.addEventListener(
     "change",
     updateMedicine
+);
+
+ageInput.addEventListener(
+    "input",
+    updateAgeDependentFields
+);
+
+ageUnitSelect.addEventListener(
+    "change",
+    updateAgeDependentFields
 );
 
 formSelect.addEventListener(
@@ -1125,14 +1834,47 @@ function calculateDose() {
 
     if (
         !weight ||
-        weight <= 0 ||
+        weight <= 0
+    ) {
+
+        alert(
+            "Completá correctamente el peso."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        medicine.type === "fixedAge"
+    ) {
+
+        const rules =
+            getAgeRules(medicine);
+
+        if (rules.length === 0) {
+
+            alert(
+                "La edad ingresada no corresponde a un esquema cargado para este medicamento."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    if (
         !dose ||
+        !hours ||
         !concentration ||
         concentration <= 0
     ) {
 
         alert(
-            "Completá correctamente el peso, dosis y concentración."
+            "Completá correctamente la dosis, frecuencia y concentración."
         );
 
         return;
@@ -1153,7 +1895,9 @@ function calculateDose() {
        MEDICAMENTOS EN mg/kg/día
        ======================================================== */
 
-    if (medicine.type === "mgkgday") {
+    if (
+        medicine.type === "mgkgday"
+    ) {
 
         dailyMg =
             weight * dose;
@@ -1168,7 +1912,9 @@ function calculateDose() {
        MEDICAMENTOS EN mg/kg/dosis
        ======================================================== */
 
-    else {
+    else if (
+        medicine.type === "mgkgdose"
+    ) {
 
         mgPerDose =
             weight * dose;
@@ -1179,16 +1925,28 @@ function calculateDose() {
     }
 
 
-    /*
-       La concentración está expresada como mg por 5 mL
-       para las suspensiones y como mg/mL para gotas.
-    */
+    /* ========================================================
+       DOSIS FIJA SEGÚN EDAD
+       ======================================================== */
+
+    else if (
+        medicine.type === "fixedAge"
+    ) {
+
+        mgPerDose =
+            dose;
+
+        dailyMg =
+            mgPerDose * numberOfDoses;
+
+    }
+
+
+    /* ========================================================
+       CONCENTRACIÓN
+       ======================================================== */
 
     let mgPerMl;
-
-    const form =
-        medicine.forms[formSelect.value];
-
 
     if (
         formSelect.value === "jarabe" ||
@@ -1221,19 +1979,23 @@ function calculateDose() {
     document.getElementById(
         "resultVolume"
     ).textContent =
-        formatNumber(mlPerDose) + " mL";
+        formatNumber(mlPerDose) +
+        " mL";
 
 
     document.getElementById(
         "resultFrequency"
     ).textContent =
-        "cada " + hours + " horas";
+        "cada " +
+        hours +
+        " horas";
 
 
     document.getElementById(
         "resultMg"
     ).textContent =
-        formatNumber(mgPerDose) + " mg";
+        formatNumber(mgPerDose) +
+        " mg";
 
 
     document.getElementById(
@@ -1244,21 +2006,30 @@ function calculateDose() {
 
 
     document.getElementById(
+        "resultAge"
+    ).textContent =
+        getAgeLabel();
+
+
+    document.getElementById(
         "resultWeight"
     ).textContent =
-        formatNumber(weight) + " kg";
+        formatNumber(weight) +
+        " kg";
 
 
     document.getElementById(
         "resultDailyMl"
     ).textContent =
-        formatNumber(dailyMl) + " mL/día";
+        formatNumber(dailyMl) +
+        " mL/día";
 
 
     document.getElementById(
         "resultDailyMg"
     ).textContent =
-        formatNumber(dailyMg) + " mg/día";
+        formatNumber(dailyMg) +
+        " mg/día";
 
 
     /* ========================================================
@@ -1268,7 +2039,9 @@ function calculateDose() {
     let formula = "";
 
 
-    if (medicine.type === "mgkgday") {
+    if (
+        medicine.type === "mgkgday"
+    ) {
 
         formula +=
             weight +
@@ -1293,13 +2066,48 @@ function calculateDose() {
             formatNumber(mgPerDose) +
             " mg/toma\n";
 
-    } else {
+    }
+
+
+    else if (
+        medicine.type === "mgkgdose"
+    ) {
 
         formula +=
             weight +
             " kg × " +
             dose +
             " mg/kg/dosis = " +
+            formatNumber(mgPerDose) +
+            " mg/toma\n";
+
+        formula +=
+            "24 ÷ " +
+            hours +
+            " h = " +
+            formatNumber(numberOfDoses) +
+            " tomas/día\n";
+
+        formula +=
+            formatNumber(mgPerDose) +
+            " mg × " +
+            formatNumber(numberOfDoses) +
+            " = " +
+            formatNumber(dailyMg) +
+            " mg/día\n";
+
+    }
+
+
+    else {
+
+        formula +=
+            "Edad: " +
+            getAgeLabel() +
+            "\n";
+
+        formula +=
+            "Dosis correspondiente a la edad = " +
             formatNumber(mgPerDose) +
             " mg/toma\n";
 
@@ -1352,10 +2160,12 @@ function calculateDose() {
 
     document.getElementById(
         "formula"
-    ).textContent = formula;
+    ).textContent =
+        formula;
 
 
-    result.style.display = "block";
+    result.style.display =
+        "block";
 
 
     result.scrollIntoView({
@@ -1367,8 +2177,96 @@ function calculateDose() {
 
 
 /* ============================================================
+   TEMAS
+   ============================================================ */
+
+function setTheme(theme) {
+
+    if (
+        theme === "pink"
+    ) {
+
+        document.body.classList.add(
+            "pink-theme"
+        );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "pink"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#831843"
+            );
+
+    } else {
+
+        document.body.classList.remove(
+            "pink-theme"
+        );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "blue"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#0f172a"
+            );
+
+    }
+
+}
+
+
+blueThemeButton.addEventListener(
+    "click",
+    function() {
+
+        setTheme("blue");
+
+    }
+);
+
+
+pinkThemeButton.addEventListener(
+    "click",
+    function() {
+
+        setTheme("pink");
+
+    }
+);
+
+
+/* ============================================================
    INICIO
    ============================================================ */
+
+const savedTheme =
+    localStorage.getItem(
+        "dosisPediatricaTheme"
+    );
+
+
+if (
+    savedTheme === "pink"
+) {
+
+    setTheme("pink");
+
+} else {
+
+    setTheme("blue");
+
+}
+
 
 updateMedicine();
 
