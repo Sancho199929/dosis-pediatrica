@@ -225,7 +225,6 @@ select:focus {
     border-color: var(--primary);
 }
 
-/* Selector con una sola opción */
 select:disabled {
     opacity: 1;
     cursor: default;
@@ -233,7 +232,6 @@ select:disabled {
     background: var(--input-bg);
 }
 
-/* Ocultar flecha cuando solo existe una opción */
 select.single-option {
     appearance: none;
     -webkit-appearance: none;
@@ -509,7 +507,7 @@ summary {
         <div class="logo">💊 Dosis Pediátrica AR</div>
 
         <div class="version">
-            v1.3
+            v1.4
         </div>
     </div>
 
@@ -546,7 +544,7 @@ summary {
                 <input
                     id="medicineSearch"
                     type="search"
-                    placeholder="Ej.: amoxi, paracetamol, ibuprofeno..."
+                    placeholder="Ej.: amoxi, sinusitis, paracetamol..."
                     autocomplete="off"
                 >
 
@@ -564,6 +562,34 @@ summary {
 
                 <option value="amoxicilina">
                     Amoxicilina - OMA
+                </option>
+
+                <option value="amoxicilinaSBA">
+                    Amoxicilina - SBA
+                </option>
+
+                <option value="amoxicilinaClavulanatoSBA">
+                    Amoxicilina + clavulanato - SBA
+                </option>
+
+                <option value="cefuroximaSBA">
+                    Cefuroxima - SBA / alergia a penicilina no tipo I
+                </option>
+
+                <option value="tmpSmxSBA">
+                    TMP-SMX - SBA / 2.ª elección
+                </option>
+
+                <option value="claritromicinaSBA">
+                    Claritromicina - SBA / alergia tipo I
+                </option>
+
+                <option value="azitromicinaSBA">
+                    Azitromicina - SBA / alergia tipo I
+                </option>
+
+                <option value="ceftriaxonaSBA">
+                    Ceftriaxona - SBA / mala tolerancia oral
                 </option>
 
                 <option value="paracetamol">
@@ -912,8 +938,19 @@ summary {
 
         <br><br>
 
-        En los antihistamínicos, la edad determina el esquema
-        disponible y la dosis correspondiente.
+        En los antihistamínicos cargados para rinitis alérgica,
+        se priorizan los antihistamínicos H1 de
+        <strong>2.ª generación</strong>, que presentan
+        <strong>menor sedación</strong> que los de 1.ª generación.
+
+        <br><br>
+
+        En SBA se incorporaron esquemas específicos para
+        amoxicilina, amoxicilina-clavulanato, cefuroxima,
+        TMP-SMX, claritromicina, azitromicina y ceftriaxona.
+        La selección debe relacionarse con edad, gravedad,
+        asistencia a guardería, uso reciente de antibióticos,
+        alergia a penicilinas y tolerancia de la vía oral.
 
         <br><br>
 
@@ -958,6 +995,10 @@ summary {
 
 const medicines = {
 
+    /* ========================================================
+       OMA
+       ======================================================== */
+
     amoxicilina: {
 
         name: "Amoxicilina - OMA",
@@ -998,6 +1039,357 @@ const medicines = {
 
     },
 
+
+    /* ========================================================
+       SBA - AMOXICILINA
+       ======================================================== */
+
+    amoxicilinaSBA: {
+
+        name: "Amoxicilina - SBA",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 40,
+                label: "40 mg/kg/día"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            }
+        ],
+
+        forms: {
+
+            jarabe: {
+
+                label: "Jarabe",
+
+                concentrations: [
+                    { value: 125, label: "125 mg / 5 mL" },
+                    { value: 250, label: "250 mg / 5 mL" },
+                    { value: 400, label: "400 mg / 5 mL" },
+                    { value: 500, label: "500 mg / 5 mL" },
+                    { value: 750, label: "750 mg / 5 mL" }
+                ]
+
+            }
+
+        },
+
+        note:
+            "SBA: esquema cargado de 40 mg/kg/día cada 8 horas. En el enfoque argentino consultado, la amoxicilina se utiliza como opción inicial en niños ≥2 años con enfermedad leve-moderada, sin concurrencia a guardería y sin antibióticos durante el mes previo. Verificar siempre protocolo local y criterios clínicos."
+    },
+
+
+    /* ========================================================
+       SBA - AMOXICILINA + CLAVULANATO
+       ======================================================== */
+
+    amoxicilinaClavulanatoSBA: {
+
+        name: "Amoxicilina + clavulanato - SBA",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 80,
+                label: "80 mg/kg/día de amoxicilina"
+            },
+            {
+                value: 90,
+                label: "90 mg/kg/día de amoxicilina"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 8,
+                label: "Cada 8 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 400,
+                        label: "400 mg de amoxicilina + 57 mg de clavulanato / 5 mL"
+                    },
+                    {
+                        value: 600,
+                        label: "600 mg de amoxicilina + 42,9 mg de clavulanato / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "SBA: esquema cargado de 80–90 mg/kg/día de amoxicilina. Se considera especialmente ante <2 años, concurrencia a guardería, antibiótico durante el mes previo o enfermedad moderada-severa. La dosis se calcula sobre el componente de amoxicilina. El intervalo puede variar según la formulación y el protocolo; verificar ficha técnica/protocolo local."
+    },
+
+
+    /* ========================================================
+       SBA - CEFUROXIMA
+       ======================================================== */
+
+    cefuroximaSBA: {
+
+        name: "Cefuroxima - SBA / alergia a penicilina no tipo I",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 20,
+                label: "20 mg/kg/día"
+            },
+            {
+                value: 40,
+                label: "40 mg/kg/día"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 125,
+                        label: "125 mg / 5 mL"
+                    },
+                    {
+                        value: 250,
+                        label: "250 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "Alternativa para alergia a penicilina no tipo I. En fuentes argentinas de SAP se describen cefalosporinas de 2.ª generación como alternativa y cefuroxima en dosis de 20–40 mg/kg/día. Verificar tipo de alergia antes de utilizar una cefalosporina."
+    },
+
+
+    /* ========================================================
+       SBA - TMP-SMX
+       ======================================================== */
+
+    tmpSmxSBA: {
+
+        name: "TMP-SMX - SBA / 2.ª elección",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 6,
+                label: "6 mg/kg/día de trimetoprima"
+            },
+            {
+                value: 8,
+                label: "8 mg/kg/día de trimetoprima"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 40,
+                        label: "40 mg TMP + 200 mg SMX / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "Cargado como 2.ª elección según el esquema argentino de referencia consultado. La dosis se expresa por el componente de trimetoprima (TMP). Verificar indicación y sensibilidad bacteriana antes de utilizar."
+    },
+
+
+    /* ========================================================
+       SBA - CLARITROMICINA
+       ======================================================== */
+
+    claritromicinaSBA: {
+
+        name: "Claritromicina - SBA / alergia tipo I",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 15,
+                label: "15 mg/kg/día"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 12,
+                label: "Cada 12 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 125,
+                        label: "125 mg / 5 mL"
+                    },
+                    {
+                        value: 250,
+                        label: "250 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema de referencia: 15 mg/kg/día dividido cada 12 horas. Verificar resistencia local, indicación y protocolo vigente antes de utilizar."
+    },
+
+
+    /* ========================================================
+       SBA - AZITROMICINA
+       ======================================================== */
+
+    azitromicinaSBA: {
+
+        name: "Azitromicina - SBA / alergia tipo I",
+
+        type: "mgkgday",
+
+        doses: [
+            {
+                value: 10,
+                label: "10 mg/kg/día"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 24,
+                label: "Cada 24 horas"
+            }
+        ],
+
+        forms: {
+
+            suspension: {
+
+                label: "Suspensión oral",
+
+                concentrations: [
+                    {
+                        value: 200,
+                        label: "200 mg / 5 mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema habitual cargado: 10 mg/kg cada 24 horas. En rinosinusitis, fuentes argentinas describen 5 días como duración alternativa. Verificar indicación y resistencia local."
+    },
+
+
+    /* ========================================================
+       SBA - CEFTRIAXONA
+       ======================================================== */
+
+    ceftriaxonaSBA: {
+
+        name: "Ceftriaxona - SBA / mala tolerancia oral",
+
+        type: "mgkgdose",
+
+        doses: [
+            {
+                value: 50,
+                label: "50 mg/kg/dosis"
+            }
+        ],
+
+        frequencies: [
+            {
+                hours: 24,
+                label: "Cada 24 horas"
+            }
+        ],
+
+        forms: {
+
+            injection: {
+
+                label: "Solución inyectable",
+
+                concentrations: [
+                    {
+                        value: 100,
+                        label: "100 mg / mL"
+                    }
+                ]
+
+            }
+
+        },
+
+        note:
+            "Opción parenteral cuando el paciente vomita o no acepta antibióticos por vía oral. Fuentes argentinas de SAP describen ceftriaxona 50 mg/kg/día en este contexto. Verificar vía, reconstitución, edad y ficha técnica de la presentación."
+    },
+
+
+    /* ========================================================
+       PARACETAMOL
+       ======================================================== */
 
     paracetamol: {
 
@@ -1145,6 +1537,10 @@ const medicines = {
 
     },
 
+
+    /* ========================================================
+       DIPIRONA
+       ======================================================== */
 
     dipirona: {
 
@@ -1308,6 +1704,10 @@ const medicines = {
     },
 
 
+    /* ========================================================
+       IBUPROFENO
+       ======================================================== */
+
     ibuprofeno: {
 
         name: "Ibuprofeno - Analgesia / antipiresis / antiinflamatorio",
@@ -1341,6 +1741,10 @@ const medicines = {
 
     },
 
+
+    /* ========================================================
+       LORATADINA
+       ======================================================== */
 
     loratadina: {
 
@@ -1380,10 +1784,16 @@ const medicines = {
 
             }
 
-        }
+        },
 
+        note:
+            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
     },
 
+
+    /* ========================================================
+       CETIRIZINA
+       ======================================================== */
 
     cetirizina: {
 
@@ -1439,10 +1849,16 @@ const medicines = {
 
             }
 
-        }
+        },
 
+        note:
+            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
     },
 
+
+    /* ========================================================
+       DESLORATADINA
+       ======================================================== */
 
     desloratadina: {
 
@@ -1498,10 +1914,16 @@ const medicines = {
 
             }
 
-        }
+        },
 
+        note:
+            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
     },
 
+
+    /* ========================================================
+       FEXOFENADINA
+       ======================================================== */
 
     fexofenadina: {
 
@@ -1552,7 +1974,7 @@ const medicines = {
         },
 
         note:
-            "En fexofenadina, la edad mínima y la concentración pueden variar según la presentación y la indicación. Verificar ficha técnica local antes de administrar."
+            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación. En fexofenadina, la edad mínima y la concentración pueden variar según la presentación y la indicación. Verificar ficha técnica local antes de administrar."
 
     }
 
@@ -1563,34 +1985,68 @@ const medicines = {
    ELEMENTOS
    ============================================================ */
 
-const medicationSelect = document.getElementById("medication");
-const medicineSearch = document.getElementById("medicineSearch");
+const medicationSelect =
+    document.getElementById("medication");
 
-const ageInput = document.getElementById("age");
-const ageUnitSelect = document.getElementById("ageUnit");
-const weightInput = document.getElementById("weight");
+const medicineSearch =
+    document.getElementById("medicineSearch");
 
-const routeContainer = document.getElementById("routeContainer");
-const routeSelect = document.getElementById("route");
+const ageInput =
+    document.getElementById("age");
 
-const doseSelect = document.getElementById("dose");
-const frequencySelect = document.getElementById("frequency");
-const formSelect = document.getElementById("form");
-const concentrationSelect = document.getElementById("concentration");
+const ageUnitSelect =
+    document.getElementById("ageUnit");
+
+const weightInput =
+    document.getElementById("weight");
+
+const routeContainer =
+    document.getElementById("routeContainer");
+
+const routeSelect =
+    document.getElementById("route");
+
+const doseSelect =
+    document.getElementById("dose");
+
+const frequencySelect =
+    document.getElementById("frequency");
+
+const formSelect =
+    document.getElementById("form");
+
+const concentrationSelect =
+    document.getElementById("concentration");
 
 const concentrationContainer =
     document.getElementById("concentrationContainer");
 
-const ageNote = document.getElementById("ageNote");
-const calculateButton = document.getElementById("calculate");
-const result = document.getElementById("result");
+const ageNote =
+    document.getElementById("ageNote");
 
-const blueThemeButton = document.getElementById("blueTheme");
-const pinkThemeButton = document.getElementById("pinkTheme");
-const greenThemeButton = document.getElementById("greenTheme");
-const darkBlueThemeButton = document.getElementById("darkBlueTheme");
-const darkPinkThemeButton = document.getElementById("darkPinkTheme");
-const darkGreenThemeButton = document.getElementById("darkGreenTheme");
+const calculateButton =
+    document.getElementById("calculate");
+
+const result =
+    document.getElementById("result");
+
+const blueThemeButton =
+    document.getElementById("blueTheme");
+
+const pinkThemeButton =
+    document.getElementById("pinkTheme");
+
+const greenThemeButton =
+    document.getElementById("greenTheme");
+
+const darkBlueThemeButton =
+    document.getElementById("darkBlueTheme");
+
+const darkPinkThemeButton =
+    document.getElementById("darkPinkTheme");
+
+const darkGreenThemeButton =
+    document.getElementById("darkGreenTheme");
 
 
 /* ============================================================
@@ -1621,8 +2077,7 @@ function clearSelect(select) {
 
 
 /* ============================================================
-   DESHABILITAR SELECTORES CUANDO SOLO HAY UNA OPCIÓN
-   Y OCULTAR LA FLECHA
+   SELECTOR DE UNA SOLA OPCIÓN
    ============================================================ */
 
 function updateSelectState(select) {
@@ -1702,7 +2157,10 @@ medicineSearch.addEventListener(
         });
 
 
-        if (search && firstMatch !== null) {
+        if (
+            search &&
+            firstMatch !== null
+        ) {
 
             medicationSelect.value =
                 firstMatch;
@@ -1727,7 +2185,8 @@ medicineSearch.addEventListener(
 
 function getAgeMonths() {
 
-    const age = parseFloat(ageInput.value);
+    const age =
+        parseFloat(ageInput.value);
 
     if (
         isNaN(age) ||
@@ -1736,8 +2195,12 @@ function getAgeMonths() {
         return null;
     }
 
-    if (ageUnitSelect.value === "months") {
+    if (
+        ageUnitSelect.value === "months"
+    ) {
+
         return age;
+
     }
 
     return age * 12;
@@ -1747,13 +2210,16 @@ function getAgeMonths() {
 
 function getAgeLabel() {
 
-    const age = parseFloat(ageInput.value);
+    const age =
+        parseFloat(ageInput.value);
 
     if (
         isNaN(age) ||
         age < 0
     ) {
+
         return "—";
+
     }
 
     return (
@@ -1770,7 +2236,7 @@ function getAgeLabel() {
 
 
 /* ============================================================
-   ENCONTRAR REGLAS SEGÚN EDAD
+   REGLAS SEGÚN EDAD
    ============================================================ */
 
 function getAgeRules(medicine) {
@@ -1779,7 +2245,8 @@ function getAgeRules(medicine) {
         return [];
     }
 
-    const ageMonths = getAgeMonths();
+    const ageMonths =
+        getAgeMonths();
 
     if (ageMonths === null) {
         return [];
@@ -1858,10 +2325,15 @@ function updateMedicine() {
                 const option =
                     document.createElement("option");
 
-                option.value = key;
-                option.textContent = route.label;
+                option.value =
+                    key;
 
-                routeSelect.appendChild(option);
+                option.textContent =
+                    route.label;
+
+                routeSelect.appendChild(
+                    option
+                );
 
             });
 
@@ -1944,14 +2416,23 @@ function updateRoute() {
             freqOption.textContent =
                 "No disponible";
 
-            frequencySelect.appendChild(freqOption);
+            frequencySelect.appendChild(
+                freqOption
+            );
 
 
-            updateSelectState(doseSelect);
-            updateSelectState(frequencySelect);
+            updateSelectState(
+                doseSelect
+            );
+
+            updateSelectState(
+                frequencySelect
+            );
 
 
-            ageNote.classList.remove("hidden");
+            ageNote.classList.remove(
+                "hidden"
+            );
 
             ageNote.textContent =
                 route.note ||
@@ -1972,7 +2453,9 @@ function updateRoute() {
                 option.textContent =
                     dose.label;
 
-                doseSelect.appendChild(option);
+                doseSelect.appendChild(
+                    option
+                );
 
             });
 
@@ -1988,18 +2471,30 @@ function updateRoute() {
                 option.textContent =
                     freq.label;
 
-                frequencySelect.appendChild(option);
+                frequencySelect.appendChild(
+                    option
+                );
 
             });
 
 
-            updateSelectState(doseSelect);
-            updateSelectState(frequencySelect);
+            updateSelectState(
+                doseSelect
+            );
+
+            updateSelectState(
+                frequencySelect
+            );
 
 
-            if (route.note || rule.note) {
+            if (
+                route.note ||
+                rule.note
+            ) {
 
-                ageNote.classList.remove("hidden");
+                ageNote.classList.remove(
+                    "hidden"
+                );
 
                 ageNote.textContent =
                     rule.note ||
@@ -2027,7 +2522,9 @@ function updateRoute() {
                 option.textContent =
                     dose.label;
 
-                doseSelect.appendChild(option);
+                doseSelect.appendChild(
+                    option
+                );
 
             });
 
@@ -2047,20 +2544,29 @@ function updateRoute() {
                 option.textContent =
                     freq.label;
 
-                frequencySelect.appendChild(option);
+                frequencySelect.appendChild(
+                    option
+                );
 
             });
 
         }
 
 
-        updateSelectState(doseSelect);
-        updateSelectState(frequencySelect);
+        updateSelectState(
+            doseSelect
+        );
+
+        updateSelectState(
+            frequencySelect
+        );
 
 
         if (route.note) {
 
-            ageNote.classList.remove("hidden");
+            ageNote.classList.remove(
+                "hidden"
+            );
 
             ageNote.textContent =
                 route.note;
@@ -2082,12 +2588,16 @@ function updateRoute() {
             option.textContent =
                 form.label;
 
-            formSelect.appendChild(option);
+            formSelect.appendChild(
+                option
+            );
 
         });
 
 
-    updateSelectState(formSelect);
+    updateSelectState(
+        formSelect
+    );
 
     updateConcentrations();
 
@@ -2095,7 +2605,7 @@ function updateRoute() {
 
 
 /* ============================================================
-   ACTUALIZAR DATOS DE MEDICAMENTO SIN VÍAS
+   ACTUALIZAR MEDICAMENTOS SIN VÍA
    ============================================================ */
 
 function updateMedicineData(medicine) {
@@ -2108,12 +2618,16 @@ function updateMedicineData(medicine) {
     ageNote.textContent = "";
 
 
-    if (medicine.type === "fixedAge") {
+    if (
+        medicine.type === "fixedAge"
+    ) {
 
         const rules =
             getAgeRules(medicine);
 
-        if (rules.length === 0) {
+        if (
+            rules.length === 0
+        ) {
 
             const option =
                 document.createElement("option");
@@ -2123,7 +2637,9 @@ function updateMedicineData(medicine) {
             option.textContent =
                 "Edad fuera del esquema cargado";
 
-            doseSelect.appendChild(option);
+            doseSelect.appendChild(
+                option
+            );
 
 
             const freqOption =
@@ -2134,14 +2650,23 @@ function updateMedicineData(medicine) {
             freqOption.textContent =
                 "No disponible";
 
-            frequencySelect.appendChild(freqOption);
+            frequencySelect.appendChild(
+                freqOption
+            );
 
 
-            updateSelectState(doseSelect);
-            updateSelectState(frequencySelect);
+            updateSelectState(
+                doseSelect
+            );
+
+            updateSelectState(
+                frequencySelect
+            );
 
 
-            ageNote.classList.remove("hidden");
+            ageNote.classList.remove(
+                "hidden"
+            );
 
             if (medicine.note) {
 
@@ -2172,12 +2697,15 @@ function updateMedicineData(medicine) {
                 option.textContent =
                     rule.label;
 
-                doseSelect.appendChild(option);
+                doseSelect.appendChild(
+                    option
+                );
 
             });
 
 
-            const uniqueFrequencies = [];
+            const uniqueFrequencies =
+                [];
 
             rules.forEach(rule => {
 
@@ -2196,31 +2724,44 @@ function updateMedicineData(medicine) {
             });
 
 
-            uniqueFrequencies.forEach(hours => {
+            uniqueFrequencies.forEach(
+                hours => {
 
-                const option =
-                    document.createElement("option");
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
 
-                option.value =
-                    hours;
+                    option.value =
+                        hours;
 
-                option.textContent =
-                    "Cada " +
-                    hours +
-                    " horas";
+                    option.textContent =
+                        "Cada " +
+                        hours +
+                        " horas";
 
-                frequencySelect.appendChild(option);
+                    frequencySelect.appendChild(
+                        option
+                    );
 
-            });
+                }
+            );
 
 
-            updateSelectState(doseSelect);
-            updateSelectState(frequencySelect);
+            updateSelectState(
+                doseSelect
+            );
+
+            updateSelectState(
+                frequencySelect
+            );
 
 
             if (medicine.note) {
 
-                ageNote.classList.remove("hidden");
+                ageNote.classList.remove(
+                    "hidden"
+                );
 
                 ageNote.textContent =
                     medicine.note;
@@ -2234,40 +2775,69 @@ function updateMedicineData(medicine) {
 
     else {
 
-        medicine.doses.forEach(dose => {
+        medicine.doses.forEach(
+            dose => {
 
-            const option =
-                document.createElement("option");
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-            option.value =
-                dose.value;
+                option.value =
+                    dose.value;
 
-            option.textContent =
-                dose.label;
+                option.textContent =
+                    dose.label;
 
-            doseSelect.appendChild(option);
+                doseSelect.appendChild(
+                    option
+                );
 
-        });
-
-
-        medicine.frequencies.forEach(freq => {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                freq.hours;
-
-            option.textContent =
-                freq.label;
-
-            frequencySelect.appendChild(option);
-
-        });
+            }
+        );
 
 
-        updateSelectState(doseSelect);
-        updateSelectState(frequencySelect);
+        medicine.frequencies.forEach(
+            freq => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    freq.hours;
+
+                option.textContent =
+                    freq.label;
+
+                frequencySelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        updateSelectState(
+            doseSelect
+        );
+
+        updateSelectState(
+            frequencySelect
+        );
+
+
+        if (medicine.note) {
+
+            ageNote.classList.remove(
+                "hidden"
+            );
+
+            ageNote.textContent =
+                medicine.note;
+
+        }
 
     }
 
@@ -2276,7 +2846,9 @@ function updateMedicineData(medicine) {
         .forEach(([key, form]) => {
 
             const option =
-                document.createElement("option");
+                document.createElement(
+                    "option"
+                );
 
             option.value =
                 key;
@@ -2284,12 +2856,16 @@ function updateMedicineData(medicine) {
             option.textContent =
                 form.label;
 
-            formSelect.appendChild(option);
+            formSelect.appendChild(
+                option
+            );
 
         });
 
 
-    updateSelectState(formSelect);
+    updateSelectState(
+        formSelect
+    );
 
     updateConcentrations();
 
@@ -2297,7 +2873,7 @@ function updateMedicineData(medicine) {
 
 
 /* ============================================================
-   ACTUALIZAR DOSIS AL CAMBIAR EDAD
+   ACTUALIZAR AL CAMBIAR EDAD
    ============================================================ */
 
 function updateAgeDependentFields() {
@@ -2337,51 +2913,69 @@ function updateConcentrations() {
     if (medicine.routes) {
 
         const route =
-            medicine.routes[routeSelect.value];
+            medicine.routes[
+                routeSelect.value
+            ];
 
         if (!route) {
             return;
         }
 
         form =
-            route.forms[formSelect.value];
+            route.forms[
+                formSelect.value
+            ];
 
     }
 
     else {
 
         form =
-            medicine.forms[formSelect.value];
+            medicine.forms[
+                formSelect.value
+            ];
 
     }
 
 
-    clearSelect(concentrationSelect);
+    clearSelect(
+        concentrationSelect
+    );
 
     if (!form) {
         return;
     }
 
 
-    form.concentrations.forEach(concentration => {
+    form.concentrations.forEach(
+        concentration => {
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.value =
-            concentration.value;
+            option.value =
+                concentration.value;
 
-        option.textContent =
-            concentration.label;
+            option.textContent =
+                concentration.label;
 
-        concentrationSelect.appendChild(option);
+            concentrationSelect.appendChild(
+                option
+            );
 
-    });
+        }
+    );
 
 
-    updateSelectState(concentrationSelect);
+    updateSelectState(
+        concentrationSelect
+    );
 
-    concentrationContainer.classList.remove("hidden");
+    concentrationContainer.classList.remove(
+        "hidden"
+    );
 
 }
 
@@ -2428,19 +3022,29 @@ calculateButton.addEventListener(
 function calculateDose() {
 
     const medicine =
-        medicines[medicationSelect.value];
+        medicines[
+            medicationSelect.value
+        ];
 
     const weight =
-        parseFloat(weightInput.value);
+        parseFloat(
+            weightInput.value
+        );
 
     const dose =
-        parseFloat(doseSelect.value);
+        parseFloat(
+            doseSelect.value
+        );
 
     const hours =
-        parseInt(frequencySelect.value);
+        parseInt(
+            frequencySelect.value
+        );
 
     const concentration =
-        parseFloat(concentrationSelect.value);
+        parseFloat(
+            concentrationSelect.value
+        );
 
 
     if (
@@ -2460,7 +3064,9 @@ function calculateDose() {
     if (medicine.routes) {
 
         const route =
-            medicine.routes[routeSelect.value];
+            medicine.routes[
+                routeSelect.value
+            ];
 
         if (
             route.type === "ageRoute"
@@ -2470,9 +3076,10 @@ function calculateDose() {
                 getAgeMonths();
 
             const rule =
-                route.ageRules.find(r =>
-                    ageMonths >= r.minMonths &&
-                    ageMonths <= r.maxMonths
+                route.ageRules.find(
+                    r =>
+                        ageMonths >= r.minMonths &&
+                        ageMonths <= r.maxMonths
                 );
 
             if (!rule) {
@@ -2497,7 +3104,9 @@ function calculateDose() {
         const rules =
             getAgeRules(medicine);
 
-        if (rules.length === 0) {
+        if (
+            rules.length === 0
+        ) {
 
             alert(
                 "La edad ingresada no corresponde a un esquema cargado para este medicamento."
@@ -2543,7 +3152,8 @@ function calculateDose() {
             weight * dose;
 
         mgPerDose =
-            dailyMg / numberOfDoses;
+            dailyMg /
+            numberOfDoses;
 
     }
 
@@ -2556,7 +3166,8 @@ function calculateDose() {
             weight * dose;
 
         dailyMg =
-            mgPerDose * numberOfDoses;
+            mgPerDose *
+            numberOfDoses;
 
     }
 
@@ -2569,7 +3180,8 @@ function calculateDose() {
             dose;
 
         dailyMg =
-            mgPerDose * numberOfDoses;
+            mgPerDose *
+            numberOfDoses;
 
     }
 
@@ -2596,11 +3208,13 @@ function calculateDose() {
 
 
     mlPerDose =
-        mgPerDose / mgPerMl;
+        mgPerDose /
+        mgPerMl;
 
 
     const dailyMl =
-        mlPerDose * numberOfDoses;
+        mlPerDose *
+        numberOfDoses;
 
 
     const routeLabel =
@@ -2610,7 +3224,9 @@ function calculateDose() {
     document.getElementById(
         "resultVolume"
     ).textContent =
-        formatNumber(mlPerDose) +
+        formatNumber(
+            mlPerDose
+        ) +
         " mL";
 
 
@@ -2630,14 +3246,18 @@ function calculateDose() {
     document.getElementById(
         "resultMg"
     ).textContent =
-        formatNumber(mgPerDose) +
+        formatNumber(
+            mgPerDose
+        ) +
         " mg";
 
 
     document.getElementById(
         "resultTakes"
     ).textContent =
-        formatNumber(numberOfDoses) +
+        formatNumber(
+            numberOfDoses
+        ) +
         " dosis/día";
 
 
@@ -2650,21 +3270,27 @@ function calculateDose() {
     document.getElementById(
         "resultWeight"
     ).textContent =
-        formatNumber(weight) +
+        formatNumber(
+            weight
+        ) +
         " kg";
 
 
     document.getElementById(
         "resultDailyMl"
     ).textContent =
-        formatNumber(dailyMl) +
+        formatNumber(
+            dailyMl
+        ) +
         " mL/día";
 
 
     document.getElementById(
         "resultDailyMg"
     ).textContent =
-        formatNumber(dailyMg) +
+        formatNumber(
+            dailyMg
+        ) +
         " mg/día";
 
 
@@ -2690,22 +3316,32 @@ function calculateDose() {
             " kg × " +
             dose +
             " mg/kg/día = " +
-            formatNumber(dailyMg) +
+            formatNumber(
+                dailyMg
+            ) +
             " mg/día\n";
 
         formula +=
             "24 ÷ " +
             hours +
             " h = " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " dosis/día\n";
 
         formula +=
-            formatNumber(dailyMg) +
+            formatNumber(
+                dailyMg
+            ) +
             " mg ÷ " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " = " +
-            formatNumber(mgPerDose) +
+            formatNumber(
+                mgPerDose
+            ) +
             " mg/dosis\n";
 
     }
@@ -2720,22 +3356,32 @@ function calculateDose() {
             " kg × " +
             dose +
             " mg/kg/dosis = " +
-            formatNumber(mgPerDose) +
+            formatNumber(
+                mgPerDose
+            ) +
             " mg/dosis\n";
 
         formula +=
             "24 ÷ " +
             hours +
             " h = " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " dosis/día\n";
 
         formula +=
-            formatNumber(mgPerDose) +
+            formatNumber(
+                mgPerDose
+            ) +
             " mg × " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " = " +
-            formatNumber(dailyMg) +
+            formatNumber(
+                dailyMg
+            ) +
             " mg/día\n";
 
     }
@@ -2750,22 +3396,32 @@ function calculateDose() {
 
         formula +=
             "Dosis correspondiente a la edad = " +
-            formatNumber(mgPerDose) +
+            formatNumber(
+                mgPerDose
+            ) +
             " mg/dosis\n";
 
         formula +=
             "24 ÷ " +
             hours +
             " h = " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " dosis/día\n";
 
         formula +=
-            formatNumber(mgPerDose) +
+            formatNumber(
+                mgPerDose
+            ) +
             " mg × " +
-            formatNumber(numberOfDoses) +
+            formatNumber(
+                numberOfDoses
+            ) +
             " = " +
-            formatNumber(dailyMg) +
+            formatNumber(
+                dailyMg
+            ) +
             " mg/día\n";
 
     }
@@ -2777,9 +3433,13 @@ function calculateDose() {
     ) {
 
         formula +=
-            formatNumber(concentration) +
+            formatNumber(
+                concentration
+            ) +
             " mg / 5 mL = " +
-            formatNumber(mgPerMl) +
+            formatNumber(
+                mgPerMl
+            ) +
             " mg/mL\n";
 
     }
@@ -2787,18 +3447,26 @@ function calculateDose() {
     else {
 
         formula +=
-            formatNumber(concentration) +
+            formatNumber(
+                concentration
+            ) +
             " mg/mL\n";
 
     }
 
 
     formula +=
-        formatNumber(mgPerDose) +
+        formatNumber(
+            mgPerDose
+        ) +
         " mg ÷ " +
-        formatNumber(mgPerMl) +
+        formatNumber(
+            mgPerMl
+        ) +
         " mg/mL = " +
-        formatNumber(mlPerDose) +
+        formatNumber(
+            mlPerDose
+        ) +
         " mL/dosis";
 
 
@@ -2833,7 +3501,9 @@ function setTheme(theme) {
     );
 
 
-    if (theme === "pink") {
+    if (
+        theme === "pink"
+    ) {
 
         document.body.classList.add(
             "pink-theme"
@@ -2845,7 +3515,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#831843"
@@ -2854,7 +3526,9 @@ function setTheme(theme) {
     }
 
 
-    else if (theme === "green") {
+    else if (
+        theme === "green"
+    ) {
 
         document.body.classList.add(
             "green-theme"
@@ -2866,7 +3540,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#166534"
@@ -2875,7 +3551,9 @@ function setTheme(theme) {
     }
 
 
-    else if (theme === "dark-blue") {
+    else if (
+        theme === "dark-blue"
+    ) {
 
         document.body.classList.add(
             "dark-theme"
@@ -2887,7 +3565,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#020617"
@@ -2896,7 +3576,9 @@ function setTheme(theme) {
     }
 
 
-    else if (theme === "dark-pink") {
+    else if (
+        theme === "dark-pink"
+    ) {
 
         document.body.classList.add(
             "dark-theme",
@@ -2909,7 +3591,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#500724"
@@ -2918,7 +3602,9 @@ function setTheme(theme) {
     }
 
 
-    else if (theme === "dark-green") {
+    else if (
+        theme === "dark-green"
+    ) {
 
         document.body.classList.add(
             "dark-theme",
@@ -2931,7 +3617,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#052e16"
@@ -2948,7 +3636,9 @@ function setTheme(theme) {
         );
 
         document
-            .querySelector('meta[name="theme-color"]')
+            .querySelector(
+                'meta[name="theme-color"]'
+            )
             .setAttribute(
                 "content",
                 "#0f172a"
