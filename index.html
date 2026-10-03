@@ -1023,7 +1023,7 @@ const medicines = {
 
             jarabe: {
 
-                label: "Jarabe",
+                label: "Suspensión oral",
 
                 concentrations: [
                     { value: 125, label: "125 mg / 5 mL" },
@@ -1068,7 +1068,7 @@ const medicines = {
 
             jarabe: {
 
-                label: "Jarabe",
+                label: "Suspensión oral",
 
                 concentrations: [
                     { value: 125, label: "125 mg / 5 mL" },
@@ -1432,7 +1432,7 @@ const medicines = {
 
                     gotas: {
 
-                        label: "Gotas",
+                        label: "Gotas orales",
 
                         concentrations: [
                             { value: 100, label: "100 mg / mL" }
@@ -1570,7 +1570,7 @@ const medicines = {
 
                     jarabe: {
 
-                        label: "Jarabe",
+                        label: "Jarabe / suspensión oral",
 
                         concentrations: [
                             { value: 250, label: "250 mg / 5 mL" }
@@ -1580,7 +1580,7 @@ const medicines = {
 
                     gotas: {
 
-                        label: "Gotas",
+                        label: "Gotas orales",
 
                         concentrations: [
                             { value: 500, label: "500 mg / mL" }
@@ -1841,7 +1841,7 @@ const medicines = {
 
             jarabe: {
 
-                label: "Jarabe",
+                label: "Solución oral",
 
                 concentrations: [
                     { value: 1, label: "1 mg / mL" }
@@ -1963,7 +1963,7 @@ const medicines = {
 
             suspension: {
 
-                label: "Suspensión pediátrica",
+                label: "Suspensión oral",
 
                 concentrations: [
                     { value: 6, label: "30 mg / 5 mL" }
@@ -2637,9 +2637,7 @@ function updateMedicineData(medicine) {
             option.textContent =
                 "Edad fuera del esquema cargado";
 
-            doseSelect.appendChild(
-                option
-            );
+            doseSelect.appendChild(option);
 
 
             const freqOption =
