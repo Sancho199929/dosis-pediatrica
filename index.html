@@ -314,6 +314,51 @@ body.dark-theme .access-request-success {
     color: #bbf7d0;
 }
 
+/* ============================================================
+   ENTRAR COMO INVITADO
+   ============================================================ */
+
+.guest-divider {
+    margin-top: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.guest-button {
+    width: 100%;
+    height: 44px;
+    margin-top: 8px;
+    padding: 0 12px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.guest-button:hover {
+    background: var(--focus);
+    color: var(--text);
+}
+
+.guest-notice {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--stat-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.45;
+    text-align: center;
+}
+
+/* ============================================================
+   APP
+   ============================================================ */
+
 .app {
     max-width: 520px;
     margin: auto;
@@ -954,6 +999,35 @@ summary {
         </div>
 
 
+        <!-- ====================================================
+             ENTRAR COMO INVITADO
+             ==================================================== -->
+
+        <div
+            id="guestChooser"
+        >
+
+            <div class="guest-divider">
+                ¿Solo querés probar la calculadora?
+            </div>
+
+            <button
+                id="guestButton"
+                class="guest-button"
+                type="button"
+            >
+                👀 ENTRAR COMO INVITADO
+            </button>
+
+            <div class="guest-notice">
+                Podés utilizar la calculadora sin crear una cuenta.
+                El acceso administrativo estará reservado para
+                usuarios autorizados.
+            </div>
+
+        </div>
+
+
         <div class="login-footer">
             Acceso protegido mediante Supabase Auth.
         </div>
@@ -1522,6 +1596,50 @@ const logoutButton =
 
 
 /* ============================================================
+   MODO INVITADO
+   ============================================================ */
+
+const guestChooser =
+    document.getElementById("guestChooser");
+
+const guestButton =
+    document.getElementById("guestButton");
+
+const GUEST_SESSION_KEY =
+    "dosisPediatricaGuestMode";
+
+
+function isGuestMode() {
+
+    return sessionStorage.getItem(
+        GUEST_SESSION_KEY
+    ) === "true";
+
+}
+
+
+function enterGuestMode() {
+
+    sessionStorage.setItem(
+        GUEST_SESSION_KEY,
+        "true"
+    );
+
+    showApp();
+
+}
+
+
+function exitGuestMode() {
+
+    sessionStorage.removeItem(
+        GUEST_SESSION_KEY
+    );
+
+}
+
+
+/* ============================================================
    SOLICITAR ACCESO - ELEMENTOS
    ============================================================ */
 
@@ -1573,6 +1691,8 @@ function showLogin() {
 
     loginScreen.classList.remove("hidden");
     protectedApp.classList.add("hidden");
+
+    guestChooser.classList.remove("hidden");
 
 }
 
@@ -1632,6 +1752,25 @@ function clearAccessRequestError() {
 
 
 /* ============================================================
+   ENTRAR COMO INVITADO
+   ============================================================ */
+
+guestButton.addEventListener(
+    "click",
+    function() {
+
+        clearLoginError();
+        clearAccessRequestError();
+
+        exitGuestMode();
+
+        enterGuestMode();
+
+    }
+);
+
+
+/* ============================================================
    ABRIR SOLICITUD DE ACCESO
    ============================================================ */
 
@@ -1647,6 +1786,10 @@ requestAccessButton.addEventListener(
         );
 
         accessRequestChooser.classList.add(
+            "hidden"
+        );
+
+        guestChooser.classList.add(
             "hidden"
         );
 
@@ -1690,6 +1833,10 @@ backToLoginButton.addEventListener(
         );
 
         accessRequestChooser.classList.remove(
+            "hidden"
+        );
+
+        guestChooser.classList.remove(
             "hidden"
         );
 
@@ -1881,6 +2028,8 @@ loginForm.addEventListener(
 
         }
 
+        exitGuestMode();
+
         loginPassword.value = "";
 
     }
@@ -1894,6 +2043,21 @@ loginForm.addEventListener(
 logoutButton.addEventListener(
     "click",
     async function() {
+
+        const wasGuest =
+            isGuestMode();
+
+        exitGuestMode();
+
+
+        if (wasGuest) {
+
+            showLogin();
+
+            return;
+
+        }
+
 
         const {
             error
@@ -1925,6 +2089,13 @@ supabaseClient.auth.onAuthStateChange(
     function(event, session) {
 
         if (session) {
+
+            exitGuestMode();
+            showApp();
+
+        }
+
+        else if (isGuestMode()) {
 
             showApp();
 
