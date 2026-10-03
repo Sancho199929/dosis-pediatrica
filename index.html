@@ -44,6 +44,18 @@ body.pink-theme {
     --button-shadow: rgba(219,39,119,.25);
 }
 
+body.green-theme {
+    --primary: #16a34a;
+    --primary-dark: #15803d;
+    --header: #166534;
+    --background: #f0fdf4;
+    --app-bg: #f7fff9;
+    --result-bg: #f0fdf4;
+    --result-border: #bbf7d0;
+    --focus: #dcfce7;
+    --button-shadow: rgba(22,163,74,.25);
+}
+
 body.dark-theme {
     --primary: #3b82f6;
     --primary-dark: #60a5fa;
@@ -80,6 +92,25 @@ body.dark-theme.pink-theme {
     --button-shadow: rgba(236,72,153,.25);
     --stat-bg: #180a14;
     --nav-bg: rgba(26,11,22,.94);
+}
+
+body.dark-theme.green-theme {
+    --primary: #22c55e;
+    --primary-dark: #4ade80;
+    --header: #052e16;
+    --background: #020c05;
+    --app-bg: #071a0c;
+    --card: #10261a;
+    --text: #dcfce7;
+    --muted: #9fbea8;
+    --border: #244b32;
+    --input-bg: #06140a;
+    --result-bg: #0c2b17;
+    --result-border: #166534;
+    --focus: #14532d;
+    --button-shadow: rgba(34,197,94,.25);
+    --stat-bg: #06140a;
+    --nav-bg: rgba(7,26,12,.94);
 }
 
 body {
@@ -202,6 +233,15 @@ select:disabled {
     background: var(--input-bg);
 }
 
+/* Ocultar flecha cuando solo existe una opción */
+select.single-option {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
+    padding-right: 12px;
+}
+
 .weight-wrapper {
     position: relative;
 }
@@ -264,6 +304,10 @@ button:active {
     background: #db2777;
 }
 
+.theme-green {
+    background: #16a34a;
+}
+
 .theme-dark-blue {
     background: #0f172a;
     border: 1px solid #475569;
@@ -272,6 +316,11 @@ button:active {
 .theme-dark-pink {
     background: #831843;
     border: 1px solid #9d174d;
+}
+
+.theme-dark-green {
+    background: #166534;
+    border: 1px solid #22c55e;
 }
 
 .result {
@@ -384,6 +433,23 @@ summary {
     line-height: 1.4;
 }
 
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper input {
+    padding-left: 40px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 13px;
+    top: 14px;
+    font-size: 18px;
+    color: var(--muted);
+    pointer-events: none;
+}
+
 .hidden {
     display: none !important;
 }
@@ -464,6 +530,29 @@ summary {
     </div>
 
     <div class="grid">
+
+        <div class="full">
+
+            <label>
+                Buscar medicamento
+            </label>
+
+            <div class="search-wrapper">
+
+                <span class="search-icon">
+                    🔎
+                </span>
+
+                <input
+                    id="medicineSearch"
+                    type="search"
+                    placeholder="Ej.: amoxi, paracetamol, ibuprofeno..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
 
         <div class="full">
 
@@ -775,12 +864,20 @@ summary {
             🌸 Claro rosa
         </button>
 
+        <button class="theme-button theme-green" id="greenTheme">
+            🟢 Claro verde
+        </button>
+
         <button class="theme-button theme-dark-blue" id="darkBlueTheme">
             🌑 Oscuro azul
         </button>
 
         <button class="theme-button theme-dark-pink" id="darkPinkTheme">
             🌑🌸 Oscuro rosa
+        </button>
+
+        <button class="theme-button theme-dark-green" id="darkGreenTheme">
+            🌑🟢 Oscuro verde
         </button>
 
     </div>
@@ -1467,6 +1564,8 @@ const medicines = {
    ============================================================ */
 
 const medicationSelect = document.getElementById("medication");
+const medicineSearch = document.getElementById("medicineSearch");
+
 const ageInput = document.getElementById("age");
 const ageUnitSelect = document.getElementById("ageUnit");
 const weightInput = document.getElementById("weight");
@@ -1488,8 +1587,10 @@ const result = document.getElementById("result");
 
 const blueThemeButton = document.getElementById("blueTheme");
 const pinkThemeButton = document.getElementById("pinkTheme");
+const greenThemeButton = document.getElementById("greenTheme");
 const darkBlueThemeButton = document.getElementById("darkBlueTheme");
 const darkPinkThemeButton = document.getElementById("darkPinkTheme");
+const darkGreenThemeButton = document.getElementById("darkGreenTheme");
 
 
 /* ============================================================
@@ -1514,12 +1615,14 @@ function clearSelect(select) {
 
     select.innerHTML = "";
     select.disabled = false;
+    select.classList.remove("single-option");
 
 }
 
 
 /* ============================================================
    DESHABILITAR SELECTORES CUANDO SOLO HAY UNA OPCIÓN
+   Y OCULTAR LA FLECHA
    ============================================================ */
 
 function updateSelectState(select) {
@@ -1527,16 +1630,95 @@ function updateSelectState(select) {
     if (select.options.length === 1) {
 
         select.disabled = true;
+        select.classList.add("single-option");
 
     }
 
     else {
 
         select.disabled = false;
+        select.classList.remove("single-option");
 
     }
 
 }
+
+
+/* ============================================================
+   BUSCADOR DE MEDICAMENTOS
+   ============================================================ */
+
+medicineSearch.addEventListener(
+    "input",
+    function() {
+
+        const search =
+            medicineSearch.value
+                .trim()
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+
+        const currentValue =
+            medicationSelect.value;
+
+        let firstMatch = null;
+
+
+        Array.from(
+            medicationSelect.options
+        ).forEach(option => {
+
+            const text =
+                option.textContent
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "");
+
+            const value =
+                option.value
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "");
+
+            const matches =
+                !search ||
+                text.includes(search) ||
+                value.includes(search);
+
+            option.hidden =
+                !matches;
+
+            if (
+                matches &&
+                firstMatch === null
+            ) {
+
+                firstMatch =
+                    option.value;
+
+            }
+
+        });
+
+
+        if (search && firstMatch !== null) {
+
+            medicationSelect.value =
+                firstMatch;
+
+            if (
+                currentValue !== firstMatch
+            ) {
+
+                updateMedicine();
+
+            }
+
+        }
+
+    }
+);
 
 
 /* ============================================================
@@ -1665,10 +1847,6 @@ function updateMedicine() {
     ageNote.classList.add("hidden");
     ageNote.textContent = "";
 
-
-    /* ========================================================
-       MEDICAMENTOS CON VÍAS
-       ======================================================== */
 
     if (medicine.routes) {
 
@@ -2650,6 +2828,7 @@ function setTheme(theme) {
 
     document.body.classList.remove(
         "pink-theme",
+        "green-theme",
         "dark-theme"
     );
 
@@ -2670,6 +2849,27 @@ function setTheme(theme) {
             .setAttribute(
                 "content",
                 "#831843"
+            );
+
+    }
+
+
+    else if (theme === "green") {
+
+        document.body.classList.add(
+            "green-theme"
+        );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "green"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#166534"
             );
 
     }
@@ -2718,6 +2918,28 @@ function setTheme(theme) {
     }
 
 
+    else if (theme === "dark-green") {
+
+        document.body.classList.add(
+            "dark-theme",
+            "green-theme"
+        );
+
+        localStorage.setItem(
+            "dosisPediatricaTheme",
+            "dark-green"
+        );
+
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                "#052e16"
+            );
+
+    }
+
+
     else {
 
         localStorage.setItem(
@@ -2757,6 +2979,14 @@ pinkThemeButton.addEventListener(
 );
 
 
+greenThemeButton.addEventListener(
+    "click",
+    function() {
+        setTheme("green");
+    }
+);
+
+
 darkBlueThemeButton.addEventListener(
     "click",
     function() {
@@ -2769,6 +2999,14 @@ darkPinkThemeButton.addEventListener(
     "click",
     function() {
         setTheme("dark-pink");
+    }
+);
+
+
+darkGreenThemeButton.addEventListener(
+    "click",
+    function() {
+        setTheme("dark-green");
     }
 );
 
@@ -2792,6 +3030,14 @@ if (
 }
 
 else if (
+    savedTheme === "green"
+) {
+
+    setTheme("green");
+
+}
+
+else if (
     savedTheme === "dark-blue"
 ) {
 
@@ -2804,6 +3050,14 @@ else if (
 ) {
 
     setTheme("dark-pink");
+
+}
+
+else if (
+    savedTheme === "dark-green"
+) {
+
+    setTheme("dark-green");
 
 }
 
