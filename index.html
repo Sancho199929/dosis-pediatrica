@@ -194,7 +194,7 @@ select:focus {
     border-color: var(--primary);
 }
 
-/* NUEVO: selector con una sola opción */
+/* Selector con una sola opción */
 select:disabled {
     opacity: 1;
     cursor: default;
@@ -447,7 +447,7 @@ summary {
         </div>
     </div>
 
-    <h1>Calculadora</h1>
+    <h1>CalculadoraFS</h1>
 
     <p>
         Cálculo pediátrico y conversión automática a mL
@@ -891,7 +891,8 @@ const medicines = {
                     { value: 125, label: "125 mg / 5 mL" },
                     { value: 250, label: "250 mg / 5 mL" },
                     { value: 400, label: "400 mg / 5 mL" },
-                    { value: 500, label: "500 mg / 5 mL" }
+                    { value: 500, label: "500 mg / 5 mL" },
+                    { value: 750, label: "750 mg / 5 mL" }
                 ]
 
             }
@@ -1518,7 +1519,6 @@ function clearSelect(select) {
 
 
 /* ============================================================
-   NUEVO:
    DESHABILITAR SELECTORES CUANDO SOLO HAY UNA OPCIÓN
    ============================================================ */
 
@@ -1687,7 +1687,6 @@ function updateMedicine() {
 
             });
 
-        /* NUEVO */
         updateSelectState(routeSelect);
 
         updateRoute();
@@ -1816,7 +1815,6 @@ function updateRoute() {
             });
 
 
-            /* NUEVO */
             updateSelectState(doseSelect);
             updateSelectState(frequencySelect);
 
@@ -1878,7 +1876,6 @@ function updateRoute() {
         }
 
 
-        /* NUEVO */
         updateSelectState(doseSelect);
         updateSelectState(frequencySelect);
 
@@ -1912,7 +1909,6 @@ function updateRoute() {
         });
 
 
-    /* NUEVO */
     updateSelectState(formSelect);
 
     updateConcentrations();
@@ -2040,7 +2036,6 @@ function updateMedicineData(medicine) {
             });
 
 
-            /* NUEVO */
             updateSelectState(doseSelect);
             updateSelectState(frequencySelect);
 
@@ -2093,7 +2088,6 @@ function updateMedicineData(medicine) {
         });
 
 
-        /* NUEVO */
         updateSelectState(doseSelect);
         updateSelectState(frequencySelect);
 
@@ -2117,7 +2111,6 @@ function updateMedicineData(medicine) {
         });
 
 
-    /* NUEVO */
     updateSelectState(formSelect);
 
     updateConcentrations();
@@ -2208,7 +2201,6 @@ function updateConcentrations() {
     });
 
 
-    /* NUEVO */
     updateSelectState(concentrationSelect);
 
     concentrationContainer.classList.remove("hidden");
