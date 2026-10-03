@@ -8,6 +8,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Dosis Pediátrica AR</title>
 
+<!-- ============================================================
+     SUPABASE
+     ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 * {
     box-sizing: border-box;
@@ -121,6 +126,90 @@ body {
     transition: background .25s ease, color .25s ease;
 }
 
+/* ============================================================
+   LOGIN
+   ============================================================ */
+
+.login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 28px 22px;
+    box-shadow: 0 12px 35px rgba(15,23,42,.10);
+}
+
+.login-logo {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 850;
+    margin-bottom: 18px;
+}
+
+.login-card h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 27px;
+}
+
+.login-subtitle {
+    margin: 8px 0 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.login-card label {
+    margin-top: 12px;
+}
+
+.login-card input {
+    margin-bottom: 2px;
+}
+
+.login-button {
+    margin-top: 18px;
+}
+
+.login-error {
+    display: none;
+    margin-top: 13px;
+    padding: 11px 12px;
+    border-radius: 12px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.login-loading {
+    display: none;
+    margin-top: 12px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.login-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
 .app {
     max-width: 520px;
     margin: auto;
@@ -155,6 +244,30 @@ body {
     padding: 5px 9px;
     border-radius: 999px;
     font-size: 10px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.logout-button {
+    width: auto;
+    height: 31px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    box-shadow: none;
+}
+
+.logout-button:hover {
+    background: rgba(255,255,255,.20);
 }
 
 .header h1 {
@@ -493,22 +606,132 @@ summary {
     .age-wrapper {
         grid-template-columns: 1fr 90px;
     }
+
+    .header-actions {
+        gap: 4px;
+    }
+
+    .logout-button {
+        padding: 0 8px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- ============================================================
+     PANTALLA DE LOGIN
+     ============================================================ -->
+
+<div
+    id="loginScreen"
+    class="login-screen"
+>
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            💊 Dosis Pediátrica AR
+        </div>
+
+        <h1>CalculadoraFS</h1>
+
+        <div class="login-subtitle">
+            Ingresá con tu usuario y contraseña
+            para acceder a la calculadora.
+        </div>
+
+        <form id="loginForm">
+
+            <label for="loginEmail">
+                Email
+            </label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="tu@email.com"
+                required
+            >
+
+            <label for="loginPassword">
+                Contraseña
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="••••••••"
+                required
+            >
+
+            <button
+                id="loginButton"
+                class="login-button"
+                type="submit"
+            >
+                INGRESAR
+            </button>
+
+        </form>
+
+        <div
+            id="loginError"
+            class="login-error"
+        ></div>
+
+        <div
+            id="loginLoading"
+            class="login-loading"
+        >
+            Verificando acceso...
+        </div>
+
+        <div class="login-footer">
+            Acceso protegido mediante Supabase Auth.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     APLICACIÓN PROTEGIDA
+     ============================================================ -->
+
+<div
+    id="protectedApp"
+    class="app hidden"
+>
 
 <header class="header">
 
     <div class="header-top">
-        <div class="logo">💊 Dosis Pediátrica AR</div>
 
-        <div class="version">
-            v1.4
+        <div class="logo">
+            💊 Dosis Pediátrica AR
         </div>
+
+        <div class="header-actions">
+
+            <div class="version">
+                v1.4
+            </div>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+                type="button"
+            >
+                Salir
+            </button>
+
+        </div>
+
     </div>
 
     <h1>CalculadoraFS</h1>
@@ -988,6 +1211,184 @@ summary {
 
 
 <script>
+
+/* ============================================================
+   SUPABASE AUTHENTICATION
+   ============================================================ */
+
+const SUPABASE_URL =
+    "https://fvxizdghuxexhfecjzrw.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_zyFlli5f8jTIE83IwvJMmA_1Vjos5KJ";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+const loginScreen =
+    document.getElementById("loginScreen");
+
+const protectedApp =
+    document.getElementById("protectedApp");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const loginEmail =
+    document.getElementById("loginEmail");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginError =
+    document.getElementById("loginError");
+
+const loginLoading =
+    document.getElementById("loginLoading");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+function showLogin() {
+
+    loginScreen.classList.remove("hidden");
+    protectedApp.classList.add("hidden");
+
+}
+
+
+function showApp() {
+
+    loginScreen.classList.add("hidden");
+    protectedApp.classList.remove("hidden");
+
+}
+
+
+function showLoginError(message) {
+
+    loginError.textContent = message;
+    loginError.style.display = "block";
+
+}
+
+
+function clearLoginError() {
+
+    loginError.textContent = "";
+    loginError.style.display = "none";
+
+}
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        clearLoginError();
+
+        const email =
+            loginEmail.value.trim();
+
+        const password =
+            loginPassword.value;
+
+        if (!email || !password) {
+
+            showLoginError(
+                "Ingresá el email y la contraseña."
+            );
+
+            return;
+
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent = "INGRESANDO...";
+        loginLoading.style.display = "block";
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        loginButton.disabled = false;
+        loginButton.textContent = "INGRESAR";
+        loginLoading.style.display = "none";
+
+        if (error) {
+
+            showLoginError(
+                "No se pudo iniciar sesión. Verificá el email y la contraseña."
+            );
+
+            return;
+
+        }
+
+        loginPassword.value = "";
+
+    }
+);
+
+
+logoutButton.addEventListener(
+    "click",
+    async function() {
+
+        const {
+            error
+        } =
+            await supabaseClient.auth.signOut();
+
+        if (error) {
+
+            console.error(
+                "Error al cerrar sesión:",
+                error
+            );
+
+            return;
+
+        }
+
+        showLogin();
+
+    }
+);
+
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (session) {
+
+            showApp();
+
+        }
+
+        else {
+
+            showLogin();
+
+        }
+
+    }
+);
+
 
 /* ============================================================
    BASE DE DATOS DE MEDICAMENTOS
