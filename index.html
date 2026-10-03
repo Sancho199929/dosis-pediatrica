@@ -210,6 +210,110 @@ body {
     line-height: 1.5;
 }
 
+/* ============================================================
+   SOLICITAR ACCESO
+   ============================================================ */
+
+.access-divider {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.access-request-link {
+    width: 100%;
+    height: 44px;
+    margin-top: 8px;
+    padding: 0 12px;
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--border);
+    box-shadow: none;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.access-request-link:hover {
+    background: var(--focus);
+}
+
+.access-request-title {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 850;
+}
+
+.access-request-subtitle {
+    margin: 7px 0 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.access-request-panel textarea {
+    width: 100%;
+    min-height: 95px;
+    resize: vertical;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--input-bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    padding: 12px;
+    transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.access-request-panel textarea:focus {
+    outline: 3px solid var(--focus);
+    border-color: var(--primary);
+}
+
+.access-request-optional {
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.access-request-submit {
+    margin-top: 18px;
+}
+
+.access-back-button {
+    height: 44px;
+    margin-top: 9px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    box-shadow: none;
+    font-size: 12px;
+}
+
+.access-back-button:hover {
+    background: var(--focus);
+    color: var(--text);
+}
+
+.access-request-success {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 13px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+body.dark-theme .access-request-success {
+    background: #052e16;
+    border-color: #166534;
+    color: #bbf7d0;
+}
+
 .app {
     max-width: 520px;
     margin: auto;
@@ -393,6 +497,11 @@ button {
 
 button:active {
     transform: translateY(1px);
+}
+
+button:disabled {
+    opacity: .65;
+    cursor: default;
 }
 
 .theme-buttons {
@@ -595,6 +704,7 @@ summary {
 }
 
 @media(max-width:390px) {
+
     .grid {
         grid-template-columns: 1fr;
     }
@@ -614,6 +724,7 @@ summary {
     .logout-button {
         padding: 0 8px;
     }
+
 }
 </style>
 </head>
@@ -641,6 +752,11 @@ summary {
             Ingresá con tu usuario y contraseña
             para acceder a la calculadora.
         </div>
+
+
+        <!-- ====================================================
+             LOGIN NORMAL
+             ==================================================== -->
 
         <form id="loginForm">
 
@@ -678,10 +794,12 @@ summary {
 
         </form>
 
+
         <div
             id="loginError"
             class="login-error"
         ></div>
+
 
         <div
             id="loginLoading"
@@ -689,6 +807,152 @@ summary {
         >
             Verificando acceso...
         </div>
+
+
+        <!-- ====================================================
+             SOLICITAR ACCESO
+             ==================================================== -->
+
+        <div
+            id="accessRequestChooser"
+        >
+
+            <div class="access-divider">
+                ¿No tenés una cuenta?
+            </div>
+
+            <button
+                id="requestAccessButton"
+                class="access-request-link"
+                type="button"
+            >
+                SOLICITAR ACCESO
+            </button>
+
+        </div>
+
+
+        <div
+            id="accessRequestPanel"
+            class="hidden"
+        >
+
+            <div class="access-request-title">
+                Solicitar acceso
+            </div>
+
+            <div class="access-request-subtitle">
+                Completá tus datos y enviaremos tu solicitud
+                para que pueda ser revisada.
+            </div>
+
+
+            <form id="accessRequestForm">
+
+                <label for="requestName">
+                    Nombre y apellido
+                </label>
+
+                <input
+                    id="requestName"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Tu nombre y apellido"
+                    maxlength="100"
+                    required
+                >
+
+
+                <label for="requestEmail">
+                    Email
+                </label>
+
+                <input
+                    id="requestEmail"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="tu@email.com"
+                    maxlength="255"
+                    required
+                >
+
+
+                <label for="requestInstitution">
+                    Institución / hospital
+                    <span class="access-request-optional">
+                        (opcional)
+                    </span>
+                </label>
+
+                <input
+                    id="requestInstitution"
+                    type="text"
+                    autocomplete="organization"
+                    placeholder="Ej.: Hospital / Facultad / CAPS"
+                    maxlength="150"
+                >
+
+
+                <label for="requestMessage">
+                    Mensaje
+                    <span class="access-request-optional">
+                        (opcional)
+                    </span>
+                </label>
+
+                <textarea
+                    id="requestMessage"
+                    placeholder="Podés indicar para qué querés utilizar la calculadora."
+                    maxlength="1000"
+                ></textarea>
+
+
+                <button
+                    id="submitAccessRequest"
+                    class="access-request-submit"
+                    type="submit"
+                >
+                    ENVIAR SOLICITUD
+                </button>
+
+
+                <button
+                    id="backToLoginButton"
+                    class="access-back-button"
+                    type="button"
+                >
+                    VOLVER AL INICIO DE SESIÓN
+                </button>
+
+            </form>
+
+
+            <div
+                id="accessRequestError"
+                class="login-error"
+            ></div>
+
+
+            <div
+                id="accessRequestLoading"
+                class="login-loading"
+            >
+                Enviando solicitud...
+            </div>
+
+
+            <div
+                id="accessRequestSuccess"
+                class="access-request-success hidden"
+            >
+                <strong>Solicitud enviada correctamente.</strong>
+                <br><br>
+                Tus datos fueron recibidos. La solicitud deberá
+                ser revisada antes de habilitar el acceso.
+            </div>
+
+        </div>
+
 
         <div class="login-footer">
             Acceso protegido mediante Supabase Auth.
@@ -1257,6 +1521,54 @@ const logoutButton =
     document.getElementById("logoutButton");
 
 
+/* ============================================================
+   SOLICITAR ACCESO - ELEMENTOS
+   ============================================================ */
+
+const accessRequestChooser =
+    document.getElementById("accessRequestChooser");
+
+const requestAccessButton =
+    document.getElementById("requestAccessButton");
+
+const accessRequestPanel =
+    document.getElementById("accessRequestPanel");
+
+const accessRequestForm =
+    document.getElementById("accessRequestForm");
+
+const requestName =
+    document.getElementById("requestName");
+
+const requestEmail =
+    document.getElementById("requestEmail");
+
+const requestInstitution =
+    document.getElementById("requestInstitution");
+
+const requestMessage =
+    document.getElementById("requestMessage");
+
+const submitAccessRequest =
+    document.getElementById("submitAccessRequest");
+
+const backToLoginButton =
+    document.getElementById("backToLoginButton");
+
+const accessRequestError =
+    document.getElementById("accessRequestError");
+
+const accessRequestLoading =
+    document.getElementById("accessRequestLoading");
+
+const accessRequestSuccess =
+    document.getElementById("accessRequestSuccess");
+
+
+/* ============================================================
+   MOSTRAR LOGIN / APP
+   ============================================================ */
+
 function showLogin() {
 
     loginScreen.classList.remove("hidden");
@@ -1273,6 +1585,10 @@ function showApp() {
 }
 
 
+/* ============================================================
+   ERRORES DEL LOGIN
+   ============================================================ */
+
 function showLoginError(message) {
 
     loginError.textContent = message;
@@ -1288,6 +1604,232 @@ function clearLoginError() {
 
 }
 
+
+/* ============================================================
+   ERRORES DE SOLICITUD DE ACCESO
+   ============================================================ */
+
+function showAccessRequestError(message) {
+
+    accessRequestError.textContent =
+        message;
+
+    accessRequestError.style.display =
+        "block";
+
+}
+
+
+function clearAccessRequestError() {
+
+    accessRequestError.textContent =
+        "";
+
+    accessRequestError.style.display =
+        "none";
+
+}
+
+
+/* ============================================================
+   ABRIR SOLICITUD DE ACCESO
+   ============================================================ */
+
+requestAccessButton.addEventListener(
+    "click",
+    function() {
+
+        clearLoginError();
+        clearAccessRequestError();
+
+        loginForm.classList.add(
+            "hidden"
+        );
+
+        accessRequestChooser.classList.add(
+            "hidden"
+        );
+
+        accessRequestPanel.classList.remove(
+            "hidden"
+        );
+
+        accessRequestSuccess.classList.add(
+            "hidden"
+        );
+
+        accessRequestForm.classList.remove(
+            "hidden"
+        );
+
+        requestEmail.value =
+            loginEmail.value.trim();
+
+        requestName.focus();
+
+    }
+);
+
+
+/* ============================================================
+   VOLVER AL LOGIN
+   ============================================================ */
+
+backToLoginButton.addEventListener(
+    "click",
+    function() {
+
+        clearAccessRequestError();
+
+        accessRequestPanel.classList.add(
+            "hidden"
+        );
+
+        loginForm.classList.remove(
+            "hidden"
+        );
+
+        accessRequestChooser.classList.remove(
+            "hidden"
+        );
+
+        accessRequestSuccess.classList.add(
+            "hidden"
+        );
+
+        accessRequestForm.classList.remove(
+            "hidden"
+        );
+
+        requestName.value = "";
+        requestInstitution.value = "";
+        requestMessage.value = "";
+
+    }
+);
+
+
+/* ============================================================
+   ENVIAR SOLICITUD DE ACCESO
+   ============================================================ */
+
+accessRequestForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        clearAccessRequestError();
+
+        const name =
+            requestName.value.trim();
+
+        const email =
+            requestEmail.value.trim();
+
+        const institution =
+            requestInstitution.value.trim();
+
+        const message =
+            requestMessage.value.trim();
+
+
+        if (
+            !name ||
+            name.length < 2
+        ) {
+
+            showAccessRequestError(
+                "Ingresá tu nombre y apellido."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !email ||
+            !email.includes("@")
+        ) {
+
+            showAccessRequestError(
+                "Ingresá un email válido."
+            );
+
+            return;
+
+        }
+
+
+        submitAccessRequest.disabled =
+            true;
+
+        submitAccessRequest.textContent =
+            "ENVIANDO...";
+
+        accessRequestLoading.style.display =
+            "block";
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("access_requests")
+                .insert([
+                    {
+                        name: name,
+                        email: email,
+                        institution:
+                            institution || null,
+                        message:
+                            message || null
+                    }
+                ]);
+
+
+        submitAccessRequest.disabled =
+            false;
+
+        submitAccessRequest.textContent =
+            "ENVIAR SOLICITUD";
+
+        accessRequestLoading.style.display =
+            "none";
+
+
+        if (error) {
+
+            console.error(
+                "Error al enviar solicitud de acceso:",
+                error
+            );
+
+            showAccessRequestError(
+                "No se pudo enviar la solicitud. Intentá nuevamente."
+            );
+
+            return;
+
+        }
+
+
+        accessRequestForm.classList.add(
+            "hidden"
+        );
+
+        accessRequestSuccess.classList.remove(
+            "hidden"
+        );
+
+    }
+);
+
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
 
 loginForm.addEventListener(
     "submit",
@@ -1345,6 +1887,10 @@ loginForm.addEventListener(
 );
 
 
+/* ============================================================
+   CERRAR SESIÓN
+   ============================================================ */
+
 logoutButton.addEventListener(
     "click",
     async function() {
@@ -1370,6 +1916,10 @@ logoutButton.addEventListener(
     }
 );
 
+
+/* ============================================================
+   ESTADO DE AUTENTICACIÓN
+   ============================================================ */
 
 supabaseClient.auth.onAuthStateChange(
     function(event, session) {
