@@ -780,7 +780,10 @@ summary {
      PANTALLA DE LOGIN
      ============================================================ -->
 
-<div id="loginScreen" class="login-screen">
+<div
+    id="loginScreen"
+    class="login-screen"
+>
 
     <div class="login-card">
 
@@ -794,6 +797,11 @@ summary {
             Ingresá con tu usuario y contraseña
             para acceder a la calculadora.
         </div>
+
+
+        <!-- ====================================================
+             LOGIN NORMAL
+             ==================================================== -->
 
         <form id="loginForm">
 
@@ -831,17 +839,28 @@ summary {
 
         </form>
 
-        <div id="loginError" class="login-error"></div>
 
-        <div id="loginLoading" class="login-loading">
+        <div
+            id="loginError"
+            class="login-error"
+        ></div>
+
+
+        <div
+            id="loginLoading"
+            class="login-loading"
+        >
             Verificando acceso...
         </div>
+
 
         <!-- ====================================================
              SOLICITAR ACCESO
              ==================================================== -->
 
-        <div id="accessRequestChooser">
+        <div
+            id="accessRequestChooser"
+        >
 
             <div class="access-divider">
                 ¿No tenés una cuenta?
@@ -857,7 +876,11 @@ summary {
 
         </div>
 
-        <div id="accessRequestPanel" class="hidden">
+
+        <div
+            id="accessRequestPanel"
+            class="hidden"
+        >
 
             <div class="access-request-title">
                 Solicitar acceso
@@ -867,6 +890,7 @@ summary {
                 Completá tus datos y enviaremos tu solicitud
                 para que pueda ser revisada.
             </div>
+
 
             <form id="accessRequestForm">
 
@@ -883,6 +907,7 @@ summary {
                     required
                 >
 
+
                 <label for="requestEmail">
                     Email
                 </label>
@@ -895,6 +920,7 @@ summary {
                     maxlength="255"
                     required
                 >
+
 
                 <label for="requestInstitution">
                     Institución / hospital
@@ -911,6 +937,7 @@ summary {
                     maxlength="150"
                 >
 
+
                 <label for="requestMessage">
                     Mensaje
                     <span class="access-request-optional">
@@ -924,6 +951,7 @@ summary {
                     maxlength="1000"
                 ></textarea>
 
+
                 <button
                     id="submitAccessRequest"
                     class="access-request-submit"
@@ -931,6 +959,7 @@ summary {
                 >
                     ENVIAR SOLICITUD
                 </button>
+
 
                 <button
                     id="backToLoginButton"
@@ -942,10 +971,12 @@ summary {
 
             </form>
 
+
             <div
                 id="accessRequestError"
                 class="login-error"
             ></div>
+
 
             <div
                 id="accessRequestLoading"
@@ -953,6 +984,7 @@ summary {
             >
                 Enviando solicitud...
             </div>
+
 
             <div
                 id="accessRequestSuccess"
@@ -966,11 +998,14 @@ summary {
 
         </div>
 
+
         <!-- ====================================================
              ENTRAR COMO INVITADO
              ==================================================== -->
 
-        <div id="guestChooser">
+        <div
+            id="guestChooser"
+        >
 
             <div class="guest-divider">
                 ¿Solo querés probar la calculadora?
@@ -992,6 +1027,7 @@ summary {
 
         </div>
 
+
         <div class="login-footer">
             Acceso protegido mediante Supabase Auth.
         </div>
@@ -1005,7 +1041,10 @@ summary {
      APLICACIÓN PROTEGIDA
      ============================================================ -->
 
-<div id="protectedApp" class="app hidden">
+<div
+    id="protectedApp"
+    class="app hidden"
+>
 
 <header class="header">
 
@@ -1091,11 +1130,11 @@ summary {
                 </option>
 
                 <option value="amoxicilinaClavulanatoSBA">
-                    Amoxicilina + clavulanato - OMA
+                    Amoxicilina + clavulanato - SBA
                 </option>
 
                 <option value="cefuroximaSBA">
-                    Cefuroxima - OMA / alergia a penicilina no tipo I
+                    Cefuroxima - SBA / alergia a penicilina no tipo I
                 </option>
 
                 <option value="tmpSmxSBA">
@@ -1111,7 +1150,7 @@ summary {
                 </option>
 
                 <option value="ceftriaxonaSBA">
-                    Ceftriaxona - OMA / mala tolerancia oral
+                    Ceftriaxona - SBA / mala tolerancia oral
                 </option>
 
                 <option value="paracetamol">
@@ -2079,7 +2118,7 @@ supabaseClient.auth.onAuthStateChange(
 const medicines = {
 
     /* ========================================================
-       OMA - AMOXICILINA
+       OMA
        ======================================================== */
 
     amoxicilina: {
@@ -2089,41 +2128,17 @@ const medicines = {
         type: "mgkgday",
 
         doses: [
-            {
-                value: 80,
-                label: "80 mg/kg/día"
-            },
-            {
-                value: 85,
-                label: "85 mg/kg/día"
-            },
-            {
-                value: 90,
-                label: "90 mg/kg/día"
-            }
+            { value: 80, label: "80 mg/kg/día" },
+            { value: 85, label: "85 mg/kg/día" },
+            { value: 90, label: "90 mg/kg/día" }
         ],
 
         frequencies: [
-            {
-                hours: 4,
-                label: "Cada 4 horas"
-            },
-            {
-                hours: 6,
-                label: "Cada 6 horas"
-            },
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            },
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            },
-            {
-                hours: 24,
-                label: "Cada 24 horas"
-            }
+            { hours: 4, label: "Cada 4 horas" },
+            { hours: 6, label: "Cada 6 horas" },
+            { hours: 8, label: "Cada 8 horas" },
+            { hours: 12, label: "Cada 12 horas" },
+            { hours: 24, label: "Cada 24 horas" }
         ],
 
         forms: {
@@ -2133,26 +2148,11 @@ const medicines = {
                 label: "Suspensión oral",
 
                 concentrations: [
-                    {
-                        value: 125,
-                        label: "125 mg / 5 mL"
-                    },
-                    {
-                        value: 250,
-                        label: "250 mg / 5 mL"
-                    },
-                    {
-                        value: 400,
-                        label: "400 mg / 5 mL"
-                    },
-                    {
-                        value: 500,
-                        label: "500 mg / 5 mL"
-                    },
-                    {
-                        value: 750,
-                        label: "750 mg / 5 mL"
-                    }
+                    { value: 125, label: "125 mg / 5 mL" },
+                    { value: 250, label: "250 mg / 5 mL" },
+                    { value: 400, label: "400 mg / 5 mL" },
+                    { value: 500, label: "500 mg / 5 mL" },
+                    { value: 750, label: "750 mg / 5 mL" }
                 ]
 
             }
@@ -2193,26 +2193,11 @@ const medicines = {
                 label: "Suspensión oral",
 
                 concentrations: [
-                    {
-                        value: 125,
-                        label: "125 mg / 5 mL"
-                    },
-                    {
-                        value: 250,
-                        label: "250 mg / 5 mL"
-                    },
-                    {
-                        value: 400,
-                        label: "400 mg / 5 mL"
-                    },
-                    {
-                        value: 500,
-                        label: "500 mg / 5 mL"
-                    },
-                    {
-                        value: 750,
-                        label: "750 mg / 5 mL"
-                    }
+                    { value: 125, label: "125 mg / 5 mL" },
+                    { value: 250, label: "250 mg / 5 mL" },
+                    { value: 400, label: "400 mg / 5 mL" },
+                    { value: 500, label: "500 mg / 5 mL" },
+                    { value: 750, label: "750 mg / 5 mL" }
                 ]
 
             }
@@ -2221,17 +2206,16 @@ const medicines = {
 
         note:
             "SBA: esquema cargado de 40 mg/kg/día cada 8 horas. En el enfoque argentino consultado, la amoxicilina se utiliza como opción inicial en niños ≥2 años con enfermedad leve-moderada, sin concurrencia a guardería y sin antibióticos durante el mes previo. Verificar siempre protocolo local y criterios clínicos."
-
     },
 
 
     /* ========================================================
-       OMA - AMOXICILINA + CLAVULANATO
+       SBA - AMOXICILINA + CLAVULANATO
        ======================================================== */
 
     amoxicilinaClavulanatoSBA: {
 
-        name: "Amoxicilina + clavulanato - OMA",
+        name: "Amoxicilina + clavulanato - SBA",
 
         type: "mgkgday",
 
@@ -2239,6 +2223,10 @@ const medicines = {
             {
                 value: 80,
                 label: "80 mg/kg/día de amoxicilina"
+            },
+            {
+                value: 90,
+                label: "90 mg/kg/día de amoxicilina"
             }
         ],
 
@@ -2271,25 +2259,24 @@ const medicines = {
         },
 
         note:
-            "OMA: 80 mg/kg/día de amoxicilina, administrado cada 8 horas. Duración habitual: 5–10 días según edad, gravedad y evolución clínica. La dosis se calcula sobre el componente de amoxicilina. Verificar formulación, concentración disponible y protocolo local."
-
+            "SBA: esquema cargado de 80–90 mg/kg/día de amoxicilina. Se considera especialmente ante <2 años, concurrencia a guardería, antibiótico durante el mes previo o enfermedad moderada-severa. La dosis se calcula sobre el componente de amoxicilina. El intervalo puede variar según la formulación y el protocolo; verificar ficha técnica/protocolo local."
     },
 
 
     /* ========================================================
-       OMA - CEFUROXIMA
+       SBA - CEFUROXIMA
        ======================================================== */
 
     cefuroximaSBA: {
 
-        name: "Cefuroxima - OMA / alergia a penicilina no tipo I",
+        name: "Cefuroxima - SBA / alergia a penicilina no tipo I",
 
         type: "mgkgday",
 
         doses: [
             {
-                value: 30,
-                label: "30 mg/kg/día"
+                value: 20,
+                label: "20 mg/kg/día"
             },
             {
                 value: 40,
@@ -2326,8 +2313,7 @@ const medicines = {
         },
 
         note:
-            "OMA: alternativa en pacientes con alergia a penicilina no tipo I. Dosis: 30–40 mg/kg/día por vía oral, dividida cada 12 horas. Verificar el tipo de alergia antes de utilizar una cefalosporina y consultar el protocolo local."
-
+            "Alternativa para alergia a penicilina no tipo I. En fuentes argentinas de SAP se describen cefalosporinas de 2.ª generación como alternativa y cefuroxima en dosis de 20–40 mg/kg/día. Verificar tipo de alergia antes de utilizar una cefalosporina."
     },
 
 
@@ -2378,7 +2364,6 @@ const medicines = {
 
         note:
             "Cargado como 2.ª elección según el esquema argentino de referencia consultado. La dosis se expresa por el componente de trimetoprima (TMP). Verificar indicación y sensibilidad bacteriana antes de utilizar."
-
     },
 
 
@@ -2429,7 +2414,6 @@ const medicines = {
 
         note:
             "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema de referencia: 15 mg/kg/día dividido cada 12 horas. Verificar resistencia local, indicación y protocolo vigente antes de utilizar."
-
     },
 
 
@@ -2476,24 +2460,23 @@ const medicines = {
 
         note:
             "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema habitual cargado: 10 mg/kg cada 24 horas. En rinosinusitis, fuentes argentinas describen 5 días como duración alternativa. Verificar indicación y resistencia local."
-
     },
 
 
     /* ========================================================
-       OMA - CEFTRIAXONA
+       SBA - CEFTRIAXONA
        ======================================================== */
 
     ceftriaxonaSBA: {
 
-        name: "Ceftriaxona - OMA / mala tolerancia oral",
+        name: "Ceftriaxona - SBA / mala tolerancia oral",
 
-        type: "mgkgday",
+        type: "mgkgdose",
 
         doses: [
             {
                 value: 50,
-                label: "50 mg/kg/día"
+                label: "50 mg/kg/dosis"
             }
         ],
 
@@ -2522,8 +2505,7 @@ const medicines = {
         },
 
         note:
-            "OMA: ceftriaxona 50 mg/kg/día por vía IM cada 24 horas, hasta 3 días según respuesta clínica y contexto. Verificar reconstitución, presentación disponible y protocolo local antes de administrar."
-
+            "Opción por vía IM cuando el paciente vomita o no acepta antibióticos por vía oral. Dosis: 50 mg/kg/dosis cada 24 horas. Duración cargada para este esquema: 1 a 3 días. Verificar reconstitución, presentación disponible y protocolo local antes de administrar."
     },
 
 
@@ -2544,41 +2526,17 @@ const medicines = {
                 label: "VO · Oral",
 
                 doses: [
-                    {
-                        value: 10,
-                        label: "10 mg/kg/dosis"
-                    },
-                    {
-                        value: 12.5,
-                        label: "12,5 mg/kg/dosis"
-                    },
-                    {
-                        value: 15,
-                        label: "15 mg/kg/dosis"
-                    }
+                    { value: 10, label: "10 mg/kg/dosis" },
+                    { value: 12.5, label: "12,5 mg/kg/dosis" },
+                    { value: 15, label: "15 mg/kg/dosis" }
                 ],
 
                 frequencies: [
-                    {
-                        hours: 4,
-                        label: "Cada 4 horas"
-                    },
-                    {
-                        hours: 6,
-                        label: "Cada 6 horas"
-                    },
-                    {
-                        hours: 8,
-                        label: "Cada 8 horas"
-                    },
-                    {
-                        hours: 12,
-                        label: "Cada 12 horas"
-                    },
-                    {
-                        hours: 24,
-                        label: "Cada 24 horas"
-                    }
+                    { hours: 4, label: "Cada 4 horas" },
+                    { hours: 6, label: "Cada 6 horas" },
+                    { hours: 8, label: "Cada 8 horas" },
+                    { hours: 12, label: "Cada 12 horas" },
+                    { hours: 24, label: "Cada 24 horas" }
                 ],
 
                 forms: {
@@ -2588,14 +2546,8 @@ const medicines = {
                         label: "Jarabe",
 
                         concentrations: [
-                            {
-                                value: 20,
-                                label: "100 mg / 5 mL"
-                            },
-                            {
-                                value: 24,
-                                label: "120 mg / 5 mL"
-                            }
+                            { value: 20, label: "100 mg / 5 mL" },
+                            { value: 24, label: "120 mg / 5 mL" }
                         ]
 
                     },
@@ -2605,10 +2557,7 @@ const medicines = {
                         label: "Gotas orales",
 
                         concentrations: [
-                            {
-                                value: 100,
-                                label: "100 mg / mL"
-                            }
+                            { value: 100, label: "100 mg / mL" }
                         ]
 
                     }
@@ -2630,17 +2579,11 @@ const medicines = {
                         maxMonths: 0,
 
                         doses: [
-                            {
-                                value: 12.5,
-                                label: "12,5 mg/kg/dosis"
-                            }
+                            { value: 12.5, label: "12,5 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" }
                         ],
 
                         note:
@@ -2652,17 +2595,11 @@ const medicines = {
                         maxMonths: 0.9,
 
                         doses: [
-                            {
-                                value: 12.5,
-                                label: "12,5 mg/kg/dosis"
-                            }
+                            { value: 12.5, label: "12,5 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" }
                         ]
                     },
 
@@ -2671,17 +2608,11 @@ const medicines = {
                         maxMonths: 23,
 
                         doses: [
-                            {
-                                value: 15,
-                                label: "15 mg/kg/dosis"
-                            }
+                            { value: 15, label: "15 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" }
                         ]
                     },
 
@@ -2690,25 +2621,13 @@ const medicines = {
                         maxMonths: 143,
 
                         doses: [
-                            {
-                                value: 12.5,
-                                label: "12,5 mg/kg/dosis"
-                            },
-                            {
-                                value: 15,
-                                label: "15 mg/kg/dosis"
-                            }
+                            { value: 12.5, label: "12,5 mg/kg/dosis" },
+                            { value: 15, label: "15 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 4,
-                                label: "Cada 4 horas"
-                            },
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            }
+                            { hours: 4, label: "Cada 4 horas" },
+                            { hours: 6, label: "Cada 6 horas" }
                         ],
 
                         note:
@@ -2724,10 +2643,7 @@ const medicines = {
                         label: "Solución para infusión EV",
 
                         concentrations: [
-                            {
-                                value: 10,
-                                label: "10 mg / mL"
-                            }
+                            { value: 10, label: "10 mg / mL" }
                         ]
 
                     }
@@ -2761,33 +2677,15 @@ const medicines = {
                 label: "VO · Oral",
 
                 doses: [
-                    {
-                        value: 10,
-                        label: "10 mg/kg/dosis"
-                    }
+                    { value: 10, label: "10 mg/kg/dosis" }
                 ],
 
                 frequencies: [
-                    {
-                        hours: 4,
-                        label: "Cada 4 horas"
-                    },
-                    {
-                        hours: 6,
-                        label: "Cada 6 horas"
-                    },
-                    {
-                        hours: 8,
-                        label: "Cada 8 horas"
-                    },
-                    {
-                        hours: 12,
-                        label: "Cada 12 horas"
-                    },
-                    {
-                        hours: 24,
-                        label: "Cada 24 horas"
-                    }
+                    { hours: 4, label: "Cada 4 horas" },
+                    { hours: 6, label: "Cada 6 horas" },
+                    { hours: 8, label: "Cada 8 horas" },
+                    { hours: 12, label: "Cada 12 horas" },
+                    { hours: 24, label: "Cada 24 horas" }
                 ],
 
                 forms: {
@@ -2797,10 +2695,7 @@ const medicines = {
                         label: "Jarabe / suspensión oral",
 
                         concentrations: [
-                            {
-                                value: 250,
-                                label: "250 mg / 5 mL"
-                            }
+                            { value: 250, label: "250 mg / 5 mL" }
                         ]
 
                     },
@@ -2810,10 +2705,7 @@ const medicines = {
                         label: "Gotas orales",
 
                         concentrations: [
-                            {
-                                value: 500,
-                                label: "500 mg / mL"
-                            }
+                            { value: 500, label: "500 mg / mL" }
                         ]
 
                     }
@@ -2835,25 +2727,13 @@ const medicines = {
                         maxMonths: 11,
 
                         doses: [
-                            {
-                                value: 10,
-                                label: "10 mg/kg/dosis"
-                            },
-                            {
-                                value: 16,
-                                label: "16 mg/kg/dosis"
-                            }
+                            { value: 10, label: "10 mg/kg/dosis" },
+                            { value: 16, label: "16 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            },
-                            {
-                                hours: 8,
-                                label: "Cada 8 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" },
+                            { hours: 8, label: "Cada 8 horas" }
                         ],
 
                         note:
@@ -2865,25 +2745,13 @@ const medicines = {
                         maxMonths: 35,
 
                         doses: [
-                            {
-                                value: 10,
-                                label: "10 mg/kg/dosis"
-                            },
-                            {
-                                value: 16,
-                                label: "16 mg/kg/dosis"
-                            }
+                            { value: 10, label: "10 mg/kg/dosis" },
+                            { value: 16, label: "16 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            },
-                            {
-                                hours: 8,
-                                label: "Cada 8 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" },
+                            { hours: 8, label: "Cada 8 horas" }
                         ]
                     },
 
@@ -2892,25 +2760,13 @@ const medicines = {
                         maxMonths: 71,
 
                         doses: [
-                            {
-                                value: 10,
-                                label: "10 mg/kg/dosis"
-                            },
-                            {
-                                value: 16,
-                                label: "16 mg/kg/dosis"
-                            }
+                            { value: 10, label: "10 mg/kg/dosis" },
+                            { value: 16, label: "16 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            },
-                            {
-                                hours: 8,
-                                label: "Cada 8 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" },
+                            { hours: 8, label: "Cada 8 horas" }
                         ]
                     },
 
@@ -2919,25 +2775,13 @@ const medicines = {
                         maxMonths: 119,
 
                         doses: [
-                            {
-                                value: 10,
-                                label: "10 mg/kg/dosis"
-                            },
-                            {
-                                value: 16,
-                                label: "16 mg/kg/dosis"
-                            }
+                            { value: 10, label: "10 mg/kg/dosis" },
+                            { value: 16, label: "16 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            },
-                            {
-                                hours: 8,
-                                label: "Cada 8 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" },
+                            { hours: 8, label: "Cada 8 horas" }
                         ]
                     },
 
@@ -2946,25 +2790,13 @@ const medicines = {
                         maxMonths: 167,
 
                         doses: [
-                            {
-                                value: 10,
-                                label: "10 mg/kg/dosis"
-                            },
-                            {
-                                value: 16,
-                                label: "16 mg/kg/dosis"
-                            }
+                            { value: 10, label: "10 mg/kg/dosis" },
+                            { value: 16, label: "16 mg/kg/dosis" }
                         ],
 
                         frequencies: [
-                            {
-                                hours: 6,
-                                label: "Cada 6 horas"
-                            },
-                            {
-                                hours: 8,
-                                label: "Cada 8 horas"
-                            }
+                            { hours: 6, label: "Cada 6 horas" },
+                            { hours: 8, label: "Cada 8 horas" }
                         ]
                     }
 
@@ -2977,10 +2809,7 @@ const medicines = {
                         label: "Solución inyectable",
 
                         concentrations: [
-                            {
-                                value: 500,
-                                label: "500 mg / mL"
-                            }
+                            { value: 500, label: "500 mg / mL" }
                         ]
 
                     }
@@ -3008,25 +2837,13 @@ const medicines = {
         type: "mgkgdose",
 
         doses: [
-            {
-                value: 5,
-                label: "5 mg/kg/dosis"
-            },
-            {
-                value: 10,
-                label: "10 mg/kg/dosis"
-            }
+            { value: 5, label: "5 mg/kg/dosis" },
+            { value: 10, label: "10 mg/kg/dosis" }
         ],
 
         frequencies: [
-            {
-                hours: 6,
-                label: "Cada 6 horas"
-            },
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            }
+            { hours: 6, label: "Cada 6 horas" },
+            { hours: 8, label: "Cada 8 horas" }
         ],
 
         forms: {
@@ -3036,14 +2853,8 @@ const medicines = {
                 label: "Suspensión oral",
 
                 concentrations: [
-                    {
-                        value: 20,
-                        label: "2% · 100 mg / 5 mL"
-                    },
-                    {
-                        value: 40,
-                        label: "4% · 200 mg / 5 mL"
-                    }
+                    { value: 20, label: "2% · 100 mg / 5 mL" },
+                    { value: 40, label: "4% · 200 mg / 5 mL" }
                 ]
 
             }
@@ -3090,10 +2901,7 @@ const medicines = {
                 label: "Jarabe",
 
                 concentrations: [
-                    {
-                        value: 1,
-                        label: "5 mg / 5 mL"
-                    }
+                    { value: 1, label: "5 mg / 5 mL" }
                 ]
 
             }
@@ -3102,7 +2910,6 @@ const medicines = {
 
         note:
             "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-
     },
 
 
@@ -3159,10 +2966,7 @@ const medicines = {
                 label: "Solución oral",
 
                 concentrations: [
-                    {
-                        value: 1,
-                        label: "1 mg / mL"
-                    }
+                    { value: 1, label: "1 mg / mL" }
                 ]
 
             }
@@ -3171,7 +2975,6 @@ const medicines = {
 
         note:
             "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-
     },
 
 
@@ -3228,10 +3031,7 @@ const medicines = {
                 label: "Jarabe",
 
                 concentrations: [
-                    {
-                        value: 0.5,
-                        label: "0,5 mg / mL"
-                    }
+                    { value: 0.5, label: "0,5 mg / mL" }
                 ]
 
             }
@@ -3240,7 +3040,6 @@ const medicines = {
 
         note:
             "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-
     },
 
 
@@ -3289,10 +3088,7 @@ const medicines = {
                 label: "Suspensión oral",
 
                 concentrations: [
-                    {
-                        value: 6,
-                        label: "30 mg / 5 mL"
-                    }
+                    { value: 6, label: "30 mg / 5 mL" }
                 ]
 
             }
