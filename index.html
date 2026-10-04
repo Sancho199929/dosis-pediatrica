@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,1075 +9,855 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Dosis Pediátrica AR</title>
 
-<!-- ============================================================
-     SUPABASE
-     ============================================================ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --header: #0f172a;
-    --background: #f1f5f9;
-    --app-bg: #f8fafc;
-    --card: #ffffff;
-    --text: #172033;
-    --muted: #64748b;
-    --border: #e2e8f0;
-    --input-bg: #ffffff;
-    --result-bg: #eff6ff;
-    --result-border: #bfdbfe;
-    --focus: #dbeafe;
-    --button-shadow: rgba(37,99,235,.25);
-    --stat-bg: #f8fafc;
-    --nav-bg: rgba(255,255,255,.94);
-}
-
-body.pink-theme {
-    --primary: #db2777;
-    --primary-dark: #be185d;
-    --header: #831843;
-    --background: #fdf2f8;
-    --app-bg: #fff7fb;
-    --result-bg: #fdf2f8;
-    --result-border: #f9a8d4;
-    --focus: #fce7f3;
-    --button-shadow: rgba(219,39,119,.25);
-}
-
-body.green-theme {
-    --primary: #16a34a;
-    --primary-dark: #15803d;
-    --header: #166534;
-    --background: #f0fdf4;
-    --app-bg: #f7fff9;
-    --result-bg: #f0fdf4;
-    --result-border: #bbf7d0;
-    --focus: #dcfce7;
-    --button-shadow: rgba(22,163,74,.25);
-}
-
-body.dark-theme {
-    --primary: #3b82f6;
-    --primary-dark: #60a5fa;
-    --header: #020617;
-    --background: #020617;
-    --app-bg: #0f172a;
-    --card: #1e293b;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --border: #334155;
-    --input-bg: #0f172a;
-    --result-bg: #172554;
-    --result-border: #1d4ed8;
-    --focus: #1e3a8a;
-    --button-shadow: rgba(59,130,246,.25);
-    --stat-bg: #0f172a;
-    --nav-bg: rgba(15,23,42,.94);
-}
-
-body.dark-theme.pink-theme {
-    --primary: #ec4899;
-    --primary-dark: #f472b6;
-    --header: #500724;
-    --background: #0f0710;
-    --app-bg: #1a0b16;
-    --card: #261321;
-    --text: #fce7f3;
-    --muted: #c4a7b7;
-    --border: #4a253b;
-    --input-bg: #180a14;
-    --result-bg: #3b102b;
-    --result-border: #9d174d;
-    --focus: #831843;
-    --button-shadow: rgba(236,72,153,.25);
-    --stat-bg: #180a14;
-    --nav-bg: rgba(26,11,22,.94);
-}
-
-body.dark-theme.green-theme {
-    --primary: #22c55e;
-    --primary-dark: #4ade80;
-    --header: #052e16;
-    --background: #020c05;
-    --app-bg: #071a0c;
-    --card: #10261a;
-    --text: #dcfce7;
-    --muted: #9fbea8;
-    --border: #244b32;
-    --input-bg: #06140a;
-    --result-bg: #0c2b17;
-    --result-border: #166534;
-    --focus: #14532d;
-    --button-shadow: rgba(34,197,94,.25);
-    --stat-bg: #06140a;
-    --nav-bg: rgba(7,26,12,.94);
-}
-
-body {
-    margin: 0;
-    background: var(--background);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    transition: background .25s ease, color .25s ease;
-}
-
-/* ============================================================
-   LOGIN
-   ============================================================ */
-
-.login-screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: var(--background);
-}
-
-.login-card {
-    width: 100%;
-    max-width: 420px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 28px 22px;
-    box-shadow: 0 12px 35px rgba(15,23,42,.10);
-}
-
-.login-logo {
-    text-align: center;
-    font-size: 17px;
-    font-weight: 850;
-    margin-bottom: 18px;
-}
-
-.login-card h1 {
-    margin: 0;
-    text-align: center;
-    font-size: 27px;
-}
-
-.login-subtitle {
-    margin: 8px 0 24px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.login-card label {
-    margin-top: 12px;
-}
-
-.login-card input {
-    margin-bottom: 2px;
-}
-
-.login-button {
-    margin-top: 18px;
-}
-
-.login-error {
-    display: none;
-    margin-top: 13px;
-    padding: 11px 12px;
-    border-radius: 12px;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #991b1b;
-    font-size: 12px;
-    line-height: 1.45;
-}
-
-.login-loading {
-    display: none;
-    margin-top: 12px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-}
+*{box-sizing:border-box}
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --header:#0f172a;
+    --background:#f1f5f9;
+    --app-bg:#f8fafc;
+    --card:#fff;
+    --text:#172033;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --input-bg:#fff;
+    --result-bg:#eff6ff;
+    --result-border:#bfdbfe;
+    --focus:#dbeafe;
+    --button-shadow:rgba(37,99,235,.25);
+    --stat-bg:#f8fafc;
+    --nav-bg:rgba(255,255,255,.94)
+}
+
+body.pink-theme{
+    --primary:#db2777;
+    --primary-dark:#be185d;
+    --header:#831843;
+    --background:#fdf2f8;
+    --app-bg:#fff7fb;
+    --result-bg:#fdf2f8;
+    --result-border:#f9a8d4;
+    --focus:#fce7f3;
+    --button-shadow:rgba(219,39,119,.25)
+}
+
+body.green-theme{
+    --primary:#16a34a;
+    --primary-dark:#15803d;
+    --header:#166534;
+    --background:#f0fdf4;
+    --app-bg:#f7fff9;
+    --result-bg:#f0fdf4;
+    --result-border:#bbf7d0;
+    --focus:#dcfce7;
+    --button-shadow:rgba(22,163,74,.25)
+}
+
+body.dark-theme{
+    --primary:#3b82f6;
+    --primary-dark:#60a5fa;
+    --header:#020617;
+    --background:#020617;
+    --app-bg:#0f172a;
+    --card:#1e293b;
+    --text:#e2e8f0;
+    --muted:#94a3b8;
+    --border:#334155;
+    --input-bg:#0f172a;
+    --result-bg:#172554;
+    --result-border:#1d4ed8;
+    --focus:#1e3a8a;
+    --button-shadow:rgba(59,130,246,.25);
+    --stat-bg:#0f172a;
+    --nav-bg:rgba(15,23,42,.94)
+}
+
+body.dark-theme.pink-theme{
+    --primary:#ec4899;
+    --primary-dark:#f472b6;
+    --header:#500724;
+    --background:#0f0710;
+    --app-bg:#1a0b16;
+    --card:#261321;
+    --text:#fce7f3;
+    --muted:#c4a7b7;
+    --border:#4a253b;
+    --input-bg:#180a14;
+    --result-bg:#3b102b;
+    --result-border:#9d174d;
+    --focus:#831843;
+    --button-shadow:rgba(236,72,153,.25);
+    --stat-bg:#180a14;
+    --nav-bg:rgba(26,11,22,.94)
+}
+
+body.dark-theme.green-theme{
+    --primary:#22c55e;
+    --primary-dark:#4ade80;
+    --header:#052e16;
+    --background:#020c05;
+    --app-bg:#071a0c;
+    --card:#10261a;
+    --text:#dcfce7;
+    --muted:#9fbea8;
+    --border:#244b32;
+    --input-bg:#06140a;
+    --result-bg:#0c2b17;
+    --result-border:#166534;
+    --focus:#14532d;
+    --button-shadow:rgba(34,197,94,.25);
+    --stat-bg:#06140a;
+    --nav-bg:rgba(7,26,12,.94)
+}
 
-.login-footer {
-    margin-top: 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 10px;
-    line-height: 1.5;
+body{
+    margin:0;
+    background:var(--background);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    transition:background .25s ease,color .25s ease
 }
 
-/* ============================================================
-   SOLICITAR ACCESO
-   ============================================================ */
-
-.access-divider {
-    margin-top: 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:var(--background)
 }
 
-.access-request-link {
-    width: 100%;
-    height: 44px;
-    margin-top: 8px;
-    padding: 0 12px;
-    background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--border);
-    box-shadow: none;
-    font-size: 13px;
-    font-weight: 850;
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:28px 22px;
+    box-shadow:0 12px 35px rgba(15,23,42,.10)
 }
 
-.access-request-link:hover {
-    background: var(--focus);
-}
+.login-logo{
+    text-align:center;
+    font-size:17px;
+    font-weight:850;
+    margin-bottom:18px
+}
 
-.access-request-title {
-    margin-top: 4px;
-    text-align: center;
-    font-size: 21px;
-    font-weight: 850;
+.login-card h1{
+    margin:0;
+    text-align:center;
+    font-size:27px
 }
 
-.access-request-subtitle {
-    margin: 7px 0 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
+.login-subtitle{
+    margin:8px 0 24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5
 }
 
-.access-request-panel textarea {
-    width: 100%;
-    min-height: 95px;
-    resize: vertical;
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    background: var(--input-bg);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 15px;
-    padding: 12px;
-    transition: background .25s ease, color .25s ease, border-color .25s ease;
-}
+.login-card label{margin-top:12px}
+.login-card input{margin-bottom:2px}
 
-.access-request-panel textarea:focus {
-    outline: 3px solid var(--focus);
-    border-color: var(--primary);
-}
+.login-button{margin-top:18px}
 
-.access-request-optional {
-    font-weight: 500;
-    color: var(--muted);
+.login-error{
+    display:none;
+    margin-top:13px;
+    padding:11px 12px;
+    border-radius:12px;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#991b1b;
+    font-size:12px;
+    line-height:1.45
 }
 
-.access-request-submit {
-    margin-top: 18px;
+.login-loading{
+    display:none;
+    margin-top:12px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px
 }
 
-.access-back-button {
-    height: 44px;
-    margin-top: 9px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    box-shadow: none;
-    font-size: 12px;
+.login-footer{
+    margin-top:20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.5
 }
 
-.access-back-button:hover {
-    background: var(--focus);
-    color: var(--text);
+.access-divider,.guest-divider{
+    margin-top:18px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px
 }
-
-.access-request-success {
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 13px;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    color: #166534;
-    font-size: 12px;
-    line-height: 1.5;
-    text-align: center;
+
+.access-request-link,.guest-button{
+    width:100%;
+    height:44px;
+    margin-top:8px;
+    padding:0 12px;
+    background:transparent;
+    color:var(--primary);
+    border:1px solid var(--border);
+    box-shadow:none;
+    font-size:13px;
+    font-weight:850
 }
 
-body.dark-theme .access-request-success {
-    background: #052e16;
-    border-color: #166534;
-    color: #bbf7d0;
+.access-request-link:hover,.guest-button:hover{
+    background:var(--focus)
 }
-
-/* ============================================================
-   ENTRAR COMO INVITADO
-   ============================================================ */
 
-.guest-divider {
-    margin-top: 18px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
+.access-request-title{
+    margin-top:4px;
+    text-align:center;
+    font-size:21px;
+    font-weight:850
 }
 
-.guest-button {
-    width: 100%;
-    height: 44px;
-    margin-top: 8px;
-    padding: 0 12px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    box-shadow: none;
-    font-size: 13px;
-    font-weight: 850;
+.access-request-subtitle{
+    margin:7px 0 20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5
 }
 
-.guest-button:hover {
-    background: var(--focus);
-    color: var(--text);
+.access-request-panel textarea{
+    width:100%;
+    min-height:95px;
+    resize:vertical;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--input-bg);
+    color:var(--text);
+    font-family:inherit;
+    font-size:15px;
+    padding:12px
 }
 
-.guest-notice {
-    margin-top: 12px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: var(--stat-bg);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.45;
-    text-align: center;
+.access-request-panel textarea:focus{
+    outline:3px solid var(--focus);
+    border-color:var(--primary)
 }
 
-/* ============================================================
-   APP
-   ============================================================ */
-
-.app {
-    max-width: 520px;
-    margin: auto;
-    min-height: 100vh;
-    background: var(--app-bg);
-    transition: background .25s ease;
+.access-request-optional{
+    font-weight:500;
+    color:var(--muted)
 }
 
-.header {
-    background: var(--header);
-    color: white;
-    padding: 24px 18px 28px;
-    border-radius: 0 0 28px 28px;
-    transition: background .25s ease;
-}
+.access-request-submit{margin-top:18px}
 
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+.access-back-button{
+    height:44px;
+    margin-top:9px;
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--border);
+    box-shadow:none;
+    font-size:12px
 }
 
-.logo {
-    font-size: 15px;
-    font-weight: 800;
+.access-back-button:hover{
+    background:var(--focus);
+    color:var(--text)
 }
 
-.version {
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.15);
-    padding: 5px 9px;
-    border-radius: 999px;
-    font-size: 10px;
+.access-request-success{
+    margin-top:16px;
+    padding:14px;
+    border-radius:13px;
+    background:#f0fdf4;
+    border:1px solid #bbf7d0;
+    color:#166534;
+    font-size:12px;
+    line-height:1.5;
+    text-align:center
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+body.dark-theme .access-request-success{
+    background:#052e16;
+    border-color:#166534;
+    color:#bbf7d0
 }
 
-.logout-button {
-    width: auto;
-    height: 31px;
-    margin: 0;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.18);
-    color: white;
-    font-size: 10px;
-    font-weight: 800;
-    box-shadow: none;
+.guest-notice{
+    margin-top:12px;
+    padding:10px 12px;
+    border-radius:12px;
+    background:var(--stat-bg);
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.45;
+    text-align:center
 }
 
-.logout-button:hover {
-    background: rgba(255,255,255,.20);
+.app{
+    max-width:520px;
+    margin:auto;
+    min-height:100vh;
+    background:var(--app-bg)
 }
 
-.header h1 {
-    margin: 20px 0 5px;
-    font-size: 29px;
+.header{
+    background:var(--header);
+    color:#fff;
+    padding:24px 18px 28px;
+    border-radius:0 0 28px 28px
 }
 
-.header p {
-    margin: 0;
-    color: #cbd5e1;
-    font-size: 13px;
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px
 }
 
-main {
-    padding: 16px;
+.logo{
+    font-size:15px;
+    font-weight:800
 }
 
-.card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 17px;
-    margin-bottom: 14px;
-    box-shadow: 0 5px 20px rgba(15,23,42,.05);
-    transition: background .25s ease, border-color .25s ease;
+.version{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.15);
+    padding:5px 9px;
+    border-radius:999px;
+    font-size:10px
 }
 
-.section-title {
-    font-size: 14px;
-    font-weight: 800;
-    margin-bottom: 13px;
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:7px
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+.logout-button{
+    width:auto;
+    height:31px;
+    margin:0;
+    padding:0 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    color:#fff;
+    font-size:10px;
+    font-weight:800;
+    box-shadow:none
 }
 
-.full {
-    grid-column: 1 / -1;
+.header h1{
+    margin:20px 0 5px;
+    font-size:29px
 }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 700;
+.header p{
+    margin:0;
+    color:#cbd5e1;
+    font-size:13px
 }
 
-input,
-select {
-    width: 100%;
-    height: 48px;
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    background: var(--input-bg);
-    color: var(--text);
-    font-size: 16px;
-    padding: 0 12px;
-    transition: background .25s ease, color .25s ease, border-color .25s ease;
-}
+main{padding:16px}
 
-input:focus,
-select:focus {
-    outline: 3px solid var(--focus);
-    border-color: var(--primary);
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:17px;
+    margin-bottom:14px;
+    box-shadow:0 5px 20px rgba(15,23,42,.05)
 }
 
-select:disabled {
-    opacity: 1;
-    cursor: default;
-    color: var(--text);
-    background: var(--input-bg);
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    margin-bottom:13px
 }
 
-select.single-option {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: none;
-    padding-right: 12px;
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px
 }
 
-.weight-wrapper {
-    position: relative;
-}
+.full{grid-column:1/-1}
 
-.weight-wrapper input {
-    padding-right: 40px;
+label{
+    display:block;
+    margin-bottom:6px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700
 }
 
-.unit {
-    position: absolute;
-    right: 12px;
-    top: 14px;
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 700;
+input,select{
+    width:100%;
+    height:48px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--input-bg);
+    color:var(--text);
+    font-size:16px;
+    padding:0 12px
 }
 
-.age-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 95px;
-    gap: 7px;
+input:focus,select:focus{
+    outline:3px solid var(--focus);
+    border-color:var(--primary)
 }
 
-button {
-    width: 100%;
-    height: 53px;
-    margin-top: 15px;
-    border: 0;
-    border-radius: 15px;
-    background: var(--primary);
-    color: white;
-    font-size: 16px;
-    font-weight: 850;
-    cursor: pointer;
-    box-shadow: 0 7px 17px var(--button-shadow);
-    transition: background .25s ease, transform .1s ease;
+select:disabled{
+    opacity:1;
+    cursor:default;
+    color:var(--text);
+    background:var(--input-bg)
 }
 
-button:active {
-    transform: translateY(1px);
+select.single-option{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-image:none;
+    padding-right:12px
 }
 
-button:disabled {
-    opacity: .65;
-    cursor: default;
-}
+.weight-wrapper{position:relative}
 
-.theme-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
+.weight-wrapper input{padding-right:40px}
 
-.theme-button {
-    margin-top: 0;
-    height: 45px;
-    font-size: 13px;
+.unit{
+    position:absolute;
+    right:12px;
+    top:14px;
+    color:var(--muted);
+    font-size:13px;
+    font-weight:700
 }
 
-.theme-blue {
-    background: #2563eb;
+.age-wrapper{
+    display:grid;
+    grid-template-columns:1fr 95px;
+    gap:7px
 }
 
-.theme-pink {
-    background: #db2777;
+button{
+    width:100%;
+    height:53px;
+    margin-top:15px;
+    border:0;
+    border-radius:15px;
+    background:var(--primary);
+    color:#fff;
+    font-size:16px;
+    font-weight:850;
+    cursor:pointer;
+    box-shadow:0 7px 17px var(--button-shadow)
 }
 
-.theme-green {
-    background: #16a34a;
-}
+button:active{transform:translateY(1px)}
+button:disabled{opacity:.65;cursor:default}
 
-.theme-dark-blue {
-    background: #0f172a;
-    border: 1px solid #475569;
+.theme-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px
 }
 
-.theme-dark-pink {
-    background: #831843;
-    border: 1px solid #9d174d;
+.theme-button{
+    margin-top:0;
+    height:45px;
+    font-size:13px
 }
 
-.theme-dark-green {
-    background: #166534;
-    border: 1px solid #22c55e;
-}
+.theme-blue{background:#2563eb}
+.theme-pink{background:#db2777}
+.theme-green{background:#16a34a}
+.theme-dark-blue{background:#0f172a;border:1px solid #475569}
+.theme-dark-pink{background:#831843;border:1px solid #9d174d}
+.theme-dark-green{background:#166534;border:1px solid #22c55e}
 
-.result {
-    display: none;
-}
+.result{display:none}
 
-.result-main {
-    background: var(--result-bg);
-    border: 1px solid var(--result-border);
-    border-radius: 18px;
-    padding: 18px;
-    text-align: center;
+.result-main{
+    background:var(--result-bg);
+    border:1px solid var(--result-border);
+    border-radius:18px;
+    padding:18px;
+    text-align:center
 }
 
-.result-label {
-    color: var(--primary-dark);
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .8px;
+.result-label{
+    color:var(--primary-dark);
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.8px
 }
 
-.result-volume {
-    margin: 5px 0;
-    color: var(--primary-dark);
-    font-size: 40px;
-    line-height: 1.1;
-    font-weight: 950;
+.result-volume{
+    margin:5px 0;
+    color:var(--primary-dark);
+    font-size:40px;
+    line-height:1.1;
+    font-weight:950
 }
 
-.result-frequency {
-    font-size: 15px;
-    font-weight: 800;
+.result-frequency{
+    font-size:15px;
+    font-weight:800
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 12px;
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:12px
 }
 
-.stat {
-    background: var(--stat-bg);
-    border-radius: 13px;
-    padding: 12px;
+.stat{
+    background:var(--stat-bg);
+    border-radius:13px;
+    padding:12px
 }
 
-.stat span {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
+.stat span{
+    display:block;
+    color:var(--muted);
+    font-size:11px
 }
 
-.stat strong {
-    display: block;
-    margin-top: 3px;
-    font-size: 15px;
+.stat strong{
+    display:block;
+    margin-top:3px;
+    font-size:15px
 }
 
-details {
-    margin-top: 14px;
-    border-top: 1px solid var(--border);
-    padding-top: 13px;
+details{
+    margin-top:14px;
+    border-top:1px solid var(--border);
+    padding-top:13px
 }
 
-summary {
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 800;
+summary{
+    cursor:pointer;
+    font-size:13px;
+    font-weight:800
 }
 
-.formula {
-    margin-top: 10px;
-    background: #0f172a;
-    color: #e2e8f0;
-    border-radius: 13px;
-    padding: 14px;
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 1.7;
-    white-space: pre-wrap;
-    overflow-x: auto;
+.formula{
+    margin-top:10px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:13px;
+    padding:14px;
+    font-family:monospace;
+    font-size:12px;
+    line-height:1.7;
+    white-space:pre-wrap;
+    overflow-x:auto
 }
 
-.warning {
-    margin-top: 13px;
-    padding: 12px;
-    border-radius: 13px;
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-    color: #92400e;
-    font-size: 12px;
-    line-height: 1.5;
+.warning{
+    margin-top:13px;
+    padding:12px;
+    border-radius:13px;
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#92400e;
+    font-size:12px;
+    line-height:1.5
 }
 
-.info {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.55;
+.info{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.55
 }
 
-.age-note {
-    margin-top: 8px;
-    padding: 9px 10px;
-    border-radius: 10px;
-    background: var(--stat-bg);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.4;
+.age-note{
+    margin-top:8px;
+    padding:9px 10px;
+    border-radius:10px;
+    background:var(--stat-bg);
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.4
 }
 
-.search-wrapper {
-    position: relative;
-}
+.search-wrapper{position:relative}
 
-.search-wrapper input {
-    padding-left: 40px;
-}
+.search-wrapper input{padding-left:40px}
 
-.search-icon {
-    position: absolute;
-    left: 13px;
-    top: 14px;
-    font-size: 18px;
-    color: var(--muted);
-    pointer-events: none;
+.search-icon{
+    position:absolute;
+    left:13px;
+    top:14px;
+    font-size:18px;
+    color:var(--muted);
+    pointer-events:none
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden{display:none!important}
 
-.bottom-nav {
-    position: sticky;
-    bottom: 0;
-    display: flex;
-    justify-content: space-around;
-    padding: 9px 16px calc(9px + env(safe-area-inset-bottom));
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid var(--border);
-    transition: background .25s ease, border-color .25s ease;
+.bottom-nav{
+    position:sticky;
+    bottom:0;
+    display:flex;
+    justify-content:space-around;
+    padding:9px 16px calc(9px + env(safe-area-inset-bottom));
+    background:var(--nav-bg);
+    backdrop-filter:blur(12px);
+    border-top:1px solid var(--border)
 }
 
-.nav-item {
-    text-align: center;
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 700;
+.nav-item{
+    text-align:center;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700
 }
 
-.nav-item.active {
-    color: var(--primary);
-}
+.nav-item.active{color:var(--primary)}
 
-.nav-icon {
-    display: block;
-    font-size: 19px;
-    line-height: 20px;
+.nav-icon{
+    display:block;
+    font-size:19px;
+    line-height:20px
 }
-
-@media(max-width:390px) {
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .full {
-        grid-column: auto;
-    }
-
-    .age-wrapper {
-        grid-template-columns: 1fr 90px;
-    }
-
-    .header-actions {
-        gap: 4px;
-    }
-
-    .logout-button {
-        padding: 0 8px;
-    }
 
+@media(max-width:390px){
+    .grid{grid-template-columns:1fr}
+    .full{grid-column:auto}
+    .age-wrapper{grid-template-columns:1fr 90px}
+    .header-actions{gap:4px}
+    .logout-button{padding:0 8px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ============================================================
-     PANTALLA DE LOGIN
-     ============================================================ -->
+<div id="loginScreen" class="login-screen">
 
-<div
-    id="loginScreen"
-    class="login-screen"
+<div class="login-card">
+
+<div class="login-logo">💊 Dosis Pediátrica AR</div>
+
+<h1>CalculadoraFS</h1>
+
+<div class="login-subtitle">
+Ingresá con tu usuario y contraseña para acceder a la calculadora.
+</div>
+
+<form id="loginForm">
+
+<label for="loginEmail">Email</label>
+
+<input
+id="loginEmail"
+type="email"
+autocomplete="email"
+placeholder="tu@email.com"
+required
 >
 
-    <div class="login-card">
+<label for="loginPassword">Contraseña</label>
 
-        <div class="login-logo">
-            💊 Dosis Pediátrica AR
-        </div>
+<input
+id="loginPassword"
+type="password"
+autocomplete="current-password"
+placeholder="••••••••"
+required
+>
 
-        <h1>CalculadoraFS</h1>
+<button id="loginButton" class="login-button" type="submit">
+INGRESAR
+</button>
 
-        <div class="login-subtitle">
-            Ingresá con tu usuario y contraseña
-            para acceder a la calculadora.
-        </div>
+</form>
 
+<div id="loginError" class="login-error"></div>
 
-        <!-- ====================================================
-             LOGIN NORMAL
-             ==================================================== -->
+<div id="loginLoading" class="login-loading">
+Verificando acceso...
+</div>
 
-        <form id="loginForm">
+<div id="accessRequestChooser">
 
-            <label for="loginEmail">
-                Email
-            </label>
+<div class="access-divider">
+¿No tenés una cuenta?
+</div>
 
-            <input
-                id="loginEmail"
-                type="email"
-                autocomplete="email"
-                placeholder="tu@email.com"
-                required
-            >
-
-            <label for="loginPassword">
-                Contraseña
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                autocomplete="current-password"
-                placeholder="••••••••"
-                required
-            >
-
-            <button
-                id="loginButton"
-                class="login-button"
-                type="submit"
-            >
-                INGRESAR
-            </button>
-
-        </form>
-
-
-        <div
-            id="loginError"
-            class="login-error"
-        ></div>
-
-
-        <div
-            id="loginLoading"
-            class="login-loading"
-        >
-            Verificando acceso...
-        </div>
-
-
-        <!-- ====================================================
-             SOLICITAR ACCESO
-             ==================================================== -->
-
-        <div
-            id="accessRequestChooser"
-        >
-
-            <div class="access-divider">
-                ¿No tenés una cuenta?
-            </div>
-
-            <button
-                id="requestAccessButton"
-                class="access-request-link"
-                type="button"
-            >
-                SOLICITAR ACCESO
-            </button>
-
-        </div>
-
-
-        <div
-            id="accessRequestPanel"
-            class="hidden"
-        >
-
-            <div class="access-request-title">
-                Solicitar acceso
-            </div>
-
-            <div class="access-request-subtitle">
-                Completá tus datos y enviaremos tu solicitud
-                para que pueda ser revisada.
-            </div>
-
-
-            <form id="accessRequestForm">
-
-                <label for="requestName">
-                    Nombre y apellido
-                </label>
-
-                <input
-                    id="requestName"
-                    type="text"
-                    autocomplete="name"
-                    placeholder="Tu nombre y apellido"
-                    maxlength="100"
-                    required
-                >
-
-
-                <label for="requestEmail">
-                    Email
-                </label>
-
-                <input
-                    id="requestEmail"
-                    type="email"
-                    autocomplete="email"
-                    placeholder="tu@email.com"
-                    maxlength="255"
-                    required
-                >
-
-
-                <label for="requestInstitution">
-                    Institución / hospital
-                    <span class="access-request-optional">
-                        (opcional)
-                    </span>
-                </label>
-
-                <input
-                    id="requestInstitution"
-                    type="text"
-                    autocomplete="organization"
-                    placeholder="Ej.: Hospital / Facultad / CAPS"
-                    maxlength="150"
-                >
-
-
-                <label for="requestMessage">
-                    Mensaje
-                    <span class="access-request-optional">
-                        (opcional)
-                    </span>
-                </label>
-
-                <textarea
-                    id="requestMessage"
-                    placeholder="Podés indicar para qué querés utilizar la calculadora."
-                    maxlength="1000"
-                ></textarea>
-
-
-                <button
-                    id="submitAccessRequest"
-                    class="access-request-submit"
-                    type="submit"
-                >
-                    ENVIAR SOLICITUD
-                </button>
-
-
-                <button
-                    id="backToLoginButton"
-                    class="access-back-button"
-                    type="button"
-                >
-                    VOLVER AL INICIO DE SESIÓN
-                </button>
-
-            </form>
-
-
-            <div
-                id="accessRequestError"
-                class="login-error"
-            ></div>
-
-
-            <div
-                id="accessRequestLoading"
-                class="login-loading"
-            >
-                Enviando solicitud...
-            </div>
-
-
-            <div
-                id="accessRequestSuccess"
-                class="access-request-success hidden"
-            >
-                <strong>Solicitud enviada correctamente.</strong>
-                <br><br>
-                Tus datos fueron recibidos. La solicitud deberá
-                ser revisada antes de habilitar el acceso.
-            </div>
-
-        </div>
-
-
-        <!-- ====================================================
-             ENTRAR COMO INVITADO
-             ==================================================== -->
-
-        <div
-            id="guestChooser"
-        >
-
-            <div class="guest-divider">
-                ¿Solo querés probar la calculadora?
-            </div>
-
-            <button
-                id="guestButton"
-                class="guest-button"
-                type="button"
-            >
-                👀 ENTRAR COMO INVITADO
-            </button>
-
-            <div class="guest-notice">
-                Podés utilizar la calculadora sin crear una cuenta.
-                El acceso administrativo estará reservado para
-                usuarios autorizados.
-            </div>
-
-        </div>
-
-
-        <div class="login-footer">
-            Acceso protegido mediante Supabase Auth.
-        </div>
-
-    </div>
+<button
+id="requestAccessButton"
+class="access-request-link"
+type="button"
+>
+SOLICITAR ACCESO
+</button>
 
 </div>
 
+<div id="accessRequestPanel" class="hidden">
 
-<!-- ============================================================
-     APLICACIÓN PROTEGIDA
-     ============================================================ -->
+<div class="access-request-title">
+Solicitar acceso
+</div>
 
-<div
-    id="protectedApp"
-    class="app hidden"
+<div class="access-request-subtitle">
+Completá tus datos y enviaremos tu solicitud para que pueda ser revisada.
+</div>
+
+<form id="accessRequestForm">
+
+<label for="requestName">
+Nombre y apellido
+</label>
+
+<input
+id="requestName"
+type="text"
+autocomplete="name"
+placeholder="Tu nombre y apellido"
+maxlength="100"
+required
 >
+
+<label for="requestEmail">
+Email
+</label>
+
+<input
+id="requestEmail"
+type="email"
+autocomplete="email"
+placeholder="tu@email.com"
+maxlength="255"
+required
+>
+
+<label for="requestInstitution">
+Institución / hospital
+<span class="access-request-optional">(opcional)</span>
+</label>
+
+<input
+id="requestInstitution"
+type="text"
+autocomplete="organization"
+placeholder="Ej.: Hospital / Facultad / CAPS"
+maxlength="150"
+>
+
+<label for="requestMessage">
+Mensaje
+<span class="access-request-optional">(opcional)</span>
+</label>
+
+<textarea
+id="requestMessage"
+placeholder="Podés indicar para qué querés utilizar la calculadora."
+maxlength="1000"
+></textarea>
+
+<button
+id="submitAccessRequest"
+class="access-request-submit"
+type="submit"
+>
+ENVIAR SOLICITUD
+</button>
+
+<button
+id="backToLoginButton"
+class="access-back-button"
+type="button"
+>
+VOLVER AL INICIO DE SESIÓN
+</button>
+
+</form>
+
+<div id="accessRequestError" class="login-error"></div>
+
+<div id="accessRequestLoading" class="login-loading">
+Enviando solicitud...
+</div>
+
+<div id="accessRequestSuccess" class="access-request-success hidden">
+<strong>Solicitud enviada correctamente.</strong>
+<br><br>
+Tus datos fueron recibidos. La solicitud deberá ser revisada antes de habilitar el acceso.
+</div>
+
+</div>
+
+<div id="guestChooser">
+
+<div class="guest-divider">
+¿Solo querés probar la calculadora?
+</div>
+
+<button id="guestButton" class="guest-button" type="button">
+👀 ENTRAR COMO INVITADO
+</button>
+
+<div class="guest-notice">
+Podés utilizar la calculadora sin crear una cuenta.
+El acceso administrativo estará reservado para usuarios autorizados.
+</div>
+
+</div>
+
+<div class="login-footer">
+Acceso protegido mediante Supabase Auth.
+</div>
+
+</div>
+</div>
+
+
+<div id="protectedApp" class="app hidden">
 
 <header class="header">
 
-    <div class="header-top">
+<div class="header-top">
 
-        <div class="logo">
-            💊 Dosis Pediátrica AR
-        </div>
+<div class="logo">
+💊 Dosis Pediátrica AR
+</div>
 
-        <div class="header-actions">
+<div class="header-actions">
 
-            <div class="version">
-                v1.4
-            </div>
+<div class="version">
+v1.5
+</div>
 
-            <button
-                id="logoutButton"
-                class="logout-button"
-                type="button"
-            >
-                Salir
-            </button>
+<button id="logoutButton" class="logout-button" type="button">
+Salir
+</button>
 
-        </div>
+</div>
+</div>
 
-    </div>
+<h1>CalculadoraFS</h1>
 
-    <h1>CalculadoraFS</h1>
-
-    <p>
-        Cálculo pediátrico y conversión automática a mL
-    </p>
+<p>
+Cálculo pediátrico y conversión automática a mL
+</p>
 
 </header>
 
@@ -1084,464 +865,347 @@ summary {
 
 <section class="card">
 
-    <div class="section-title">
-        1 · Medicamento e indicación
-    </div>
+<div class="section-title">
+1 · Medicamento e indicación
+</div>
 
-    <div class="grid">
+<div class="grid">
 
-        <div class="full">
+<div class="full">
 
-            <label>
-                Buscar medicamento
-            </label>
+<label>
+Buscar medicamento o patología
+</label>
 
-            <div class="search-wrapper">
+<div class="search-wrapper">
 
-                <span class="search-icon">
-                    🔎
-                </span>
+<span class="search-icon">🔎</span>
 
-                <input
-                    id="medicineSearch"
-                    type="search"
-                    placeholder="Ej.: amoxi, sinusitis, paracetamol..."
-                    autocomplete="off"
-                >
-
-            </div>
-
-        </div>
-
-        <div class="full">
-
-            <label>
-                Medicamento / indicación
-            </label>
-
-            <select id="medication">
-
-                <option value="amoxicilina">
-                    Amoxicilina - OMA
-                </option>
-
-                <option value="amoxicilinaSBA">
-                    Amoxicilina - SBA
-                </option>
-
-                <option value="amoxicilinaClavulanatoSBA">
-                    Amoxicilina + clavulanato - SBA
-                </option>
-
-                <option value="cefuroximaSBA">
-                    Cefuroxima - SBA / alergia a penicilina no tipo I
-                </option>
-
-                <option value="tmpSmxSBA">
-                    TMP-SMX - SBA / 2.ª elección
-                </option>
-
-                <option value="claritromicinaSBA">
-                    Claritromicina - SBA / alergia tipo I
-                </option>
-
-                <option value="azitromicinaSBA">
-                    Azitromicina - SBA / alergia tipo I
-                </option>
-
-                <option value="ceftriaxonaSBA">
-                    Ceftriaxona - SBA / mala tolerancia oral
-                </option>
-
-                <option value="paracetamol">
-                    Paracetamol - Analgesia / antipiresis
-                </option>
-
-                <option value="dipirona">
-                    Dipirona - Analgesia / antipiresis
-                </option>
-
-                <option value="ibuprofeno">
-                    Ibuprofeno - Analgesia / antipiresis / antiinflamatorio
-                </option>
-
-                <option value="loratadina">
-                    Loratadina - Rinitis alérgica
-                </option>
-
-                <option value="cetirizina">
-                    Cetirizina - Rinitis alérgica
-                </option>
-
-                <option value="desloratadina">
-                    Desloratadina - Rinitis alérgica
-                </option>
-
-                <option value="fexofenadina">
-                    Fexofenadina - Rinitis alérgica
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="card">
-
-    <div class="section-title">
-        2 · Datos del paciente
-    </div>
-
-    <div class="grid">
-
-        <div>
-
-            <label>
-                Edad
-            </label>
-
-            <div class="age-wrapper">
-
-                <input
-                    id="age"
-                    type="number"
-                    inputmode="decimal"
-                    min="0"
-                    step="0.1"
-                    value="5"
-                >
-
-                <select id="ageUnit">
-
-                    <option value="years">
-                        años
-                    </option>
-
-                    <option value="months">
-                        meses
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Peso
-            </label>
-
-            <div class="weight-wrapper">
-
-                <input
-                    id="weight"
-                    type="number"
-                    inputmode="decimal"
-                    min="0.1"
-                    step="0.1"
-                    value="15"
-                >
-
-                <span class="unit">
-                    kg
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="routeContainer"
-            class="full hidden"
-        >
-
-            <label>
-                Vía de administración
-            </label>
-
-            <select id="route">
-            </select>
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Dosis
-            </label>
-
-            <select id="dose">
-            </select>
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Frecuencia
-            </label>
-
-            <select id="frequency">
-            </select>
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Presentación
-            </label>
-
-            <select id="form">
-            </select>
-
-        </div>
-
-
-        <div
-            id="concentrationContainer"
-            class="full"
-        >
-
-            <label>
-                Concentración
-            </label>
-
-            <select id="concentration">
-            </select>
-
-        </div>
-
-
-        <div
-            id="ageNote"
-            class="full age-note hidden"
-        >
-        </div>
-
-    </div>
-
-
-    <button id="calculate">
-        CALCULAR DOSIS
-    </button>
-
-</section>
-
-
-<section
-    class="card result"
-    id="result"
+<input
+id="medicineSearch"
+type="search"
+placeholder="Ej.: amoxi, OMA, otitis, SBA, paracetamol..."
+autocomplete="off"
 >
 
-    <div class="result-main">
+</div>
 
-        <div class="result-label">
-            DAR POR DOSIS
-        </div>
+</div>
 
-        <div
-            class="result-volume"
-            id="resultVolume"
-        >
-            —
-        </div>
+<div>
 
-        <div
-            class="result-frequency"
-            id="resultFrequency"
-        >
-            —
-        </div>
+<label>
+Medicamento
+</label>
 
-    </div>
+<select id="medication"></select>
 
+</div>
 
-    <div class="stats">
+<div>
 
-        <div class="stat">
-            <span>Dosis por dosis</span>
-            <strong id="resultMg">—</strong>
-        </div>
+<label>
+Indicación / patología
+</label>
 
-        <div class="stat">
-            <span>Frecuencia</span>
-            <strong id="resultTakes">—</strong>
-        </div>
+<select id="indication"></select>
 
-        <div class="stat">
-            <span>Edad</span>
-            <strong id="resultAge">—</strong>
-        </div>
+</div>
 
-        <div class="stat">
-            <span>Peso</span>
-            <strong id="resultWeight">—</strong>
-        </div>
-
-        <div class="stat">
-            <span>Volumen diario</span>
-            <strong id="resultDailyMl">—</strong>
-        </div>
-
-        <div
-            class="stat"
-            id="dailyDoseBox"
-        >
-            <span>Dosis diaria</span>
-            <strong id="resultDailyMg">—</strong>
-        </div>
-
-    </div>
-
-
-    <details>
-
-        <summary>
-            Ver cómo se calculó
-        </summary>
-
-        <div
-            class="formula"
-            id="formula"
-        ></div>
-
-    </details>
-
-
-    <div class="warning">
-
-        <strong>⚠️ Verificar antes de administrar:</strong>
-
-        indicación, edad, peso, vía, alergias, función renal,
-        contraindicaciones, dosis máxima, concentración disponible
-        y prescripción profesional.
-
-        Esta herramienta es educativa y no reemplaza la indicación médica.
-
-    </div>
+</div>
 
 </section>
 
 
 <section class="card">
 
-    <div class="section-title">
-        🎨 Personalizar apariencia
-    </div>
+<div class="section-title">
+2 · Datos del paciente
+</div>
 
-    <div class="theme-buttons">
+<div class="grid">
 
-        <button class="theme-button theme-blue" id="blueTheme">
-            🔵 Claro azul
-        </button>
+<div>
 
-        <button class="theme-button theme-pink" id="pinkTheme">
-            🌸 Claro rosa
-        </button>
+<label>Edad</label>
 
-        <button class="theme-button theme-green" id="greenTheme">
-            🟢 Claro verde
-        </button>
+<div class="age-wrapper">
 
-        <button class="theme-button theme-dark-blue" id="darkBlueTheme">
-            🌑 Oscuro azul
-        </button>
+<input
+id="age"
+type="number"
+inputmode="decimal"
+min="0"
+step="0.1"
+value="5"
+>
 
-        <button class="theme-button theme-dark-pink" id="darkPinkTheme">
-            🌑🌸 Oscuro rosa
-        </button>
+<select id="ageUnit">
 
-        <button class="theme-button theme-dark-green" id="darkGreenTheme">
-            🌑🟢 Oscuro verde
-        </button>
+<option value="years">años</option>
+<option value="months">meses</option>
 
-    </div>
+</select>
+
+</div>
+
+</div>
+
+<div>
+
+<label>Peso</label>
+
+<div class="weight-wrapper">
+
+<input
+id="weight"
+type="number"
+inputmode="decimal"
+min="0.1"
+step="0.1"
+value="15"
+>
+
+<span class="unit">kg</span>
+
+</div>
+
+</div>
+
+<div id="routeContainer" class="full hidden">
+
+<label>Vía de administración</label>
+
+<select id="route"></select>
+
+</div>
+
+<div>
+
+<label>Dosis</label>
+
+<select id="dose"></select>
+
+</div>
+
+<div>
+
+<label>Frecuencia</label>
+
+<select id="frequency"></select>
+
+</div>
+
+<div>
+
+<label>Presentación</label>
+
+<select id="form"></select>
+
+</div>
+
+<div id="concentrationContainer" class="full">
+
+<label>Concentración</label>
+
+<select id="concentration"></select>
+
+</div>
+
+<div id="ageNote" class="full age-note hidden"></div>
+
+</div>
+
+<button id="calculate">
+CALCULAR DOSIS
+</button>
+
+</section>
+
+
+<section class="card result" id="result">
+
+<div class="result-main">
+
+<div class="result-label">
+DAR POR DOSIS
+</div>
+
+<div class="result-volume" id="resultVolume">—</div>
+
+<div class="result-frequency" id="resultFrequency">—</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<span>Dosis por dosis</span>
+<strong id="resultMg">—</strong>
+</div>
+
+<div class="stat">
+<span>Frecuencia</span>
+<strong id="resultTakes">—</strong>
+</div>
+
+<div class="stat">
+<span>Edad</span>
+<strong id="resultAge">—</strong>
+</div>
+
+<div class="stat">
+<span>Peso</span>
+<strong id="resultWeight">—</strong>
+</div>
+
+<div class="stat">
+<span>Volumen diario</span>
+<strong id="resultDailyMl">—</strong>
+</div>
+
+<div class="stat" id="dailyDoseBox">
+<span>Dosis diaria</span>
+<strong id="resultDailyMg">—</strong>
+</div>
+
+</div>
+
+<details>
+
+<summary>
+Ver cómo se calculó
+</summary>
+
+<div class="formula" id="formula"></div>
+
+</details>
+
+<div class="warning">
+
+<strong>⚠️ Verificar antes de administrar:</strong>
+
+indicación, edad, peso, vía, alergias, función renal,
+contraindicaciones, dosis máxima, concentración disponible
+y prescripción profesional.
+
+Esta herramienta es educativa y no reemplaza la indicación médica.
+
+</div>
 
 </section>
 
 
 <section class="card">
 
-    <div class="section-title">
-        📚 Sobre esta calculadora
-    </div>
+<div class="section-title">
+🎨 Personalizar apariencia
+</div>
 
-    <div class="info">
+<div class="theme-buttons">
 
-        Las dosis cargadas corresponden a los esquemas
-        definidos para esta versión de la herramienta.
+<button class="theme-button theme-blue" id="blueTheme">
+🔵 Claro azul
+</button>
 
-        <br><br>
+<button class="theme-button theme-pink" id="pinkTheme">
+🌸 Claro rosa
+</button>
 
-        La aplicación distingue entre medicamentos cuya dosis
-        se expresa en <strong>mg/kg/día</strong>, aquellos cuya
-        dosis se expresa en <strong>mg/kg/dosis</strong> y
-        medicamentos con dosis fija según edad.
+<button class="theme-button theme-green" id="greenTheme">
+🟢 Claro verde
+</button>
 
-        <br><br>
+<button class="theme-button theme-dark-blue" id="darkBlueTheme">
+🌑 Oscuro azul
+</button>
 
-        En paracetamol y dipirona se pueden seleccionar
-        determinadas vías de administración. Las presentaciones,
-        concentraciones, dosis y frecuencias se cargan de forma
-        específica para cada vía.
+<button class="theme-button theme-dark-pink" id="darkPinkTheme">
+🌑🌸 Oscuro rosa
+</button>
 
-        <br><br>
+<button class="theme-button theme-dark-green" id="darkGreenTheme">
+🌑🟢 Oscuro verde
+</button>
 
-        En los antihistamínicos cargados para rinitis alérgica,
-        se priorizan los antihistamínicos H1 de
-        <strong>2.ª generación</strong>, que presentan
-        <strong>menor sedación</strong> que los de 1.ª generación.
+</div>
 
-        <br><br>
+</section>
 
-        En SBA se incorporaron esquemas específicos para
-        amoxicilina, amoxicilina-clavulanato, cefuroxima,
-        TMP-SMX, claritromicina, azitromicina y ceftriaxona.
-        La selección debe relacionarse con edad, gravedad,
-        asistencia a guardería, uso reciente de antibióticos,
-        alergia a penicilinas y tolerancia de la vía oral.
 
-        <br><br>
+<section class="card">
 
-        Antes de incorporar nuevos medicamentos deben verificarse
-        dosis, frecuencia, concentraciones, edad mínima y dosis
-        máximas en fuentes pediátricas actualizadas.
+<div class="section-title">
+📚 Sobre esta calculadora
+</div>
 
-    </div>
+<div class="info">
+
+Las dosis cargadas corresponden a los esquemas definidos para esta versión de la herramienta.
+
+<br><br>
+
+La aplicación organiza cada medicamento por
+<strong>indicación o patología</strong>. De esta manera, un mismo principio activo puede tener esquemas independientes según la enfermedad tratada.
+
+<br><br>
+
+La búsqueda permite encontrar tanto por
+<strong>medicamento</strong> como por
+<strong>patología o indicación</strong>.
+
+<br><br>
+
+La aplicación distingue entre medicamentos cuya dosis se expresa en
+<strong>mg/kg/día</strong>, aquellos cuya dosis se expresa en
+<strong>mg/kg/dosis</strong> y medicamentos con dosis fija según edad.
+
+<br><br>
+
+En paracetamol y dipirona se pueden seleccionar determinadas vías de administración. Las presentaciones, concentraciones, dosis y frecuencias se cargan de forma específica para cada vía.
+
+<br><br>
+
+En los antihistamínicos cargados para rinitis alérgica, se priorizan los antihistamínicos H1 de
+<strong>2.ª generación</strong>, que presentan menor sedación que los de 1.ª generación.
+
+<br><br>
+
+En OMA se incorporaron esquemas específicos para
+<strong>amoxicilina, amoxicilina-clavulanato, cefuroxima y ceftriaxona</strong>,
+manteniendo cada esquema independiente de los utilizados para otras patologías.
+
+<br><br>
+
+En SBA se mantienen los esquemas específicos previamente cargados para
+<strong>amoxicilina, amoxicilina-clavulanato, cefuroxima, TMP-SMX, claritromicina, azitromicina y ceftriaxona</strong>.
+
+<br><br>
+
+Antes de incorporar nuevos medicamentos deben verificarse dosis, frecuencia, concentraciones, edad mínima y dosis máximas en fuentes pediátricas actualizadas.
+
+</div>
 
 </section>
 
 </main>
 
-
 <nav class="bottom-nav">
 
-    <div class="nav-item active">
-        <span class="nav-icon">⌕</span>
-        Calcular
-    </div>
+<div class="nav-item active">
+<span class="nav-icon">⌕</span>
+Calcular
+</div>
 
-    <div class="nav-item">
-        <span class="nav-icon">＋</span>
-        Medicamentos
-    </div>
+<div class="nav-item">
+<span class="nav-icon">＋</span>
+Medicamentos
+</div>
 
-    <div class="nav-item">
-        <span class="nav-icon">ⓘ</span>
-        Info
-    </div>
+<div class="nav-item">
+<span class="nav-icon">ⓘ</span>
+Info
+</div>
 
 </nav>
 
@@ -1551,1554 +1215,1680 @@ summary {
 <script>
 
 /* ============================================================
-   SUPABASE AUTHENTICATION
+   SUPABASE
    ============================================================ */
 
 const SUPABASE_URL =
-    "https://fvxizdghuxexhfecjzrw.supabase.co";
+"https://fvxizdghuxexhfecjzrw.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_zyFlli5f8jTIE83IwvJMmA_1Vjos5KJ";
+"sb_publishable_zyFlli5f8jTIE83IwvJMmA_1Vjos5KJ";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
 
 const loginScreen =
-    document.getElementById("loginScreen");
+document.getElementById("loginScreen");
 
 const protectedApp =
-    document.getElementById("protectedApp");
+document.getElementById("protectedApp");
 
 const loginForm =
-    document.getElementById("loginForm");
+document.getElementById("loginForm");
 
 const loginEmail =
-    document.getElementById("loginEmail");
+document.getElementById("loginEmail");
 
 const loginPassword =
-    document.getElementById("loginPassword");
+document.getElementById("loginPassword");
 
 const loginButton =
-    document.getElementById("loginButton");
+document.getElementById("loginButton");
 
 const loginError =
-    document.getElementById("loginError");
+document.getElementById("loginError");
 
 const loginLoading =
-    document.getElementById("loginLoading");
+document.getElementById("loginLoading");
 
 const logoutButton =
-    document.getElementById("logoutButton");
+document.getElementById("logoutButton");
 
 
 /* ============================================================
-   MODO INVITADO
+   INVITADO
    ============================================================ */
 
 const guestChooser =
-    document.getElementById("guestChooser");
+document.getElementById("guestChooser");
 
 const guestButton =
-    document.getElementById("guestButton");
+document.getElementById("guestButton");
 
 const GUEST_SESSION_KEY =
-    "dosisPediatricaGuestMode";
+"dosisPediatricaGuestMode";
 
-
-function isGuestMode() {
-
-    return sessionStorage.getItem(
-        GUEST_SESSION_KEY
-    ) === "true";
-
+function isGuestMode(){
+return sessionStorage.getItem(GUEST_SESSION_KEY)==="true";
 }
 
-
-function enterGuestMode() {
-
-    sessionStorage.setItem(
-        GUEST_SESSION_KEY,
-        "true"
-    );
-
-    showApp();
-
+function enterGuestMode(){
+sessionStorage.setItem(GUEST_SESSION_KEY,"true");
+showApp();
 }
 
-
-function exitGuestMode() {
-
-    sessionStorage.removeItem(
-        GUEST_SESSION_KEY
-    );
-
+function exitGuestMode(){
+sessionStorage.removeItem(GUEST_SESSION_KEY);
 }
 
 
 /* ============================================================
-   SOLICITAR ACCESO - ELEMENTOS
+   SOLICITAR ACCESO
    ============================================================ */
 
 const accessRequestChooser =
-    document.getElementById("accessRequestChooser");
+document.getElementById("accessRequestChooser");
 
 const requestAccessButton =
-    document.getElementById("requestAccessButton");
+document.getElementById("requestAccessButton");
 
 const accessRequestPanel =
-    document.getElementById("accessRequestPanel");
+document.getElementById("accessRequestPanel");
 
 const accessRequestForm =
-    document.getElementById("accessRequestForm");
+document.getElementById("accessRequestForm");
 
 const requestName =
-    document.getElementById("requestName");
+document.getElementById("requestName");
 
 const requestEmail =
-    document.getElementById("requestEmail");
+document.getElementById("requestEmail");
 
 const requestInstitution =
-    document.getElementById("requestInstitution");
+document.getElementById("requestInstitution");
 
 const requestMessage =
-    document.getElementById("requestMessage");
+document.getElementById("requestMessage");
 
 const submitAccessRequest =
-    document.getElementById("submitAccessRequest");
+document.getElementById("submitAccessRequest");
 
 const backToLoginButton =
-    document.getElementById("backToLoginButton");
+document.getElementById("backToLoginButton");
 
 const accessRequestError =
-    document.getElementById("accessRequestError");
+document.getElementById("accessRequestError");
 
 const accessRequestLoading =
-    document.getElementById("accessRequestLoading");
+document.getElementById("accessRequestLoading");
 
 const accessRequestSuccess =
-    document.getElementById("accessRequestSuccess");
+document.getElementById("accessRequestSuccess");
 
 
-/* ============================================================
-   MOSTRAR LOGIN / APP
-   ============================================================ */
+function showLogin(){
 
-function showLogin() {
+loginScreen.classList.remove("hidden");
+protectedApp.classList.add("hidden");
+guestChooser.classList.remove("hidden");
 
-    loginScreen.classList.remove("hidden");
-    protectedApp.classList.add("hidden");
+}
 
-    guestChooser.classList.remove("hidden");
+function showApp(){
+
+loginScreen.classList.add("hidden");
+protectedApp.classList.remove("hidden");
+
+}
+
+function showLoginError(message){
+
+loginError.textContent=message;
+loginError.style.display="block";
+
+}
+
+function clearLoginError(){
+
+loginError.textContent="";
+loginError.style.display="none";
+
+}
+
+function showAccessRequestError(message){
+
+accessRequestError.textContent=message;
+accessRequestError.style.display="block";
+
+}
+
+function clearAccessRequestError(){
+
+accessRequestError.textContent="";
+accessRequestError.style.display="none";
 
 }
 
 
-function showApp() {
+guestButton.addEventListener("click",function(){
 
-    loginScreen.classList.add("hidden");
-    protectedApp.classList.remove("hidden");
+clearLoginError();
+clearAccessRequestError();
+
+exitGuestMode();
+enterGuestMode();
+
+});
+
+
+requestAccessButton.addEventListener("click",function(){
+
+clearLoginError();
+clearAccessRequestError();
+
+loginForm.classList.add("hidden");
+accessRequestChooser.classList.add("hidden");
+guestChooser.classList.add("hidden");
+accessRequestPanel.classList.remove("hidden");
+accessRequestSuccess.classList.add("hidden");
+accessRequestForm.classList.remove("hidden");
+
+requestEmail.value=loginEmail.value.trim();
+requestName.focus();
+
+});
+
+
+backToLoginButton.addEventListener("click",function(){
+
+clearAccessRequestError();
+
+accessRequestPanel.classList.add("hidden");
+loginForm.classList.remove("hidden");
+accessRequestChooser.classList.remove("hidden");
+guestChooser.classList.remove("hidden");
+accessRequestSuccess.classList.add("hidden");
+accessRequestForm.classList.remove("hidden");
+
+requestName.value="";
+requestInstitution.value="";
+requestMessage.value="";
+
+});
+
+
+accessRequestForm.addEventListener("submit",async function(event){
+
+event.preventDefault();
+
+clearAccessRequestError();
+
+const name=requestName.value.trim();
+const email=requestEmail.value.trim();
+const institution=requestInstitution.value.trim();
+const message=requestMessage.value.trim();
+
+if(!name||name.length<2){
+showAccessRequestError("Ingresá tu nombre y apellido.");
+return;
+}
+
+if(!email||!email.includes("@")){
+showAccessRequestError("Ingresá un email válido.");
+return;
+}
+
+submitAccessRequest.disabled=true;
+submitAccessRequest.textContent="ENVIANDO...";
+accessRequestLoading.style.display="block";
+
+const {error}=await supabaseClient
+.from("access_requests")
+.insert([{
+name:name,
+email:email,
+institution:institution||null,
+message:message||null
+}]);
+
+submitAccessRequest.disabled=false;
+submitAccessRequest.textContent="ENVIAR SOLICITUD";
+accessRequestLoading.style.display="none";
+
+if(error){
+
+console.error(
+"Error al enviar solicitud de acceso:",
+error
+);
+
+showAccessRequestError(
+"No se pudo enviar la solicitud. Intentá nuevamente."
+);
+
+return;
 
 }
 
+accessRequestForm.classList.add("hidden");
+accessRequestSuccess.classList.remove("hidden");
 
-/* ============================================================
-   ERRORES DEL LOGIN
-   ============================================================ */
+});
 
-function showLoginError(message) {
 
-    loginError.textContent = message;
-    loginError.style.display = "block";
+loginForm.addEventListener("submit",async function(event){
+
+event.preventDefault();
+
+clearLoginError();
+
+const email=loginEmail.value.trim();
+const password=loginPassword.value;
+
+if(!email||!password){
+
+showLoginError(
+"Ingresá el email y la contraseña."
+);
+
+return;
 
 }
 
+loginButton.disabled=true;
+loginButton.textContent="INGRESANDO...";
+loginLoading.style.display="block";
 
-function clearLoginError() {
+const {error}=await supabaseClient.auth.signInWithPassword({
+email:email,
+password:password
+});
 
-    loginError.textContent = "";
-    loginError.style.display = "none";
+loginButton.disabled=false;
+loginButton.textContent="INGRESAR";
+loginLoading.style.display="none";
+
+if(error){
+
+showLoginError(
+"No se pudo iniciar sesión. Verificá el email y la contraseña."
+);
+
+return;
 
 }
 
+exitGuestMode();
+loginPassword.value="";
 
-/* ============================================================
-   ERRORES DE SOLICITUD DE ACCESO
-   ============================================================ */
-
-function showAccessRequestError(message) {
-
-    accessRequestError.textContent =
-        message;
-
-    accessRequestError.style.display =
-        "block";
-
-}
+});
 
 
-function clearAccessRequestError() {
+logoutButton.addEventListener("click",async function(){
 
-    accessRequestError.textContent =
-        "";
+const wasGuest=isGuestMode();
 
-    accessRequestError.style.display =
-        "none";
+exitGuestMode();
+
+if(wasGuest){
+
+showLogin();
+return;
 
 }
 
+const {error}=await supabaseClient.auth.signOut();
 
-/* ============================================================
-   ENTRAR COMO INVITADO
-   ============================================================ */
+if(error){
 
-guestButton.addEventListener(
-    "click",
-    function() {
-
-        clearLoginError();
-        clearAccessRequestError();
-
-        exitGuestMode();
-
-        enterGuestMode();
-
-    }
+console.error(
+"Error al cerrar sesión:",
+error
 );
 
+return;
 
-/* ============================================================
-   ABRIR SOLICITUD DE ACCESO
-   ============================================================ */
+}
 
-requestAccessButton.addEventListener(
-    "click",
-    function() {
+showLogin();
 
-        clearLoginError();
-        clearAccessRequestError();
+});
 
-        loginForm.classList.add(
-            "hidden"
-        );
 
-        accessRequestChooser.classList.add(
-            "hidden"
-        );
+supabaseClient.auth.onAuthStateChange(function(event,session){
 
-        guestChooser.classList.add(
-            "hidden"
-        );
+if(session){
 
-        accessRequestPanel.classList.remove(
-            "hidden"
-        );
+exitGuestMode();
+showApp();
 
-        accessRequestSuccess.classList.add(
-            "hidden"
-        );
+}
 
-        accessRequestForm.classList.remove(
-            "hidden"
-        );
+else if(isGuestMode()){
 
-        requestEmail.value =
-            loginEmail.value.trim();
+showApp();
 
-        requestName.focus();
+}
 
-    }
-);
+else{
 
+showLogin();
 
-/* ============================================================
-   VOLVER AL LOGIN
-   ============================================================ */
+}
 
-backToLoginButton.addEventListener(
-    "click",
-    function() {
-
-        clearAccessRequestError();
-
-        accessRequestPanel.classList.add(
-            "hidden"
-        );
-
-        loginForm.classList.remove(
-            "hidden"
-        );
-
-        accessRequestChooser.classList.remove(
-            "hidden"
-        );
-
-        guestChooser.classList.remove(
-            "hidden"
-        );
-
-        accessRequestSuccess.classList.add(
-            "hidden"
-        );
-
-        accessRequestForm.classList.remove(
-            "hidden"
-        );
-
-        requestName.value = "";
-        requestInstitution.value = "";
-        requestMessage.value = "";
-
-    }
-);
-
-
-/* ============================================================
-   ENVIAR SOLICITUD DE ACCESO
-   ============================================================ */
-
-accessRequestForm.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-        clearAccessRequestError();
-
-        const name =
-            requestName.value.trim();
-
-        const email =
-            requestEmail.value.trim();
-
-        const institution =
-            requestInstitution.value.trim();
-
-        const message =
-            requestMessage.value.trim();
-
-
-        if (
-            !name ||
-            name.length < 2
-        ) {
-
-            showAccessRequestError(
-                "Ingresá tu nombre y apellido."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            !email ||
-            !email.includes("@")
-        ) {
-
-            showAccessRequestError(
-                "Ingresá un email válido."
-            );
-
-            return;
-
-        }
-
-
-        submitAccessRequest.disabled =
-            true;
-
-        submitAccessRequest.textContent =
-            "ENVIANDO...";
-
-        accessRequestLoading.style.display =
-            "block";
-
-
-        const {
-            error
-        } =
-            await supabaseClient
-                .from("access_requests")
-                .insert([
-                    {
-                        name: name,
-                        email: email,
-                        institution:
-                            institution || null,
-                        message:
-                            message || null
-                    }
-                ]);
-
-
-        submitAccessRequest.disabled =
-            false;
-
-        submitAccessRequest.textContent =
-            "ENVIAR SOLICITUD";
-
-        accessRequestLoading.style.display =
-            "none";
-
-
-        if (error) {
-
-            console.error(
-                "Error al enviar solicitud de acceso:",
-                error
-            );
-
-            showAccessRequestError(
-                "No se pudo enviar la solicitud. Intentá nuevamente."
-            );
-
-            return;
-
-        }
-
-
-        accessRequestForm.classList.add(
-            "hidden"
-        );
-
-        accessRequestSuccess.classList.remove(
-            "hidden"
-        );
-
-    }
-);
-
-
-/* ============================================================
-   LOGIN
-   ============================================================ */
-
-loginForm.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-        clearLoginError();
-
-        const email =
-            loginEmail.value.trim();
-
-        const password =
-            loginPassword.value;
-
-        if (!email || !password) {
-
-            showLoginError(
-                "Ingresá el email y la contraseña."
-            );
-
-            return;
-
-        }
-
-        loginButton.disabled = true;
-        loginButton.textContent = "INGRESANDO...";
-        loginLoading.style.display = "block";
-
-        const {
-            error
-        } =
-            await supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-
-        loginButton.disabled = false;
-        loginButton.textContent = "INGRESAR";
-        loginLoading.style.display = "none";
-
-        if (error) {
-
-            showLoginError(
-                "No se pudo iniciar sesión. Verificá el email y la contraseña."
-            );
-
-            return;
-
-        }
-
-        exitGuestMode();
-
-        loginPassword.value = "";
-
-    }
-);
-
-
-/* ============================================================
-   CERRAR SESIÓN
-   ============================================================ */
-
-logoutButton.addEventListener(
-    "click",
-    async function() {
-
-        const wasGuest =
-            isGuestMode();
-
-        exitGuestMode();
-
-
-        if (wasGuest) {
-
-            showLogin();
-
-            return;
-
-        }
-
-
-        const {
-            error
-        } =
-            await supabaseClient.auth.signOut();
-
-        if (error) {
-
-            console.error(
-                "Error al cerrar sesión:",
-                error
-            );
-
-            return;
-
-        }
-
-        showLogin();
-
-    }
-);
-
-
-/* ============================================================
-   ESTADO DE AUTENTICACIÓN
-   ============================================================ */
-
-supabaseClient.auth.onAuthStateChange(
-    function(event, session) {
-
-        if (session) {
-
-            exitGuestMode();
-            showApp();
-
-        }
-
-        else if (isGuestMode()) {
-
-            showApp();
-
-        }
-
-        else {
-
-            showLogin();
-
-        }
-
-    }
-);
+});
 
 
 /* ============================================================
    BASE DE DATOS DE MEDICAMENTOS
    ============================================================ */
 
-const medicines = {
+const medicines={
+
+
+/* ============================================================
+   AMOXICILINA - OMA
+   ============================================================ */
+
+amoxicilinaOMA:{
+
+name:"Amoxicilina",
+
+indication:"OMA",
 
-    /* ========================================================
-       OMA
-       ======================================================== */
+type:"mgkgday",
 
-    amoxicilina: {
+doses:[
+{value:80,label:"80 mg/kg/día"},
+{value:85,label:"85 mg/kg/día"},
+{value:90,label:"90 mg/kg/día"}
+],
 
-        name: "Amoxicilina - OMA",
-
-        type: "mgkgday",
-
-        doses: [
-            { value: 80, label: "80 mg/kg/día" },
-            { value: 85, label: "85 mg/kg/día" },
-            { value: 90, label: "90 mg/kg/día" }
-        ],
-
-        frequencies: [
-            { hours: 4, label: "Cada 4 horas" },
-            { hours: 6, label: "Cada 6 horas" },
-            { hours: 8, label: "Cada 8 horas" },
-            { hours: 12, label: "Cada 12 horas" },
-            { hours: 24, label: "Cada 24 horas" }
-        ],
-
-        forms: {
-
-            jarabe: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    { value: 125, label: "125 mg / 5 mL" },
-                    { value: 250, label: "250 mg / 5 mL" },
-                    { value: 400, label: "400 mg / 5 mL" },
-                    { value: 500, label: "500 mg / 5 mL" },
-                    { value: 750, label: "750 mg / 5 mL" }
-                ]
-
-            }
-
-        }
-
-    },
-
-
-    /* ========================================================
-       SBA - AMOXICILINA
-       ======================================================== */
-
-    amoxicilinaSBA: {
-
-        name: "Amoxicilina - SBA",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 40,
-                label: "40 mg/kg/día"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            }
-        ],
-
-        forms: {
-
-            jarabe: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    { value: 125, label: "125 mg / 5 mL" },
-                    { value: 250, label: "250 mg / 5 mL" },
-                    { value: 400, label: "400 mg / 5 mL" },
-                    { value: 500, label: "500 mg / 5 mL" },
-                    { value: 750, label: "750 mg / 5 mL" }
-                ]
-
-            }
-
-        },
-
-        note:
-            "SBA: esquema cargado de 40 mg/kg/día cada 8 horas. En el enfoque argentino consultado, la amoxicilina se utiliza como opción inicial en niños ≥2 años con enfermedad leve-moderada, sin concurrencia a guardería y sin antibióticos durante el mes previo. Verificar siempre protocolo local y criterios clínicos."
-    },
-
-
-    /* ========================================================
-       SBA - AMOXICILINA + CLAVULANATO
-       ======================================================== */
-
-    amoxicilinaClavulanatoSBA: {
-
-        name: "Amoxicilina + clavulanato - SBA",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 80,
-                label: "80 mg/kg/día de amoxicilina"
-            },
-            {
-                value: 90,
-                label: "90 mg/kg/día de amoxicilina"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 8,
-                label: "Cada 8 horas"
-            }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    {
-                        value: 400,
-                        label: "400 mg de amoxicilina + 57 mg de clavulanato / 5 mL"
-                    },
-                    {
-                        value: 600,
-                        label: "600 mg de amoxicilina + 42,9 mg de clavulanato / 5 mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "SBA: esquema cargado de 80–90 mg/kg/día de amoxicilina. Se considera especialmente ante <2 años, concurrencia a guardería, antibiótico durante el mes previo o enfermedad moderada-severa. La dosis se calcula sobre el componente de amoxicilina. El intervalo puede variar según la formulación y el protocolo; verificar ficha técnica/protocolo local."
-    },
-
-
-    /* ========================================================
-       SBA - CEFUROXIMA
-       ======================================================== */
-
-    cefuroximaSBA: {
-
-        name: "Cefuroxima - SBA / alergia a penicilina no tipo I",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 20,
-                label: "20 mg/kg/día"
-            },
-            {
-                value: 40,
-                label: "40 mg/kg/día"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    {
-                        value: 125,
-                        label: "125 mg / 5 mL"
-                    },
-                    {
-                        value: 250,
-                        label: "250 mg / 5 mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "Alternativa para alergia a penicilina no tipo I. En fuentes argentinas de SAP se describen cefalosporinas de 2.ª generación como alternativa y cefuroxima en dosis de 20–40 mg/kg/día. Verificar tipo de alergia antes de utilizar una cefalosporina."
-    },
-
-
-    /* ========================================================
-       SBA - TMP-SMX
-       ======================================================== */
-
-    tmpSmxSBA: {
-
-        name: "TMP-SMX - SBA / 2.ª elección",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 6,
-                label: "6 mg/kg/día de trimetoprima"
-            },
-            {
-                value: 8,
-                label: "8 mg/kg/día de trimetoprima"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    {
-                        value: 40,
-                        label: "40 mg TMP + 200 mg SMX / 5 mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "Cargado como 2.ª elección según el esquema argentino de referencia consultado. La dosis se expresa por el componente de trimetoprima (TMP). Verificar indicación y sensibilidad bacteriana antes de utilizar."
-    },
-
-
-    /* ========================================================
-       SBA - CLARITROMICINA
-       ======================================================== */
-
-    claritromicinaSBA: {
-
-        name: "Claritromicina - SBA / alergia tipo I",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 15,
-                label: "15 mg/kg/día"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 12,
-                label: "Cada 12 horas"
-            }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    {
-                        value: 125,
-                        label: "125 mg / 5 mL"
-                    },
-                    {
-                        value: 250,
-                        label: "250 mg / 5 mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema de referencia: 15 mg/kg/día dividido cada 12 horas. Verificar resistencia local, indicación y protocolo vigente antes de utilizar."
-    },
-
-
-    /* ========================================================
-       SBA - AZITROMICINA
-       ======================================================== */
-
-    azitromicinaSBA: {
-
-        name: "Azitromicina - SBA / alergia tipo I",
-
-        type: "mgkgday",
-
-        doses: [
-            {
-                value: 10,
-                label: "10 mg/kg/día"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 24,
-                label: "Cada 24 horas"
-            }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    {
-                        value: 200,
-                        label: "200 mg / 5 mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema habitual cargado: 10 mg/kg cada 24 horas. En rinosinusitis, fuentes argentinas describen 5 días como duración alternativa. Verificar indicación y resistencia local."
-    },
-
-
-    /* ========================================================
-       SBA - CEFTRIAXONA
-       ======================================================== */
-
-    ceftriaxonaSBA: {
-
-        name: "Ceftriaxona - SBA / mala tolerancia oral",
-
-        type: "mgkgdose",
-
-        doses: [
-            {
-                value: 50,
-                label: "50 mg/kg/dosis"
-            }
-        ],
-
-        frequencies: [
-            {
-                hours: 24,
-                label: "Cada 24 horas"
-            }
-        ],
-
-        forms: {
-
-            injection: {
-
-                label: "IM · Solución inyectable",
-
-                concentrations: [
-                    {
-                        value: 100,
-                        label: "100 mg / mL"
-                    }
-                ]
-
-            }
-
-        },
-
-        note:
-            "Opción por vía IM cuando el paciente vomita o no acepta antibióticos por vía oral. Dosis: 50 mg/kg/dosis cada 24 horas. Duración cargada para este esquema: 1 a 3 días. Verificar reconstitución, presentación disponible y protocolo local antes de administrar."
-    },
-
-
-    /* ========================================================
-       PARACETAMOL
-       ======================================================== */
-
-    paracetamol: {
-
-        name: "Paracetamol - Analgesia / antipiresis",
-
-        type: "mgkgdose",
-
-        routes: {
-
-            oral: {
-
-                label: "VO · Oral",
-
-                doses: [
-                    { value: 10, label: "10 mg/kg/dosis" },
-                    { value: 12.5, label: "12,5 mg/kg/dosis" },
-                    { value: 15, label: "15 mg/kg/dosis" }
-                ],
-
-                frequencies: [
-                    { hours: 4, label: "Cada 4 horas" },
-                    { hours: 6, label: "Cada 6 horas" },
-                    { hours: 8, label: "Cada 8 horas" },
-                    { hours: 12, label: "Cada 12 horas" },
-                    { hours: 24, label: "Cada 24 horas" }
-                ],
-
-                forms: {
-
-                    jarabe: {
-
-                        label: "Jarabe",
-
-                        concentrations: [
-                            { value: 20, label: "100 mg / 5 mL" },
-                            { value: 24, label: "120 mg / 5 mL" }
-                        ]
-
-                    },
-
-                    gotas: {
-
-                        label: "Gotas orales",
-
-                        concentrations: [
-                            { value: 100, label: "100 mg / mL" }
-                        ]
-
-                    }
-
-                }
-
-            },
-
-            iv: {
-
-                label: "EV · Intravenosa",
-
-                type: "ageRoute",
-
-                ageRules: [
-
-                    {
-                        minMonths: 0,
-                        maxMonths: 0,
-
-                        doses: [
-                            { value: 12.5, label: "12,5 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" }
-                        ],
-
-                        note:
-                            "Neonatos: esquema específico de 12,5 mg/kg cada 6 horas. Verificar edad gestacional y situación clínica."
-                    },
-
-                    {
-                        minMonths: 0,
-                        maxMonths: 0.9,
-
-                        doses: [
-                            { value: 12.5, label: "12,5 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" }
-                        ]
-                    },
-
-                    {
-                        minMonths: 1,
-                        maxMonths: 23,
-
-                        doses: [
-                            { value: 15, label: "15 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" }
-                        ]
-                    },
-
-                    {
-                        minMonths: 24,
-                        maxMonths: 143,
-
-                        doses: [
-                            { value: 12.5, label: "12,5 mg/kg/dosis" },
-                            { value: 15, label: "15 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 4, label: "Cada 4 horas" },
-                            { hours: 6, label: "Cada 6 horas" }
-                        ],
-
-                        note:
-                            "En niños de 2–12 años, 12,5 mg/kg cada 4 horas o 15 mg/kg cada 6 horas. Máximo diario según esquema y ficha técnica."
-                    }
-
-                ],
-
-                forms: {
-
-                    infusion: {
-
-                        label: "Solución para infusión EV",
-
-                        concentrations: [
-                            { value: 10, label: "10 mg / mL" }
-                        ]
-
-                    }
-
-                },
-
-                note:
-                    "Administración exclusivamente intravenosa. La solución inyectable debe administrarse mediante infusión IV según la presentación correspondiente."
-
-            }
-
-        }
-
-    },
-
-
-    /* ========================================================
-       DIPIRONA
-       ======================================================== */
-
-    dipirona: {
-
-        name: "Dipirona - Analgesia / antipiresis",
-
-        type: "mgkgdose",
-
-        routes: {
-
-            oral: {
-
-                label: "VO · Oral",
-
-                doses: [
-                    { value: 10, label: "10 mg/kg/dosis" }
-                ],
-
-                frequencies: [
-                    { hours: 4, label: "Cada 4 horas" },
-                    { hours: 6, label: "Cada 6 horas" },
-                    { hours: 8, label: "Cada 8 horas" },
-                    { hours: 12, label: "Cada 12 horas" },
-                    { hours: 24, label: "Cada 24 horas" }
-                ],
-
-                forms: {
-
-                    jarabe: {
-
-                        label: "Jarabe / suspensión oral",
-
-                        concentrations: [
-                            { value: 250, label: "250 mg / 5 mL" }
-                        ]
-
-                    },
-
-                    gotas: {
-
-                        label: "Gotas orales",
-
-                        concentrations: [
-                            { value: 500, label: "500 mg / mL" }
-                        ]
-
-                    }
-
-                }
-
-            },
-
-            parenteral: {
-
-                label: "EV / IM · Inyectable",
-
-                type: "ageRoute",
-
-                ageRules: [
-
-                    {
-                        minMonths: 3,
-                        maxMonths: 11,
-
-                        doses: [
-                            { value: 10, label: "10 mg/kg/dosis" },
-                            { value: 16, label: "16 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" },
-                            { hours: 8, label: "Cada 8 horas" }
-                        ],
-
-                        note:
-                            "En lactantes de 3–11 meses, la ficha técnica consultada establece administración parenteral por vía IM."
-                    },
-
-                    {
-                        minMonths: 12,
-                        maxMonths: 35,
-
-                        doses: [
-                            { value: 10, label: "10 mg/kg/dosis" },
-                            { value: 16, label: "16 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" },
-                            { hours: 8, label: "Cada 8 horas" }
-                        ]
-                    },
-
-                    {
-                        minMonths: 36,
-                        maxMonths: 71,
-
-                        doses: [
-                            { value: 10, label: "10 mg/kg/dosis" },
-                            { value: 16, label: "16 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" },
-                            { hours: 8, label: "Cada 8 horas" }
-                        ]
-                    },
-
-                    {
-                        minMonths: 72,
-                        maxMonths: 119,
-
-                        doses: [
-                            { value: 10, label: "10 mg/kg/dosis" },
-                            { value: 16, label: "16 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" },
-                            { hours: 8, label: "Cada 8 horas" }
-                        ]
-                    },
-
-                    {
-                        minMonths: 120,
-                        maxMonths: 167,
-
-                        doses: [
-                            { value: 10, label: "10 mg/kg/dosis" },
-                            { value: 16, label: "16 mg/kg/dosis" }
-                        ],
-
-                        frequencies: [
-                            { hours: 6, label: "Cada 6 horas" },
-                            { hours: 8, label: "Cada 8 horas" }
-                        ]
-                    }
-
-                ],
-
-                forms: {
-
-                    injection: {
-
-                        label: "Solución inyectable",
-
-                        concentrations: [
-                            { value: 500, label: "500 mg / mL" }
-                        ]
-
-                    }
-
-                },
-
-                note:
-                    "La administración EV/IM se reserva cuando la vía oral no es adecuada. La inyección EV debe administrarse muy lentamente y bajo vigilancia médica."
-
-            }
-
-        }
-
-    },
-
-
-    /* ========================================================
-       IBUPROFENO
-       ======================================================== */
-
-    ibuprofeno: {
-
-        name: "Ibuprofeno - Analgesia / antipiresis / antiinflamatorio",
-
-        type: "mgkgdose",
-
-        doses: [
-            { value: 5, label: "5 mg/kg/dosis" },
-            { value: 10, label: "10 mg/kg/dosis" }
-        ],
-
-        frequencies: [
-            { hours: 6, label: "Cada 6 horas" },
-            { hours: 8, label: "Cada 8 horas" }
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    { value: 20, label: "2% · 100 mg / 5 mL" },
-                    { value: 40, label: "4% · 200 mg / 5 mL" }
-                ]
-
-            }
-
-        }
-
-    },
-
-
-    /* ========================================================
-       LORATADINA
-       ======================================================== */
-
-    loratadina: {
-
-        name: "Loratadina - Rinitis alérgica",
-
-        type: "fixedAge",
-
-        ageRules: [
-
-            {
-                minMonths: 24,
-                maxMonths: 71,
-                dose: 5,
-                label: "5 mg/dosis · 2–5 años",
-                frequency: 24
-            },
-
-            {
-                minMonths: 72,
-                maxMonths: Infinity,
-                dose: 10,
-                label: "10 mg/dosis · ≥6 años",
-                frequency: 24
-            }
-
-        ],
-
-        forms: {
-
-            jarabe: {
-
-                label: "Jarabe",
-
-                concentrations: [
-                    { value: 1, label: "5 mg / 5 mL" }
-                ]
-
-            }
-
-        },
-
-        note:
-            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-    },
-
-
-    /* ========================================================
-       CETIRIZINA
-       ======================================================== */
-
-    cetirizina: {
-
-        name: "Cetirizina - Rinitis alérgica",
-
-        type: "fixedAge",
-
-        ageRules: [
-
-            {
-                minMonths: 6,
-                maxMonths: 23,
-                dose: 2.5,
-                label: "2,5 mg/dosis · 6–23 meses",
-                frequency: 24
-            },
-
-            {
-                minMonths: 24,
-                maxMonths: 71,
-                dose: 2.5,
-                label: "2,5 mg/dosis · 2–5 años",
-                frequency: 24
-            },
-
-            {
-                minMonths: 24,
-                maxMonths: 71,
-                dose: 5,
-                label: "5 mg/dosis · 2–5 años",
-                frequency: 24
-            },
-
-            {
-                minMonths: 72,
-                maxMonths: Infinity,
-                dose: 5,
-                label: "5 mg/dosis · ≥6 años",
-                frequency: 24
-            }
-
-        ],
-
-        forms: {
-
-            jarabe: {
-
-                label: "Solución oral",
-
-                concentrations: [
-                    { value: 1, label: "1 mg / mL" }
-                ]
-
-            }
-
-        },
-
-        note:
-            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-    },
-
-
-    /* ========================================================
-       DESLORATADINA
-       ======================================================== */
-
-    desloratadina: {
-
-        name: "Desloratadina - Rinitis alérgica",
-
-        type: "fixedAge",
-
-        ageRules: [
-
-            {
-                minMonths: 6,
-                maxMonths: 11,
-                dose: 1,
-                label: "1 mg/dosis · 6–11 meses",
-                frequency: 24
-            },
-
-            {
-                minMonths: 12,
-                maxMonths: 71,
-                dose: 1.25,
-                label: "1,25 mg/dosis · 1–5 años",
-                frequency: 24
-            },
-
-            {
-                minMonths: 72,
-                maxMonths: 143,
-                dose: 2.5,
-                label: "2,5 mg/dosis · 6–11 años",
-                frequency: 24
-            },
-
-            {
-                minMonths: 144,
-                maxMonths: Infinity,
-                dose: 5,
-                label: "5 mg/dosis · ≥12 años",
-                frequency: 24
-            }
-
-        ],
-
-        forms: {
-
-            jarabe: {
-
-                label: "Jarabe",
-
-                concentrations: [
-                    { value: 0.5, label: "0,5 mg / mL" }
-                ]
-
-            }
-
-        },
-
-        note:
-            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
-    },
-
-
-    /* ========================================================
-       FEXOFENADINA
-       ======================================================== */
-
-    fexofenadina: {
-
-        name: "Fexofenadina - Rinitis alérgica",
-
-        type: "fixedAge",
-
-        ageRules: [
-
-            {
-                minMonths: 24,
-                maxMonths: 71,
-                dose: 30,
-                label: "30 mg/dosis · 2–5 años",
-                frequency: 12
-            },
-
-            {
-                minMonths: 72,
-                maxMonths: 143,
-                dose: 30,
-                label: "30 mg/dosis · 6–11 años",
-                frequency: 12
-            },
-
-            {
-                minMonths: 144,
-                maxMonths: Infinity,
-                dose: 60,
-                label: "60 mg/dosis · ≥12 años",
-                frequency: 12
-            }
-
-        ],
-
-        forms: {
-
-            suspension: {
-
-                label: "Suspensión oral",
-
-                concentrations: [
-                    { value: 6, label: "30 mg / 5 mL" }
-                ]
-
-            }
-
-        },
-
-        note:
-            "💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación. En fexofenadina, la edad mínima y la concentración pueden variar según la presentación y la indicación. Verificar ficha técnica local antes de administrar."
-
-    }
+frequencies:[
+{hours:4,label:"Cada 4 horas"},
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"},
+{hours:12,label:"Cada 12 horas"},
+{hours:24,label:"Cada 24 horas"}
+],
+
+forms:{
+jarabe:{
+label:"Suspensión oral",
+concentrations:[
+{value:125,label:"125 mg / 5 mL"},
+{value:250,label:"250 mg / 5 mL"},
+{value:400,label:"400 mg / 5 mL"},
+{value:500,label:"500 mg / 5 mL"},
+{value:750,label:"750 mg / 5 mL"}
+]
+}
+},
+
+keywords:[
+"oma",
+"otitis",
+"otitis media aguda",
+"amoxicilina"
+]
+
+},
+
+
+/* ============================================================
+   AMOXICILINA - SBA
+   ============================================================ */
+
+amoxicilinaSBA:{
+
+name:"Amoxicilina",
+
+indication:"SBA",
+
+type:"mgkgday",
+
+doses:[
+{
+value:40,
+label:"40 mg/kg/día"
+}
+],
+
+frequencies:[
+{
+hours:8,
+label:"Cada 8 horas"
+}
+],
+
+forms:{
+jarabe:{
+label:"Suspensión oral",
+concentrations:[
+{value:125,label:"125 mg / 5 mL"},
+{value:250,label:"250 mg / 5 mL"},
+{value:400,label:"400 mg / 5 mL"},
+{value:500,label:"500 mg / 5 mL"},
+{value:750,label:"750 mg / 5 mL"}
+]
+}
+},
+
+note:
+"SBA: esquema cargado de 40 mg/kg/día cada 8 horas. En el enfoque argentino consultado, la amoxicilina se utiliza como opción inicial en niños ≥2 años con enfermedad leve-moderada, sin concurrencia a guardería y sin antibióticos durante el mes previo. Verificar siempre protocolo local y criterios clínicos.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"amoxicilina"
+]
+
+},
+
+
+/* ============================================================
+   AMOXICILINA + CLAVULANATO - OMA
+   ============================================================ */
+
+amoxicilinaClavulanatoOMA:{
+
+name:"Amoxicilina + clavulanato",
+
+indication:"OMA",
+
+type:"mgkgday",
+
+doses:[
+{
+value:80,
+label:"80 mg/kg/día de amoxicilina"
+}
+],
+
+frequencies:[
+{
+hours:8,
+label:"Cada 8 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:400,
+label:"400 mg de amoxicilina + 57 mg de clavulanato / 5 mL"
+},
+{
+value:600,
+label:"600 mg de amoxicilina + 42,9 mg de clavulanato / 5 mL"
+}
+]
+}
+},
+
+note:
+"OMA: 80 mg/kg/día de amoxicilina, administrado cada 8 horas. Duración habitual: 5–10 días según edad, gravedad y evolución clínica. La dosis se calcula sobre el componente de amoxicilina. Verificar formulación, concentración disponible y protocolo local.",
+
+keywords:[
+"oma",
+"otitis",
+"otitis media aguda",
+"amoxicilina clavulanato",
+"amoxi clavulanato"
+]
+
+},
+
+
+/* ============================================================
+   AMOXICILINA + CLAVULANATO - SBA
+   ============================================================ */
+
+amoxicilinaClavulanatoSBA:{
+
+name:"Amoxicilina + clavulanato",
+
+indication:"SBA",
+
+type:"mgkgday",
+
+doses:[
+{
+value:80,
+label:"80 mg/kg/día de amoxicilina"
+},
+{
+value:90,
+label:"90 mg/kg/día de amoxicilina"
+}
+],
+
+frequencies:[
+{
+hours:8,
+label:"Cada 8 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:400,
+label:"400 mg de amoxicilina + 57 mg de clavulanato / 5 mL"
+},
+{
+value:600,
+label:"600 mg de amoxicilina + 42,9 mg de clavulanato / 5 mL"
+}
+]
+}
+},
+
+note:
+"SBA: esquema cargado de 80–90 mg/kg/día de amoxicilina. Se considera especialmente ante <2 años, concurrencia a guardería, antibiótico durante el mes previo o enfermedad moderada-severa. La dosis se calcula sobre el componente de amoxicilina. El intervalo puede variar según la formulación y el protocolo; verificar ficha técnica/protocolo local.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"amoxicilina clavulanato",
+"amoxi clavulanato"
+]
+
+},
+
+
+/* ============================================================
+   CEFUROXIMA - OMA
+   ============================================================ */
+
+cefuroximaOMA:{
+
+name:"Cefuroxima",
+
+indication:"OMA / alergia a penicilina no tipo I",
+
+type:"mgkgday",
+
+doses:[
+{
+value:30,
+label:"30 mg/kg/día"
+},
+{
+value:40,
+label:"40 mg/kg/día"
+}
+],
+
+frequencies:[
+{
+hours:12,
+label:"Cada 12 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:125,
+label:"125 mg / 5 mL"
+},
+{
+value:250,
+label:"250 mg / 5 mL"
+}
+]
+}
+},
+
+note:
+"OMA: alternativa en pacientes con alergia a penicilina no tipo I. Dosis: 30–40 mg/kg/día por vía oral, dividida cada 12 horas. Verificar el tipo de alergia antes de utilizar una cefalosporina y consultar el protocolo local.",
+
+keywords:[
+"oma",
+"otitis",
+"otitis media aguda",
+"alergia penicilina",
+"cefuroxima"
+]
+
+},
+
+
+/* ============================================================
+   CEFUROXIMA - SBA
+   ============================================================ */
+
+cefuroximaSBA:{
+
+name:"Cefuroxima",
+
+indication:"SBA / alergia a penicilina no tipo I",
+
+type:"mgkgday",
+
+doses:[
+{
+value:20,
+label:"20 mg/kg/día"
+},
+{
+value:40,
+label:"40 mg/kg/día"
+}
+],
+
+frequencies:[
+{
+hours:12,
+label:"Cada 12 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:125,
+label:"125 mg / 5 mL"
+},
+{
+value:250,
+label:"250 mg / 5 mL"
+}
+]
+}
+},
+
+note:
+"Alternativa para alergia a penicilina no tipo I. En fuentes argentinas de SAP se describen cefalosporinas de 2.ª generación como alternativa y cefuroxima en dosis de 20–40 mg/kg/día. Verificar tipo de alergia antes de utilizar una cefalosporina.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"alergia penicilina",
+"cefuroxima"
+]
+
+},
+
+
+/* ============================================================
+   TMP-SMX - SBA
+   ============================================================ */
+
+tmpSmxSBA:{
+
+name:"TMP-SMX",
+
+indication:"SBA / 2.ª elección",
+
+type:"mgkgday",
+
+doses:[
+{
+value:6,
+label:"6 mg/kg/día de trimetoprima"
+},
+{
+value:8,
+label:"8 mg/kg/día de trimetoprima"
+}
+],
+
+frequencies:[
+{
+hours:12,
+label:"Cada 12 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:40,
+label:"40 mg TMP + 200 mg SMX / 5 mL"
+}
+]
+}
+},
+
+note:
+"Cargado como 2.ª elección según el esquema argentino de referencia consultado. La dosis se expresa por el componente de trimetoprima (TMP). Verificar indicación y sensibilidad bacteriana antes de utilizar.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"trimetoprima",
+"sulfametoxazol",
+"tmp-smx"
+]
+
+},
+
+
+/* ============================================================
+   CLARITROMICINA - SBA
+   ============================================================ */
+
+claritromicinaSBA:{
+
+name:"Claritromicina",
+
+indication:"SBA / alergia tipo I",
+
+type:"mgkgday",
+
+doses:[
+{
+value:15,
+label:"15 mg/kg/día"
+}
+],
+
+frequencies:[
+{
+hours:12,
+label:"Cada 12 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:125,
+label:"125 mg / 5 mL"
+},
+{
+value:250,
+label:"250 mg / 5 mL"
+}
+]
+}
+},
+
+note:
+"Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema de referencia: 15 mg/kg/día dividido cada 12 horas. Verificar resistencia local, indicación y protocolo vigente antes de utilizar.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"alergia tipo i",
+"anafilaxia",
+"claritromicina"
+]
+
+},
+
+
+/* ============================================================
+   AZITROMICINA - SBA
+   ============================================================ */
+
+azitromicinaSBA:{
+
+name:"Azitromicina",
+
+indication:"SBA / alergia tipo I",
+
+type:"mgkgday",
+
+doses:[
+{
+value:10,
+label:"10 mg/kg/día"
+}
+],
+
+frequencies:[
+{
+hours:24,
+label:"Cada 24 horas"
+}
+],
+
+forms:{
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{
+value:200,
+label:"200 mg / 5 mL"
+}
+]
+}
+},
+
+note:
+"Alternativa cargada para alergia tipo I/anafilaxia a penicilina. Esquema habitual cargado: 10 mg/kg cada 24 horas. En rinosinusitis, fuentes argentinas describen 5 días como duración alternativa. Verificar indicación y resistencia local.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"alergia tipo i",
+"anafilaxia",
+"azitromicina"
+]
+
+},
+
+
+/* ============================================================
+   CEFTRIAXONA - OMA
+   ============================================================ */
+
+ceftriaxonaOMA:{
+
+name:"Ceftriaxona",
+
+indication:"OMA / mala tolerancia oral",
+
+type:"mgkgdose",
+
+doses:[
+{
+value:50,
+label:"50 mg/kg/dosis"
+}
+],
+
+frequencies:[
+{
+hours:24,
+label:"Cada 24 horas"
+}
+],
+
+forms:{
+injection:{
+label:"IM · Solución inyectable",
+concentrations:[
+{
+value:100,
+label:"100 mg / mL"
+}
+]
+}
+},
+
+note:
+"OMA: ceftriaxona 50 mg/kg/día por vía IM cada 24 horas, hasta 3 días según respuesta clínica y contexto. Verificar reconstitución, presentación disponible y protocolo local antes de administrar.",
+
+keywords:[
+"oma",
+"otitis",
+"otitis media aguda",
+"mala tolerancia oral",
+"ceftriaxona"
+]
+
+},
+
+
+/* ============================================================
+   CEFTRIAXONA - SBA
+   ============================================================ */
+
+ceftriaxonaSBA:{
+
+name:"Ceftriaxona",
+
+indication:"SBA / mala tolerancia oral",
+
+type:"mgkgdose",
+
+doses:[
+{
+value:50,
+label:"50 mg/kg/dosis"
+}
+],
+
+frequencies:[
+{
+hours:24,
+label:"Cada 24 horas"
+}
+],
+
+forms:{
+injection:{
+label:"IM · Solución inyectable",
+concentrations:[
+{
+value:100,
+label:"100 mg / mL"
+}
+]
+}
+},
+
+note:
+"Opción por vía IM cuando el paciente vomita o no acepta antibióticos por vía oral. Dosis: 50 mg/kg/dosis cada 24 horas. Duración cargada para este esquema: 1 a 3 días. Verificar reconstitución, presentación disponible y protocolo local antes de administrar.",
+
+keywords:[
+"sba",
+"sinusitis",
+"sinusitis bacteriana aguda",
+"mala tolerancia oral",
+"ceftriaxona"
+]
+
+},
+
+
+/* ============================================================
+   PARACETAMOL
+   ============================================================ */
+
+paracetamol:{
+
+name:"Paracetamol",
+
+indication:"Analgesia / antipiresis",
+
+type:"mgkgdose",
+
+keywords:[
+"paracetamol",
+"fiebre",
+"analgesia",
+"antipiresis"
+],
+
+routes:{
+
+oral:{
+
+label:"VO · Oral",
+
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:12.5,label:"12,5 mg/kg/dosis"},
+{value:15,label:"15 mg/kg/dosis"}
+],
+
+frequencies:[
+{hours:4,label:"Cada 4 horas"},
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"},
+{hours:12,label:"Cada 12 horas"},
+{hours:24,label:"Cada 24 horas"}
+],
+
+forms:{
+
+jarabe:{
+label:"Jarabe",
+concentrations:[
+{value:20,label:"100 mg / 5 mL"},
+{value:24,label:"120 mg / 5 mL"}
+]
+},
+
+gotas:{
+label:"Gotas orales",
+concentrations:[
+{value:100,label:"100 mg / mL"}
+]
+}
+
+}
+
+},
+
+iv:{
+
+label:"EV · Intravenosa",
+
+type:"ageRoute",
+
+ageRules:[
+
+{
+minMonths:0,
+maxMonths:0,
+doses:[
+{value:12.5,label:"12,5 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"}
+],
+note:
+"Neonatos: esquema específico de 12,5 mg/kg cada 6 horas. Verificar edad gestacional y situación clínica."
+},
+
+{
+minMonths:0,
+maxMonths:.9,
+doses:[
+{value:12.5,label:"12,5 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"}
+]
+},
+
+{
+minMonths:1,
+maxMonths:23,
+doses:[
+{value:15,label:"15 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"}
+]
+},
+
+{
+minMonths:24,
+maxMonths:143,
+doses:[
+{value:12.5,label:"12,5 mg/kg/dosis"},
+{value:15,label:"15 mg/kg/dosis"}
+],
+frequencies:[
+{hours:4,label:"Cada 4 horas"},
+{hours:6,label:"Cada 6 horas"}
+],
+note:
+"En niños de 2–12 años, 12,5 mg/kg cada 4 horas o 15 mg/kg cada 6 horas. Máximo diario según esquema y ficha técnica."
+}
+
+],
+
+forms:{
+
+infusion:{
+label:"Solución para infusión EV",
+concentrations:[
+{value:10,label:"10 mg / mL"}
+]
+}
+
+},
+
+note:
+"Administración exclusivamente intravenosa. La solución inyectable debe administrarse mediante infusión IV según la presentación correspondiente."
+
+}
+
+}
+
+},
+
+
+/* ============================================================
+   DIPIRONA
+   ============================================================ */
+
+dipirona:{
+
+name:"Dipirona",
+
+indication:"Analgesia / antipiresis",
+
+type:"mgkgdose",
+
+keywords:[
+"dipirona",
+"metamizol",
+"fiebre",
+"analgesia",
+"antipiresis"
+],
+
+routes:{
+
+oral:{
+
+label:"VO · Oral",
+
+doses:[
+{value:10,label:"10 mg/kg/dosis"}
+],
+
+frequencies:[
+{hours:4,label:"Cada 4 horas"},
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"},
+{hours:12,label:"Cada 12 horas"},
+{hours:24,label:"Cada 24 horas"}
+],
+
+forms:{
+
+jarabe:{
+label:"Jarabe / suspensión oral",
+concentrations:[
+{value:250,label:"250 mg / 5 mL"}
+]
+},
+
+gotas:{
+label:"Gotas orales",
+concentrations:[
+{value:500,label:"500 mg / mL"}
+]
+}
+
+}
+
+},
+
+parenteral:{
+
+label:"EV / IM · Inyectable",
+
+type:"ageRoute",
+
+ageRules:[
+
+{
+minMonths:3,
+maxMonths:11,
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:16,label:"16 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+],
+note:
+"En lactantes de 3–11 meses, la ficha técnica consultada establece administración parenteral por vía IM."
+},
+
+{
+minMonths:12,
+maxMonths:35,
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:16,label:"16 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+]
+},
+
+{
+minMonths:36,
+maxMonths:71,
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:16,label:"16 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+]
+},
+
+{
+minMonths:72,
+maxMonths:119,
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:16,label:"16 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+]
+},
+
+{
+minMonths:120,
+maxMonths:167,
+doses:[
+{value:10,label:"10 mg/kg/dosis"},
+{value:16,label:"16 mg/kg/dosis"}
+],
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+]
+}
+
+],
+
+forms:{
+
+injection:{
+label:"Solución inyectable",
+concentrations:[
+{value:500,label:"500 mg / mL"}
+]
+}
+
+},
+
+note:
+"La administración EV/IM se reserva cuando la vía oral no es adecuada. La inyección EV debe administrarse muy lentamente y bajo vigilancia médica."
+
+}
+
+}
+
+},
+
+
+/* ============================================================
+   IBUPROFENO
+   ============================================================ */
+
+ibuprofeno:{
+
+name:"Ibuprofeno",
+
+indication:"Analgesia / antipiresis / antiinflamatorio",
+
+type:"mgkgdose",
+
+keywords:[
+"ibuprofeno",
+"fiebre",
+"analgesia",
+"antipiresis",
+"antiinflamatorio"
+],
+
+doses:[
+{value:5,label:"5 mg/kg/dosis"},
+{value:10,label:"10 mg/kg/dosis"}
+],
+
+frequencies:[
+{hours:6,label:"Cada 6 horas"},
+{hours:8,label:"Cada 8 horas"}
+],
+
+forms:{
+
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{value:20,label:"2% · 100 mg / 5 mL"},
+{value:40,label:"4% · 200 mg / 5 mL"}
+]
+}
+
+}
+
+},
+
+
+/* ============================================================
+   LORATADINA
+   ============================================================ */
+
+loratadina:{
+
+name:"Loratadina",
+
+indication:"Rinitis alérgica",
+
+type:"fixedAge",
+
+keywords:[
+"loratadina",
+"rinitis",
+"rinitis alérgica",
+"alergia"
+],
+
+ageRules:[
+
+{
+minMonths:24,
+maxMonths:71,
+dose:5,
+label:"5 mg/dosis · 2–5 años",
+frequency:24
+},
+
+{
+minMonths:72,
+maxMonths:Infinity,
+dose:10,
+label:"10 mg/dosis · ≥6 años",
+frequency:24
+}
+
+],
+
+forms:{
+
+jarabe:{
+label:"Jarabe",
+concentrations:[
+{value:1,label:"5 mg / 5 mL"}
+]
+}
+
+},
+
+note:
+"💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
+
+},
+
+
+/* ============================================================
+   CETIRIZINA
+   ============================================================ */
+
+cetirizina:{
+
+name:"Cetirizina",
+
+indication:"Rinitis alérgica",
+
+type:"fixedAge",
+
+keywords:[
+"cetirizina",
+"rinitis",
+"rinitis alérgica",
+"alergia"
+],
+
+ageRules:[
+
+{
+minMonths:6,
+maxMonths:23,
+dose:2.5,
+label:"2,5 mg/dosis · 6–23 meses",
+frequency:24
+},
+
+{
+minMonths:24,
+maxMonths:71,
+dose:2.5,
+label:"2,5 mg/dosis · 2–5 años",
+frequency:24
+},
+
+{
+minMonths:24,
+maxMonths:71,
+dose:5,
+label:"5 mg/dosis · 2–5 años",
+frequency:24
+},
+
+{
+minMonths:72,
+maxMonths:Infinity,
+dose:5,
+label:"5 mg/dosis · ≥6 años",
+frequency:24
+}
+
+],
+
+forms:{
+
+jarabe:{
+label:"Solución oral",
+concentrations:[
+{value:1,label:"1 mg / mL"}
+]
+}
+
+},
+
+note:
+"💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
+
+},
+
+
+/* ============================================================
+   DESLORATADINA
+   ============================================================ */
+
+desloratadina:{
+
+name:"Desloratadina",
+
+indication:"Rinitis alérgica",
+
+type:"fixedAge",
+
+keywords:[
+"desloratadina",
+"rinitis",
+"rinitis alérgica",
+"alergia"
+],
+
+ageRules:[
+
+{
+minMonths:6,
+maxMonths:11,
+dose:1,
+label:"1 mg/dosis · 6–11 meses",
+frequency:24
+},
+
+{
+minMonths:12,
+maxMonths:71,
+dose:1.25,
+label:"1,25 mg/dosis · 1–5 años",
+frequency:24
+},
+
+{
+minMonths:72,
+maxMonths:143,
+dose:2.5,
+label:"2,5 mg/dosis · 6–11 años",
+frequency:24
+},
+
+{
+minMonths:144,
+maxMonths:Infinity,
+dose:5,
+label:"5 mg/dosis · ≥12 años",
+frequency:24
+}
+
+],
+
+forms:{
+
+jarabe:{
+label:"Jarabe",
+concentrations:[
+{value:.5,label:"0,5 mg / mL"}
+]
+}
+
+},
+
+note:
+"💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación."
+
+},
+
+
+/* ============================================================
+   FEXOFENADINA
+   ============================================================ */
+
+fexofenadina:{
+
+name:"Fexofenadina",
+
+indication:"Rinitis alérgica",
+
+type:"fixedAge",
+
+keywords:[
+"fexofenadina",
+"rinitis",
+"rinitis alérgica",
+"alergia"
+],
+
+ageRules:[
+
+{
+minMonths:24,
+maxMonths:71,
+dose:30,
+label:"30 mg/dosis · 2–5 años",
+frequency:12
+},
+
+{
+minMonths:72,
+maxMonths:143,
+dose:30,
+label:"30 mg/dosis · 6–11 años",
+frequency:12
+},
+
+{
+minMonths:144,
+maxMonths:Infinity,
+dose:60,
+label:"60 mg/dosis · ≥12 años",
+frequency:12
+}
+
+],
+
+forms:{
+
+suspension:{
+label:"Suspensión oral",
+concentrations:[
+{value:6,label:"30 mg / 5 mL"}
+]
+}
+
+},
+
+note:
+"💡 Antihistamínico H1 de 2.ª generación. Presenta menor sedación que los antihistamínicos de 1.ª generación. En fexofenadina, la edad mínima y la concentración pueden variar según la presentación y la indicación. Verificar ficha técnica local antes de administrar."
+
+}
+
+};
+
+
+/* ============================================================
+   GRUPOS DE MEDICAMENTOS
+   ============================================================ */
+
+const medicineGroups={
+
+amoxicilina:{
+label:"Amoxicilina",
+indications:["amoxicilinaOMA","amoxicilinaSBA"]
+},
+
+amoxicilinaClavulanato:{
+label:"Amoxicilina + clavulanato",
+indications:[
+"amoxicilinaClavulanatoOMA",
+"amoxicilinaClavulanatoSBA"
+]
+},
+
+cefuroxima:{
+label:"Cefuroxima",
+indications:[
+"cefuroximaOMA",
+"cefuroximaSBA"
+]
+},
+
+tmpSmx:{
+label:"TMP-SMX",
+indications:["tmpSmxSBA"]
+},
+
+claritromicina:{
+label:"Claritromicina",
+indications:["claritromicinaSBA"]
+},
+
+azitromicina:{
+label:"Azitromicina",
+indications:["azitromicinaSBA"]
+},
+
+ceftriaxona:{
+label:"Ceftriaxona",
+indications:[
+"ceftriaxonaOMA",
+"ceftriaxonaSBA"
+]
+},
+
+paracetamol:{
+label:"Paracetamol",
+indications:["paracetamol"]
+},
+
+dipirona:{
+label:"Dipirona",
+indications:["dipirona"]
+},
+
+ibuprofeno:{
+label:"Ibuprofeno",
+indications:["ibuprofeno"]
+},
+
+loratadina:{
+label:"Loratadina",
+indications:["loratadina"]
+},
+
+cetirizina:{
+label:"Cetirizina",
+indications:["cetirizina"]
+},
+
+desloratadina:{
+label:"Desloratadina",
+indications:["desloratadina"]
+},
+
+fexofenadina:{
+label:"Fexofenadina",
+indications:["fexofenadina"]
+}
 
 };
 
@@ -3107,197 +2897,361 @@ const medicines = {
    ELEMENTOS
    ============================================================ */
 
-const medicationSelect =
-    document.getElementById("medication");
+const medicationSelect=
+document.getElementById("medication");
 
-const medicineSearch =
-    document.getElementById("medicineSearch");
+const indicationSelect=
+document.getElementById("indication");
 
-const ageInput =
-    document.getElementById("age");
+const medicineSearch=
+document.getElementById("medicineSearch");
 
-const ageUnitSelect =
-    document.getElementById("ageUnit");
+const ageInput=
+document.getElementById("age");
 
-const weightInput =
-    document.getElementById("weight");
+const ageUnitSelect=
+document.getElementById("ageUnit");
 
-const routeContainer =
-    document.getElementById("routeContainer");
+const weightInput=
+document.getElementById("weight");
 
-const routeSelect =
-    document.getElementById("route");
+const routeContainer=
+document.getElementById("routeContainer");
 
-const doseSelect =
-    document.getElementById("dose");
+const routeSelect=
+document.getElementById("route");
 
-const frequencySelect =
-    document.getElementById("frequency");
+const doseSelect=
+document.getElementById("dose");
 
-const formSelect =
-    document.getElementById("form");
+const frequencySelect=
+document.getElementById("frequency");
 
-const concentrationSelect =
-    document.getElementById("concentration");
+const formSelect=
+document.getElementById("form");
 
-const concentrationContainer =
-    document.getElementById("concentrationContainer");
+const concentrationSelect=
+document.getElementById("concentration");
 
-const ageNote =
-    document.getElementById("ageNote");
+const concentrationContainer=
+document.getElementById("concentrationContainer");
 
-const calculateButton =
-    document.getElementById("calculate");
+const ageNote=
+document.getElementById("ageNote");
 
-const result =
-    document.getElementById("result");
+const calculateButton=
+document.getElementById("calculate");
 
-const blueThemeButton =
-    document.getElementById("blueTheme");
+const result=
+document.getElementById("result");
 
-const pinkThemeButton =
-    document.getElementById("pinkTheme");
+const blueThemeButton=
+document.getElementById("blueTheme");
 
-const greenThemeButton =
-    document.getElementById("greenTheme");
+const pinkThemeButton=
+document.getElementById("pinkTheme");
 
-const darkBlueThemeButton =
-    document.getElementById("darkBlueTheme");
+const greenThemeButton=
+document.getElementById("greenTheme");
 
-const darkPinkThemeButton =
-    document.getElementById("darkPinkTheme");
+const darkBlueThemeButton=
+document.getElementById("darkBlueTheme");
 
-const darkGreenThemeButton =
-    document.getElementById("darkGreenTheme");
+const darkPinkThemeButton=
+document.getElementById("darkPinkTheme");
+
+const darkGreenThemeButton=
+document.getElementById("darkGreenTheme");
 
 
 /* ============================================================
    UTILIDADES
    ============================================================ */
 
-function formatNumber(number) {
+function formatNumber(number){
 
-    if (Number.isInteger(number)) {
-        return number.toString();
-    }
+if(Number.isInteger(number)){
+return number.toString();
+}
 
-    return number
-        .toFixed(2)
-        .replace(/\.00$/, "")
-        .replace(/(\.\d)0$/, "");
+return number
+.toFixed(2)
+.replace(/\.00$/,"")
+.replace(/(\.\d)0$/,"");
 
 }
 
+function clearSelect(select){
 
-function clearSelect(select) {
+select.innerHTML="";
+select.disabled=false;
+select.classList.remove("single-option");
 
-    select.innerHTML = "";
-    select.disabled = false;
-    select.classList.remove("single-option");
+}
+
+function updateSelectState(select){
+
+if(select.options.length===1){
+
+select.disabled=true;
+select.classList.add("single-option");
+
+}else{
+
+select.disabled=false;
+select.classList.remove("single-option");
+
+}
 
 }
 
 
 /* ============================================================
-   SELECTOR DE UNA SOLA OPCIÓN
+   NORMALIZAR TEXTO
    ============================================================ */
 
-function updateSelectState(select) {
+function normalizeText(text){
 
-    if (select.options.length === 1) {
-
-        select.disabled = true;
-        select.classList.add("single-option");
-
-    }
-
-    else {
-
-        select.disabled = false;
-        select.classList.remove("single-option");
-
-    }
+return String(text||"")
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"");
 
 }
 
 
 /* ============================================================
-   BUSCADOR DE MEDICAMENTOS
+   OBTENER MEDICAMENTO ACTUAL
+   ============================================================ */
+
+function getCurrentMedicine(){
+
+return medicines[indicationSelect.value];
+
+}
+
+function getCurrentGroup(){
+
+return medicineGroups[medicationSelect.value];
+
+}
+
+
+/* ============================================================
+   CARGAR SELECTOR DE MEDICAMENTOS
+   ============================================================ */
+
+function populateMedicineSelect(){
+
+clearSelect(medicationSelect);
+
+Object.entries(medicineGroups).forEach(
+([key,group])=>{
+
+const option=
+document.createElement("option");
+
+option.value=key;
+option.textContent=group.label;
+
+medicationSelect.appendChild(option);
+
+});
+
+updateSelectState(medicationSelect);
+
+}
+
+
+/* ============================================================
+   CARGAR INDICACIONES
+   ============================================================ */
+
+function populateIndications(
+groupKey,
+preferredKey=null
+){
+
+const group=
+medicineGroups[groupKey];
+
+clearSelect(indicationSelect);
+
+if(!group){
+return;
+}
+
+group.indications.forEach(
+medicineKey=>{
+
+const medicine=
+medicines[medicineKey];
+
+if(!medicine){
+return;
+}
+
+const option=
+document.createElement("option");
+
+option.value=medicineKey;
+option.textContent=medicine.indication;
+
+indicationSelect.appendChild(option);
+
+});
+
+if(
+preferredKey &&
+group.indications.includes(preferredKey)
+){
+
+indicationSelect.value=preferredKey;
+
+}
+
+updateSelectState(indicationSelect);
+
+}
+
+
+/* ============================================================
+   BUSCADOR
    ============================================================ */
 
 medicineSearch.addEventListener(
-    "input",
-    function() {
+"input",
+function(){
 
-        const search =
-            medicineSearch.value
-                .trim()
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
+const search=
+normalizeText(
+medicineSearch.value.trim()
+);
 
-        const currentValue =
-            medicationSelect.value;
+if(!search){
 
-        let firstMatch = null;
+Array.from(
+medicationSelect.options
+).forEach(
+option=>{
+option.hidden=false;
+});
+
+return;
+
+}
+
+let firstGroup=null;
+let firstMedicine=null;
+
+Object.entries(medicineGroups).forEach(
+([groupKey,group])=>{
+
+const groupText=
+normalizeText(group.label);
+
+let groupMatch=
+groupText.includes(search);
+
+let indicationMatch=false;
+
+group.indications.forEach(
+medicineKey=>{
+
+const medicine=
+medicines[medicineKey];
+
+if(!medicine){
+return;
+}
+
+const text=
+normalizeText(
+medicine.name+
+" "+
+medicine.indication+
+" "+
+(medicine.keywords||[]).join(" ")
+);
+
+if(text.includes(search)){
+
+indicationMatch=true;
+
+if(firstMedicine===null){
+
+firstMedicine=medicineKey;
+
+}
+
+}
+
+});
+
+if(groupMatch||indicationMatch){
+
+if(firstGroup===null){
+
+firstGroup=groupKey;
+
+}
+
+}
+
+});
+
+Array.from(
+medicationSelect.options
+).forEach(
+option=>{
+
+option.hidden=
+firstGroup!==null &&
+option.value!==firstGroup;
+
+});
+
+if(firstGroup!==null){
+
+medicationSelect.value=firstGroup;
+
+populateIndications(
+firstGroup,
+firstMedicine
+);
+
+updateMedicine();
+
+}
+
+});
 
 
-        Array.from(
-            medicationSelect.options
-        ).forEach(option => {
+/* ============================================================
+   CAMBIO DE MEDICAMENTO
+   ============================================================ */
 
-            const text =
-                option.textContent
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
+medicationSelect.addEventListener(
+"change",
+function(){
 
-            const value =
-                option.value
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
+const groupKey=
+medicationSelect.value;
 
-            const matches =
-                !search ||
-                text.includes(search) ||
-                value.includes(search);
+populateIndications(groupKey);
 
-            option.hidden =
-                !matches;
+updateMedicine();
 
-            if (
-                matches &&
-                firstMatch === null
-            ) {
-
-                firstMatch =
-                    option.value;
-
-            }
-
-        });
+});
 
 
-        if (
-            search &&
-            firstMatch !== null
-        ) {
+/* ============================================================
+   CAMBIO DE INDICACIÓN
+   ============================================================ */
 
-            medicationSelect.value =
-                firstMatch;
-
-            if (
-                currentValue !== firstMatch
-            ) {
-
-                updateMedicine();
-
-            }
-
-        }
-
-    }
+indicationSelect.addEventListener(
+"change",
+updateMedicine
 );
 
 
@@ -3305,54 +3259,42 @@ medicineSearch.addEventListener(
    EDAD
    ============================================================ */
 
-function getAgeMonths() {
+function getAgeMonths(){
 
-    const age =
-        parseFloat(ageInput.value);
+const age=
+parseFloat(ageInput.value);
 
-    if (
-        isNaN(age) ||
-        age < 0
-    ) {
-        return null;
-    }
+if(isNaN(age)||age<0){
+return null;
+}
 
-    if (
-        ageUnitSelect.value === "months"
-    ) {
+if(ageUnitSelect.value==="months"){
+return age;
+}
 
-        return age;
-
-    }
-
-    return age * 12;
+return age*12;
 
 }
 
 
-function getAgeLabel() {
+function getAgeLabel(){
 
-    const age =
-        parseFloat(ageInput.value);
+const age=
+parseFloat(ageInput.value);
 
-    if (
-        isNaN(age) ||
-        age < 0
-    ) {
+if(isNaN(age)||age<0){
+return "—";
+}
 
-        return "—";
-
-    }
-
-    return (
-        formatNumber(age) +
-        " " +
-        (
-            ageUnitSelect.value === "months"
-                ? "meses"
-                : "años"
-        )
-    );
+return (
+formatNumber(age)+
+" "+
+(
+ageUnitSelect.value==="months"
+?"meses"
+:"años"
+)
+);
 
 }
 
@@ -3361,60 +3303,58 @@ function getAgeLabel() {
    REGLAS SEGÚN EDAD
    ============================================================ */
 
-function getAgeRules(medicine) {
+function getAgeRules(medicine){
 
-    if (!medicine.ageRules) {
-        return [];
-    }
+if(!medicine.ageRules){
+return [];
+}
 
-    const ageMonths =
-        getAgeMonths();
+const ageMonths=
+getAgeMonths();
 
-    if (ageMonths === null) {
-        return [];
-    }
+if(ageMonths===null){
+return [];
+}
 
-    return medicine.ageRules.filter(rule => {
-
-        return (
-            ageMonths >= rule.minMonths &&
-            ageMonths <= rule.maxMonths
-        );
-
-    });
+return medicine.ageRules.filter(
+rule=>
+ageMonths>=rule.minMonths &&
+ageMonths<=rule.maxMonths
+);
 
 }
 
 
-function getRouteMedicine() {
+/* ============================================================
+   VÍA ACTUAL
+   ============================================================ */
 
-    const medicine =
-        medicines[medicationSelect.value];
+function getRouteMedicine(){
 
-    if (!medicine.routes) {
-        return medicine;
-    }
+const medicine=
+getCurrentMedicine();
 
-    return medicine.routes[routeSelect.value];
+if(!medicine.routes){
+return medicine;
+}
+
+return medicine.routes[routeSelect.value];
 
 }
 
+function getRouteLabel(){
 
-function getRouteLabel() {
+const medicine=
+getCurrentMedicine();
 
-    const medicine =
-        medicines[medicationSelect.value];
+if(!medicine.routes){
+return "";
+}
 
-    if (!medicine.routes) {
-        return "";
-    }
+const route=
+medicine.routes[routeSelect.value];
 
-    const route =
-        medicine.routes[routeSelect.value];
-
-    return route
-        ? route.label
-        : "";
+return route?route.label:"";
 
 }
 
@@ -3423,54 +3363,51 @@ function getRouteLabel() {
    ACTUALIZAR MEDICAMENTO
    ============================================================ */
 
-function updateMedicine() {
+function updateMedicine(){
 
-    const medicine =
-        medicines[medicationSelect.value];
+const medicine=
+getCurrentMedicine();
 
-    clearSelect(routeSelect);
-    clearSelect(doseSelect);
-    clearSelect(frequencySelect);
-    clearSelect(formSelect);
+if(!medicine){
+return;
+}
 
-    ageNote.classList.add("hidden");
-    ageNote.textContent = "";
+clearSelect(routeSelect);
+clearSelect(doseSelect);
+clearSelect(frequencySelect);
+clearSelect(formSelect);
 
+ageNote.classList.add("hidden");
+ageNote.textContent="";
 
-    if (medicine.routes) {
+if(medicine.routes){
 
-        routeContainer.classList.remove("hidden");
+routeContainer.classList.remove("hidden");
 
-        Object.entries(medicine.routes)
-            .forEach(([key, route]) => {
+Object.entries(medicine.routes)
+.forEach(([key,route])=>{
 
-                const option =
-                    document.createElement("option");
+const option=
+document.createElement("option");
 
-                option.value =
-                    key;
+option.value=key;
+option.textContent=route.label;
 
-                option.textContent =
-                    route.label;
+routeSelect.appendChild(option);
 
-                routeSelect.appendChild(
-                    option
-                );
+});
 
-            });
+updateSelectState(routeSelect);
 
-        updateSelectState(routeSelect);
+updateRoute();
 
-        updateRoute();
+return;
 
-        return;
+}
 
-    }
+routeContainer.classList.add("hidden");
 
-
-    routeContainer.classList.add("hidden");
-
-    updateMedicineData(medicine);
+updateMedicineData(medicine);
 
 }
 
@@ -3479,659 +3416,435 @@ function updateMedicine() {
    ACTUALIZAR VÍA
    ============================================================ */
 
-function updateRoute() {
+function updateRoute(){
 
-    const medicine =
-        medicines[medicationSelect.value];
+const medicine=
+getCurrentMedicine();
 
-    if (!medicine.routes) {
-        return;
-    }
-
-    const route =
-        medicine.routes[routeSelect.value];
-
-    clearSelect(doseSelect);
-    clearSelect(frequencySelect);
-    clearSelect(formSelect);
-
-    ageNote.classList.add("hidden");
-    ageNote.textContent = "";
-
-
-    if (route.type === "ageRoute") {
-
-        const ageMonths =
-            getAgeMonths();
-
-        let rule = null;
-
-        if (ageMonths !== null) {
-
-            rule =
-                route.ageRules.find(r =>
-                    ageMonths >= r.minMonths &&
-                    ageMonths <= r.maxMonths
-                );
-
-        }
-
-
-        if (!rule) {
-
-            const option =
-                document.createElement("option");
-
-            option.value = "";
-
-            option.textContent =
-                "Edad fuera del esquema cargado";
-
-            doseSelect.appendChild(option);
-
-
-            const freqOption =
-                document.createElement("option");
-
-            freqOption.value = "";
-
-            freqOption.textContent =
-                "No disponible";
-
-            frequencySelect.appendChild(
-                freqOption
-            );
-
-
-            updateSelectState(
-                doseSelect
-            );
-
-            updateSelectState(
-                frequencySelect
-            );
-
-
-            ageNote.classList.remove(
-                "hidden"
-            );
-
-            ageNote.textContent =
-                route.note ||
-                "La edad ingresada no corresponde a un esquema cargado para esta vía.";
-
-        }
-
-        else {
-
-            rule.doses.forEach(dose => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    dose.value;
-
-                option.textContent =
-                    dose.label;
-
-                doseSelect.appendChild(
-                    option
-                );
-
-            });
-
-
-            rule.frequencies.forEach(freq => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    freq.hours;
-
-                option.textContent =
-                    freq.label;
-
-                frequencySelect.appendChild(
-                    option
-                );
-
-            });
-
-
-            updateSelectState(
-                doseSelect
-            );
-
-            updateSelectState(
-                frequencySelect
-            );
-
-
-            if (
-                route.note ||
-                rule.note
-            ) {
-
-                ageNote.classList.remove(
-                    "hidden"
-                );
-
-                ageNote.textContent =
-                    rule.note ||
-                    route.note;
-
-            }
-
-        }
-
-    }
-
-
-    else {
-
-        if (route.doses) {
-
-            route.doses.forEach(dose => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    dose.value;
-
-                option.textContent =
-                    dose.label;
-
-                doseSelect.appendChild(
-                    option
-                );
-
-            });
-
-        }
-
-
-        if (route.frequencies) {
-
-            route.frequencies.forEach(freq => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    freq.hours;
-
-                option.textContent =
-                    freq.label;
-
-                frequencySelect.appendChild(
-                    option
-                );
-
-            });
-
-        }
-
-
-        updateSelectState(
-            doseSelect
-        );
-
-        updateSelectState(
-            frequencySelect
-        );
-
-
-        if (route.note) {
-
-            ageNote.classList.remove(
-                "hidden"
-            );
-
-            ageNote.textContent =
-                route.note;
-
-        }
-
-    }
-
-
-    Object.entries(route.forms)
-        .forEach(([key, form]) => {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                key;
-
-            option.textContent =
-                form.label;
-
-            formSelect.appendChild(
-                option
-            );
-
-        });
-
-
-    updateSelectState(
-        formSelect
-    );
-
-    updateConcentrations();
-
+if(!medicine.routes){
+return;
 }
 
+const route=
+medicine.routes[routeSelect.value];
 
-/* ============================================================
-   ACTUALIZAR MEDICAMENTOS SIN VÍA
-   ============================================================ */
+clearSelect(doseSelect);
+clearSelect(frequencySelect);
+clearSelect(formSelect);
 
-function updateMedicineData(medicine) {
+ageNote.classList.add("hidden");
+ageNote.textContent="";
 
-    clearSelect(doseSelect);
-    clearSelect(frequencySelect);
-    clearSelect(formSelect);
+if(route.type==="ageRoute"){
 
-    ageNote.classList.add("hidden");
-    ageNote.textContent = "";
+const ageMonths=
+getAgeMonths();
 
+let rule=null;
 
-    if (
-        medicine.type === "fixedAge"
-    ) {
+if(ageMonths!==null){
 
-        const rules =
-            getAgeRules(medicine);
-
-        if (
-            rules.length === 0
-        ) {
-
-            const option =
-                document.createElement("option");
-
-            option.value = "";
-
-            option.textContent =
-                "Edad fuera del esquema cargado";
-
-            doseSelect.appendChild(option);
-
-
-            const freqOption =
-                document.createElement("option");
-
-            freqOption.value = "";
-
-            freqOption.textContent =
-                "No disponible";
-
-            frequencySelect.appendChild(
-                freqOption
-            );
-
-
-            updateSelectState(
-                doseSelect
-            );
-
-            updateSelectState(
-                frequencySelect
-            );
-
-
-            ageNote.classList.remove(
-                "hidden"
-            );
-
-            if (medicine.note) {
-
-                ageNote.textContent =
-                    medicine.note;
-
-            }
-
-            else {
-
-                ageNote.textContent =
-                    "Ingresá una edad compatible con el esquema pediátrico cargado.";
-
-            }
-
-        }
-
-        else {
-
-            rules.forEach(rule => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    rule.dose;
-
-                option.textContent =
-                    rule.label;
-
-                doseSelect.appendChild(
-                    option
-                );
-
-            });
-
-
-            const uniqueFrequencies =
-                [];
-
-            rules.forEach(rule => {
-
-                if (
-                    !uniqueFrequencies.includes(
-                        rule.frequency
-                    )
-                ) {
-
-                    uniqueFrequencies.push(
-                        rule.frequency
-                    );
-
-                }
-
-            });
-
-
-            uniqueFrequencies.forEach(
-                hours => {
-
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-                    option.value =
-                        hours;
-
-                    option.textContent =
-                        "Cada " +
-                        hours +
-                        " horas";
-
-                    frequencySelect.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-
-            updateSelectState(
-                doseSelect
-            );
-
-            updateSelectState(
-                frequencySelect
-            );
-
-
-            if (medicine.note) {
-
-                ageNote.classList.remove(
-                    "hidden"
-                );
-
-                ageNote.textContent =
-                    medicine.note;
-
-            }
-
-        }
-
-    }
-
-
-    else {
-
-        medicine.doses.forEach(
-            dose => {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    dose.value;
-
-                option.textContent =
-                    dose.label;
-
-                doseSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        medicine.frequencies.forEach(
-            freq => {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    freq.hours;
-
-                option.textContent =
-                    freq.label;
-
-                frequencySelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        updateSelectState(
-            doseSelect
-        );
-
-        updateSelectState(
-            frequencySelect
-        );
-
-
-        if (medicine.note) {
-
-            ageNote.classList.remove(
-                "hidden"
-            );
-
-            ageNote.textContent =
-                medicine.note;
-
-        }
-
-    }
-
-
-    Object.entries(medicine.forms)
-        .forEach(([key, form]) => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                key;
-
-            option.textContent =
-                form.label;
-
-            formSelect.appendChild(
-                option
-            );
-
-        });
-
-
-    updateSelectState(
-        formSelect
-    );
-
-    updateConcentrations();
-
-}
-
-
-/* ============================================================
-   ACTUALIZAR AL CAMBIAR EDAD
-   ============================================================ */
-
-function updateAgeDependentFields() {
-
-    const medicine =
-        medicines[medicationSelect.value];
-
-    if (medicine.routes) {
-
-        updateRoute();
-
-    }
-
-    else if (
-        medicine.type === "fixedAge"
-    ) {
-
-        updateMedicine();
-
-    }
-
-}
-
-
-/* ============================================================
-   ACTUALIZAR CONCENTRACIONES
-   ============================================================ */
-
-function updateConcentrations() {
-
-    const medicine =
-        medicines[medicationSelect.value];
-
-    let form;
-
-
-    if (medicine.routes) {
-
-        const route =
-            medicine.routes[
-                routeSelect.value
-            ];
-
-        if (!route) {
-            return;
-        }
-
-        form =
-            route.forms[
-                formSelect.value
-            ];
-
-    }
-
-    else {
-
-        form =
-            medicine.forms[
-                formSelect.value
-            ];
-
-    }
-
-
-    clearSelect(
-        concentrationSelect
-    );
-
-    if (!form) {
-        return;
-    }
-
-
-    form.concentrations.forEach(
-        concentration => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                concentration.value;
-
-            option.textContent =
-                concentration.label;
-
-            concentrationSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    updateSelectState(
-        concentrationSelect
-    );
-
-    concentrationContainer.classList.remove(
-        "hidden"
-    );
-
-}
-
-
-/* ============================================================
-   EVENTOS
-   ============================================================ */
-
-medicationSelect.addEventListener(
-    "change",
-    updateMedicine
+rule=
+route.ageRules.find(
+r=>
+ageMonths>=r.minMonths &&
+ageMonths<=r.maxMonths
 );
 
-routeSelect.addEventListener(
-    "change",
-    updateRoute
-);
+}
+
+if(!rule){
+
+const option=
+document.createElement("option");
+
+option.value="";
+option.textContent=
+"Edad fuera del esquema cargado";
+
+doseSelect.appendChild(option);
+
+const freqOption=
+document.createElement("option");
+
+freqOption.value="";
+freqOption.textContent="No disponible";
+
+frequencySelect.appendChild(freqOption);
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+ageNote.classList.remove("hidden");
+
+ageNote.textContent=
+route.note||
+"La edad ingresada no corresponde a un esquema cargado para esta vía.";
+
+}else{
+
+rule.doses.forEach(dose=>{
+
+const option=
+document.createElement("option");
+
+option.value=dose.value;
+option.textContent=dose.label;
+
+doseSelect.appendChild(option);
+
+});
+
+rule.frequencies.forEach(freq=>{
+
+const option=
+document.createElement("option");
+
+option.value=freq.hours;
+option.textContent=freq.label;
+
+frequencySelect.appendChild(option);
+
+});
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+if(route.note||rule.note){
+
+ageNote.classList.remove("hidden");
+
+ageNote.textContent=
+rule.note||route.note;
+
+}
+
+}
+
+}else{
+
+if(route.doses){
+
+route.doses.forEach(dose=>{
+
+const option=
+document.createElement("option");
+
+option.value=dose.value;
+option.textContent=dose.label;
+
+doseSelect.appendChild(option);
+
+});
+
+}
+
+if(route.frequencies){
+
+route.frequencies.forEach(freq=>{
+
+const option=
+document.createElement("option");
+
+option.value=freq.hours;
+option.textContent=freq.label;
+
+frequencySelect.appendChild(option);
+
+});
+
+}
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+if(route.note){
+
+ageNote.classList.remove("hidden");
+ageNote.textContent=route.note;
+
+}
+
+}
+
+Object.entries(route.forms)
+.forEach(([key,form])=>{
+
+const option=
+document.createElement("option");
+
+option.value=key;
+option.textContent=form.label;
+
+formSelect.appendChild(option);
+
+});
+
+updateSelectState(formSelect);
+
+updateConcentrations();
+
+}
+
+
+/* ============================================================
+   MEDICAMENTOS SIN VÍA
+   ============================================================ */
+
+function updateMedicineData(medicine){
+
+clearSelect(doseSelect);
+clearSelect(frequencySelect);
+clearSelect(formSelect);
+
+ageNote.classList.add("hidden");
+ageNote.textContent="";
+
+if(medicine.type==="fixedAge"){
+
+const rules=
+getAgeRules(medicine);
+
+if(rules.length===0){
+
+const option=
+document.createElement("option");
+
+option.value="";
+option.textContent=
+"Edad fuera del esquema cargado";
+
+doseSelect.appendChild(option);
+
+const freqOption=
+document.createElement("option");
+
+freqOption.value="";
+freqOption.textContent="No disponible";
+
+frequencySelect.appendChild(freqOption);
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+ageNote.classList.remove("hidden");
+
+ageNote.textContent=
+medicine.note||
+"Ingresá una edad compatible con el esquema pediátrico cargado.";
+
+}else{
+
+rules.forEach(rule=>{
+
+const option=
+document.createElement("option");
+
+option.value=rule.dose;
+option.textContent=rule.label;
+
+doseSelect.appendChild(option);
+
+});
+
+const uniqueFrequencies=[];
+
+rules.forEach(rule=>{
+
+if(!uniqueFrequencies.includes(rule.frequency)){
+
+uniqueFrequencies.push(rule.frequency);
+
+}
+
+});
+
+uniqueFrequencies.forEach(hours=>{
+
+const option=
+document.createElement("option");
+
+option.value=hours;
+option.textContent=
+"Cada "+hours+" horas";
+
+frequencySelect.appendChild(option);
+
+});
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+if(medicine.note){
+
+ageNote.classList.remove("hidden");
+ageNote.textContent=medicine.note;
+
+}
+
+}
+
+}else{
+
+medicine.doses.forEach(dose=>{
+
+const option=
+document.createElement("option");
+
+option.value=dose.value;
+option.textContent=dose.label;
+
+doseSelect.appendChild(option);
+
+});
+
+medicine.frequencies.forEach(freq=>{
+
+const option=
+document.createElement("option");
+
+option.value=freq.hours;
+option.textContent=freq.label;
+
+frequencySelect.appendChild(option);
+
+});
+
+updateSelectState(doseSelect);
+updateSelectState(frequencySelect);
+
+if(medicine.note){
+
+ageNote.classList.remove("hidden");
+ageNote.textContent=medicine.note;
+
+}
+
+}
+
+Object.entries(medicine.forms)
+.forEach(([key,form])=>{
+
+const option=
+document.createElement("option");
+
+option.value=key;
+option.textContent=form.label;
+
+formSelect.appendChild(option);
+
+});
+
+updateSelectState(formSelect);
+
+updateConcentrations();
+
+}
+
+
+/* ============================================================
+   EDAD
+   ============================================================ */
+
+function updateAgeDependentFields(){
+
+const medicine=
+getCurrentMedicine();
+
+if(!medicine){
+return;
+}
+
+if(medicine.routes){
+
+updateRoute();
+
+}else if(medicine.type==="fixedAge"){
+
+updateMedicine();
+
+}
+
+}
 
 ageInput.addEventListener(
-    "input",
-    updateAgeDependentFields
+"input",
+updateAgeDependentFields
 );
 
 ageUnitSelect.addEventListener(
-    "change",
-    updateAgeDependentFields
+"change",
+updateAgeDependentFields
 );
+
+routeSelect.addEventListener(
+"change",
+updateRoute
+);
+
+
+/* ============================================================
+   CONCENTRACIONES
+   ============================================================ */
+
+function updateConcentrations(){
+
+const medicine=
+getCurrentMedicine();
+
+if(!medicine){
+return;
+}
+
+let form;
+
+if(medicine.routes){
+
+const route=
+medicine.routes[routeSelect.value];
+
+if(!route){
+return;
+}
+
+form=
+route.forms[formSelect.value];
+
+}else{
+
+form=
+medicine.forms[formSelect.value];
+
+}
+
+clearSelect(concentrationSelect);
+
+if(!form){
+return;
+}
+
+form.concentrations.forEach(
+concentration=>{
+
+const option=
+document.createElement("option");
+
+option.value=concentration.value;
+option.textContent=concentration.label;
+
+concentrationSelect.appendChild(option);
+
+});
+
+updateSelectState(concentrationSelect);
+
+concentrationContainer.classList.remove("hidden");
+
+}
 
 formSelect.addEventListener(
-    "change",
-    updateConcentrations
-);
-
-calculateButton.addEventListener(
-    "click",
-    calculateDose
+"change",
+updateConcentrations
 );
 
 
@@ -4139,471 +3852,330 @@ calculateButton.addEventListener(
    CALCULAR
    ============================================================ */
 
-function calculateDose() {
+calculateButton.addEventListener(
+"click",
+calculateDose
+);
 
-    const medicine =
-        medicines[
-            medicationSelect.value
-        ];
+function calculateDose(){
 
-    const weight =
-        parseFloat(
-            weightInput.value
-        );
+const medicine=
+getCurrentMedicine();
 
-    const dose =
-        parseFloat(
-            doseSelect.value
-        );
+const weight=
+parseFloat(weightInput.value);
 
-    const hours =
-        parseInt(
-            frequencySelect.value
-        );
+const dose=
+parseFloat(doseSelect.value);
 
-    const concentration =
-        parseFloat(
-            concentrationSelect.value
-        );
+const hours=
+parseInt(frequencySelect.value);
 
+const concentration=
+parseFloat(concentrationSelect.value);
 
-    if (
-        !weight ||
-        weight <= 0
-    ) {
+if(!medicine){
+alert("Seleccioná un medicamento e indicación.");
+return;
+}
 
-        alert(
-            "Completá correctamente el peso."
-        );
+if(!weight||weight<=0){
 
-        return;
+alert(
+"Completá correctamente el peso."
+);
 
-    }
+return;
 
+}
 
-    if (medicine.routes) {
+if(medicine.routes){
 
-        const route =
-            medicine.routes[
-                routeSelect.value
-            ];
+const route=
+medicine.routes[routeSelect.value];
 
-        if (
-            route.type === "ageRoute"
-        ) {
+if(route.type==="ageRoute"){
 
-            const ageMonths =
-                getAgeMonths();
+const ageMonths=
+getAgeMonths();
 
-            const rule =
-                route.ageRules.find(
-                    r =>
-                        ageMonths >= r.minMonths &&
-                        ageMonths <= r.maxMonths
-                );
+const rule=
+route.ageRules.find(
+r=>
+ageMonths>=r.minMonths &&
+ageMonths<=r.maxMonths
+);
 
-            if (!rule) {
+if(!rule){
 
-                alert(
-                    "La edad ingresada no corresponde a un esquema cargado para esta vía."
-                );
+alert(
+"La edad ingresada no corresponde a un esquema cargado para esta vía."
+);
 
-                return;
+return;
 
-            }
+}
 
-        }
+}
 
-    }
+}
 
+if(medicine.type==="fixedAge"){
 
-    if (
-        medicine.type === "fixedAge"
-    ) {
+const rules=
+getAgeRules(medicine);
 
-        const rules =
-            getAgeRules(medicine);
+if(rules.length===0){
 
-        if (
-            rules.length === 0
-        ) {
+alert(
+"La edad ingresada no corresponde a un esquema cargado para este medicamento."
+);
 
-            alert(
-                "La edad ingresada no corresponde a un esquema cargado para este medicamento."
-            );
+return;
 
-            return;
+}
 
-        }
+}
 
-    }
+if(
+!dose||
+!hours||
+!concentration||
+concentration<=0
+){
 
+alert(
+"Completá correctamente la dosis, frecuencia y concentración."
+);
 
-    if (
-        !dose ||
-        !hours ||
-        !concentration ||
-        concentration <= 0
-    ) {
+return;
 
-        alert(
-            "Completá correctamente la dosis, frecuencia y concentración."
-        );
+}
 
-        return;
+const numberOfDoses=
+24/hours;
 
-    }
+let dailyMg=null;
+let mgPerDose;
+let mlPerDose;
 
+if(medicine.type==="mgkgday"){
 
-    const numberOfDoses =
-        24 / hours;
+dailyMg=
+weight*dose;
 
+mgPerDose=
+dailyMg/numberOfDoses;
 
-    let dailyMg = null;
-    let mgPerDose;
-    let mlPerDose;
+}else if(medicine.type==="mgkgdose"){
 
+mgPerDose=
+weight*dose;
 
-    if (
-        medicine.type === "mgkgday"
-    ) {
+dailyMg=
+mgPerDose*numberOfDoses;
 
-        dailyMg =
-            weight * dose;
+}else if(medicine.type==="fixedAge"){
 
-        mgPerDose =
-            dailyMg /
-            numberOfDoses;
+mgPerDose=
+dose;
 
-    }
+dailyMg=
+mgPerDose*numberOfDoses;
 
+}
 
-    else if (
-        medicine.type === "mgkgdose"
-    ) {
+let mgPerMl;
 
-        mgPerDose =
-            weight * dose;
+if(
+formSelect.value==="jarabe"||
+formSelect.value==="suspension"
+){
 
-        dailyMg =
-            mgPerDose *
-            numberOfDoses;
+mgPerMl=
+concentration/5;
 
-    }
+}else{
 
+mgPerMl=
+concentration;
 
-    else if (
-        medicine.type === "fixedAge"
-    ) {
+}
 
-        mgPerDose =
-            dose;
+mlPerDose=
+mgPerDose/mgPerMl;
 
-        dailyMg =
-            mgPerDose *
-            numberOfDoses;
+const dailyMl=
+mlPerDose*numberOfDoses;
 
-    }
+const routeLabel=
+getRouteLabel();
 
+document.getElementById("resultVolume").textContent=
+formatNumber(mlPerDose)+" mL";
 
-    let mgPerMl;
+document.getElementById("resultFrequency").textContent=
+(
+routeLabel
+?routeLabel+" · "
+:""
+)+
+"cada "+hours+" horas";
 
+document.getElementById("resultMg").textContent=
+formatNumber(mgPerDose)+" mg";
 
-    if (
-        formSelect.value === "jarabe" ||
-        formSelect.value === "suspension"
-    ) {
+document.getElementById("resultTakes").textContent=
+formatNumber(numberOfDoses)+" dosis/día";
 
-        mgPerMl =
-            concentration / 5;
+document.getElementById("resultAge").textContent=
+getAgeLabel();
 
-    }
+document.getElementById("resultWeight").textContent=
+formatNumber(weight)+" kg";
 
-    else {
+document.getElementById("resultDailyMl").textContent=
+formatNumber(dailyMl)+" mL/día";
 
-        mgPerMl =
-            concentration;
+document.getElementById("resultDailyMg").textContent=
+formatNumber(dailyMg)+" mg/día";
 
-    }
+let formula="";
 
+formula+=
+"Medicamento: "+
+medicine.name+
+"\n";
 
-    mlPerDose =
-        mgPerDose /
-        mgPerMl;
+formula+=
+"Indicación: "+
+medicine.indication+
+"\n";
 
+if(routeLabel){
 
-    const dailyMl =
-        mlPerDose *
-        numberOfDoses;
+formula+=
+"Vía: "+
+routeLabel+
+"\n";
 
+}
 
-    const routeLabel =
-        getRouteLabel();
+if(medicine.type==="mgkgday"){
 
+formula+=
+weight+
+" kg × "+
+dose+
+" mg/kg/día = "+
+formatNumber(dailyMg)+
+" mg/día\n";
 
-    document.getElementById(
-        "resultVolume"
-    ).textContent =
-        formatNumber(
-            mlPerDose
-        ) +
-        " mL";
+formula+=
+"24 ÷ "+
+hours+
+" h = "+
+formatNumber(numberOfDoses)+
+" dosis/día\n";
 
+formula+=
+formatNumber(dailyMg)+
+" mg ÷ "+
+formatNumber(numberOfDoses)+
+" = "+
+formatNumber(mgPerDose)+
+" mg/dosis\n";
 
-    document.getElementById(
-        "resultFrequency"
-    ).textContent =
-        (
-            routeLabel
-                ? routeLabel + " · "
-                : ""
-        ) +
-        "cada " +
-        hours +
-        " horas";
+}else if(medicine.type==="mgkgdose"){
 
+formula+=
+weight+
+" kg × "+
+dose+
+" mg/kg/dosis = "+
+formatNumber(mgPerDose)+
+" mg/dosis\n";
 
-    document.getElementById(
-        "resultMg"
-    ).textContent =
-        formatNumber(
-            mgPerDose
-        ) +
-        " mg";
+formula+=
+"24 ÷ "+
+hours+
+" h = "+
+formatNumber(numberOfDoses)+
+" dosis/día\n";
 
+formula+=
+formatNumber(mgPerDose)+
+" mg × "+
+formatNumber(numberOfDoses)+
+" = "+
+formatNumber(dailyMg)+
+" mg/día\n";
 
-    document.getElementById(
-        "resultTakes"
-    ).textContent =
-        formatNumber(
-            numberOfDoses
-        ) +
-        " dosis/día";
+}else{
 
+formula+=
+"Edad: "+
+getAgeLabel()+
+"\n";
 
-    document.getElementById(
-        "resultAge"
-    ).textContent =
-        getAgeLabel();
+formula+=
+"Dosis correspondiente a la edad = "+
+formatNumber(mgPerDose)+
+" mg/dosis\n";
 
+formula+=
+"24 ÷ "+
+hours+
+" h = "+
+formatNumber(numberOfDoses)+
+" dosis/día\n";
 
-    document.getElementById(
-        "resultWeight"
-    ).textContent =
-        formatNumber(
-            weight
-        ) +
-        " kg";
+formula+=
+formatNumber(mgPerDose)+
+" mg × "+
+formatNumber(numberOfDoses)+
+" = "+
+formatNumber(dailyMg)+
+" mg/día\n";
 
+}
 
-    document.getElementById(
-        "resultDailyMl"
-    ).textContent =
-        formatNumber(
-            dailyMl
-        ) +
-        " mL/día";
+if(
+formSelect.value==="jarabe"||
+formSelect.value==="suspension"
+){
 
+formula+=
+formatNumber(concentration)+
+" mg / 5 mL = "+
+formatNumber(mgPerMl)+
+" mg/mL\n";
 
-    document.getElementById(
-        "resultDailyMg"
-    ).textContent =
-        formatNumber(
-            dailyMg
-        ) +
-        " mg/día";
+}else{
 
+formula+=
+formatNumber(concentration)+
+" mg/mL\n";
 
-    let formula = "";
+}
 
+formula+=
+formatNumber(mgPerDose)+
+" mg ÷ "+
+formatNumber(mgPerMl)+
+" mg/mL = "+
+formatNumber(mlPerDose)+
+" mL/dosis";
 
-    if (routeLabel) {
+document.getElementById("formula").textContent=
+formula;
 
-        formula +=
-            "Vía: " +
-            routeLabel +
-            "\n";
+result.style.display="block";
 
-    }
-
-
-    if (
-        medicine.type === "mgkgday"
-    ) {
-
-        formula +=
-            weight +
-            " kg × " +
-            dose +
-            " mg/kg/día = " +
-            formatNumber(
-                dailyMg
-            ) +
-            " mg/día\n";
-
-        formula +=
-            "24 ÷ " +
-            hours +
-            " h = " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " dosis/día\n";
-
-        formula +=
-            formatNumber(
-                dailyMg
-            ) +
-            " mg ÷ " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " = " +
-            formatNumber(
-                mgPerDose
-            ) +
-            " mg/dosis\n";
-
-    }
-
-
-    else if (
-        medicine.type === "mgkgdose"
-    ) {
-
-        formula +=
-            weight +
-            " kg × " +
-            dose +
-            " mg/kg/dosis = " +
-            formatNumber(
-                mgPerDose
-            ) +
-            " mg/dosis\n";
-
-        formula +=
-            "24 ÷ " +
-            hours +
-            " h = " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " dosis/día\n";
-
-        formula +=
-            formatNumber(
-                mgPerDose
-            ) +
-            " mg × " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " = " +
-            formatNumber(
-                dailyMg
-            ) +
-            " mg/día\n";
-
-    }
-
-
-    else {
-
-        formula +=
-            "Edad: " +
-            getAgeLabel() +
-            "\n";
-
-        formula +=
-            "Dosis correspondiente a la edad = " +
-            formatNumber(
-                mgPerDose
-            ) +
-            " mg/dosis\n";
-
-        formula +=
-            "24 ÷ " +
-            hours +
-            " h = " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " dosis/día\n";
-
-        formula +=
-            formatNumber(
-                mgPerDose
-            ) +
-            " mg × " +
-            formatNumber(
-                numberOfDoses
-            ) +
-            " = " +
-            formatNumber(
-                dailyMg
-            ) +
-            " mg/día\n";
-
-    }
-
-
-    if (
-        formSelect.value === "jarabe" ||
-        formSelect.value === "suspension"
-    ) {
-
-        formula +=
-            formatNumber(
-                concentration
-            ) +
-            " mg / 5 mL = " +
-            formatNumber(
-                mgPerMl
-            ) +
-            " mg/mL\n";
-
-    }
-
-    else {
-
-        formula +=
-            formatNumber(
-                concentration
-            ) +
-            " mg/mL\n";
-
-    }
-
-
-    formula +=
-        formatNumber(
-            mgPerDose
-        ) +
-        " mg ÷ " +
-        formatNumber(
-            mgPerMl
-        ) +
-        " mg/mL = " +
-        formatNumber(
-            mlPerDose
-        ) +
-        " mL/dosis";
-
-
-    document.getElementById(
-        "formula"
-    ).textContent =
-        formula;
-
-
-    result.style.display =
-        "block";
-
-
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+result.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
 }
 
@@ -4612,212 +4184,128 @@ function calculateDose() {
    TEMAS
    ============================================================ */
 
-function setTheme(theme) {
+function setTheme(theme){
 
-    document.body.classList.remove(
-        "pink-theme",
-        "green-theme",
-        "dark-theme"
-    );
+document.body.classList.remove(
+"pink-theme",
+"green-theme",
+"dark-theme"
+);
 
+if(theme==="pink"){
 
-    if (
-        theme === "pink"
-    ) {
+document.body.classList.add("pink-theme");
 
-        document.body.classList.add(
-            "pink-theme"
-        );
+localStorage.setItem(
+"dosisPediatricaTheme",
+"pink"
+);
 
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "pink"
-        );
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#831843");
 
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#831843"
-            );
+}else if(theme==="green"){
 
-    }
+document.body.classList.add("green-theme");
 
+localStorage.setItem(
+"dosisPediatricaTheme",
+"green"
+);
 
-    else if (
-        theme === "green"
-    ) {
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#166534");
 
-        document.body.classList.add(
-            "green-theme"
-        );
+}else if(theme==="dark-blue"){
 
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "green"
-        );
+document.body.classList.add("dark-theme");
 
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#166534"
-            );
+localStorage.setItem(
+"dosisPediatricaTheme",
+"dark-blue"
+);
 
-    }
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#020617");
 
+}else if(theme==="dark-pink"){
 
-    else if (
-        theme === "dark-blue"
-    ) {
+document.body.classList.add(
+"dark-theme",
+"pink-theme"
+);
 
-        document.body.classList.add(
-            "dark-theme"
-        );
+localStorage.setItem(
+"dosisPediatricaTheme",
+"dark-pink"
+);
 
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "dark-blue"
-        );
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#500724");
 
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#020617"
-            );
+}else if(theme==="dark-green"){
 
-    }
+document.body.classList.add(
+"dark-theme",
+"green-theme"
+);
 
+localStorage.setItem(
+"dosisPediatricaTheme",
+"dark-green"
+);
 
-    else if (
-        theme === "dark-pink"
-    ) {
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#052e16");
 
-        document.body.classList.add(
-            "dark-theme",
-            "pink-theme"
-        );
+}else{
 
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "dark-pink"
-        );
+localStorage.setItem(
+"dosisPediatricaTheme",
+"blue"
+);
 
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#500724"
-            );
-
-    }
-
-
-    else if (
-        theme === "dark-green"
-    ) {
-
-        document.body.classList.add(
-            "dark-theme",
-            "green-theme"
-        );
-
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "dark-green"
-        );
-
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#052e16"
-            );
-
-    }
-
-
-    else {
-
-        localStorage.setItem(
-            "dosisPediatricaTheme",
-            "blue"
-        );
-
-        document
-            .querySelector(
-                'meta[name="theme-color"]'
-            )
-            .setAttribute(
-                "content",
-                "#0f172a"
-            );
-
-    }
+document
+.querySelector('meta[name="theme-color"]')
+.setAttribute("content","#0f172a");
 
 }
 
-
-/* ============================================================
-   BOTONES DE TEMAS
-   ============================================================ */
+}
 
 blueThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("blue");
-    }
+"click",
+()=>setTheme("blue")
 );
-
 
 pinkThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("pink");
-    }
+"click",
+()=>setTheme("pink")
 );
-
 
 greenThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("green");
-    }
+"click",
+()=>setTheme("green")
 );
-
 
 darkBlueThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("dark-blue");
-    }
+"click",
+()=>setTheme("dark-blue")
 );
-
 
 darkPinkThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("dark-pink");
-    }
+"click",
+()=>setTheme("dark-pink")
 );
 
-
 darkGreenThemeButton.addEventListener(
-    "click",
-    function() {
-        setTheme("dark-green");
-    }
+"click",
+()=>setTheme("dark-green")
 );
 
 
@@ -4825,58 +4313,35 @@ darkGreenThemeButton.addEventListener(
    INICIO
    ============================================================ */
 
-const savedTheme =
-    localStorage.getItem(
-        "dosisPediatricaTheme"
-    );
+const savedTheme=
+localStorage.getItem(
+"dosisPediatricaTheme"
+);
 
-
-if (
-    savedTheme === "pink"
-) {
-
-    setTheme("pink");
-
+if(savedTheme==="pink"){
+setTheme("pink");
+}else if(savedTheme==="green"){
+setTheme("green");
+}else if(savedTheme==="dark-blue"){
+setTheme("dark-blue");
+}else if(savedTheme==="dark-pink"){
+setTheme("dark-pink");
+}else if(savedTheme==="dark-green"){
+setTheme("dark-green");
+}else{
+setTheme("blue");
 }
 
-else if (
-    savedTheme === "green"
-) {
 
-    setTheme("green");
+/* ============================================================
+   INICIALIZAR SELECTORES
+   ============================================================ */
 
-}
+populateMedicineSelect();
 
-else if (
-    savedTheme === "dark-blue"
-) {
-
-    setTheme("dark-blue");
-
-}
-
-else if (
-    savedTheme === "dark-pink"
-) {
-
-    setTheme("dark-pink");
-
-}
-
-else if (
-    savedTheme === "dark-green"
-) {
-
-    setTheme("dark-green");
-
-}
-
-else {
-
-    setTheme("blue");
-
-}
-
+populateIndications(
+medicationSelect.value
+);
 
 updateMedicine();
 
@@ -4884,3 +4349,4 @@ updateMedicine();
 
 </body>
 </html>
+```
