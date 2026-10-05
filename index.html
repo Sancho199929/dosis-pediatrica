@@ -1294,7 +1294,7 @@ Esta herramienta es educativa y no reemplaza la indicación médica.
 
 <div class="info">
 
-Las dosis cargadas corresponden a los esquemas definidos para esta versión de la herramienta.
+Las dosis cargadas corresponden al esquema definido para esta versión de la herramienta.
 
 <br><br>
 
@@ -2377,18 +2377,6 @@ keywords:[
    NAC - NEUMONÍA ADQUIRIDA EN LA COMUNIDAD
    ============================================================ */
 
-/*
-   IMPORTANTE:
-   Los esquemas combinados de NAC se representan como un único
-   régimen. Esto evita que un componente pueda ser seleccionado
-   accidentalmente como si fuera monoterapia.
-
-   En los componentes parenterales no se cargan concentraciones
-   para conversión automática a mL porque dependen de la
-   presentación/reconstitución utilizada.
-*/
-
-
 nac:{
 
 name:"NAC",
@@ -2961,7 +2949,7 @@ concentrations:[
 },
 
 note:
-"Administración exclusivamente intravenosa. La solución inyectable debe administrarse mediante infusión IV según la presentación correspondiente."
+"Administración exclusivamente intravenosa. La solución inyectable debe administrarse mediante infusión EV según la presentación correspondiente."
 
 }
 
@@ -3686,13 +3674,14 @@ return String(text||"")
 
 
 /* ============================================================
-   OBTENER MEDICAMENTO ACTUAL
+   OBTENER MEDICAMENTO ACTUAL (CORREGIDO)
    ============================================================ */
 
 function getCurrentMedicine(){
-
-return medicines[indicationSelect.value];
-
+const value = indicationSelect.value;
+if(!value) return null;
+const medicineKey = value.split("::")[0];
+return medicines[medicineKey];
 }
 
 function getCurrentGroup(){
@@ -4290,14 +4279,8 @@ regimenContainer.appendChild(note);
 
 function updateMedicine(){
 
-const currentValue=
-indicationSelect.value;
-
-const medicineKey=
-currentValue.split("::")[0];
-
 const medicine=
-medicines[medicineKey];
+getCurrentMedicine();
 
 if(!medicine){
 return;
@@ -5193,14 +5176,8 @@ calculateDose
 
 function calculateDose(){
 
-const currentValue=
-indicationSelect.value;
-
-const medicineKey=
-currentValue.split("::")[0];
-
 const medicine=
-medicines[medicineKey];
+getCurrentMedicine();
 
 if(!medicine){
 
