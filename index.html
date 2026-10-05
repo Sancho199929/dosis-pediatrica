@@ -610,6 +610,105 @@ summary{
 
 .hidden{display:none!important}
 
+.regimen-container{
+    grid-column:1/-1;
+    display:grid;
+    gap:9px
+}
+
+.regimen-component{
+    background:var(--stat-bg);
+    border:1px solid var(--border);
+    border-radius:13px;
+    padding:12px
+}
+
+.regimen-component-title{
+    font-size:13px;
+    font-weight:900;
+    margin-bottom:7px
+}
+
+.regimen-component-line{
+    font-size:11px;
+    color:var(--muted);
+    line-height:1.5
+}
+
+.regimen-component-line strong{
+    color:var(--text)
+}
+
+.regimen-note{
+    margin-top:9px;
+    padding:10px;
+    border-radius:11px;
+    background:var(--stat-bg);
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5
+}
+
+.regimen-result{
+    display:none
+}
+
+.regimen-result-main{
+    background:var(--result-bg);
+    border:1px solid var(--result-border);
+    border-radius:18px;
+    padding:16px
+}
+
+.regimen-result-title{
+    color:var(--primary-dark);
+    font-size:16px;
+    font-weight:950;
+    margin-bottom:5px
+}
+
+.regimen-result-subtitle{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5
+}
+
+.regimen-result-components{
+    display:grid;
+    gap:9px;
+    margin-top:12px
+}
+
+.regimen-result-component{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px
+}
+
+.regimen-result-component strong{
+    font-size:13px
+}
+
+.regimen-result-detail{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.5
+}
+
+.regimen-result-warning{
+    margin-top:12px;
+    padding:11px;
+    border-radius:12px;
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#92400e;
+    font-size:11px;
+    line-height:1.5
+}
+
 .bottom-nav{
     position:sticky;
     bottom:0;
@@ -842,7 +941,7 @@ Acceso protegido mediante Supabase Auth.
 <div class="header-actions">
 
 <div class="version">
-v1.5
+v1.6
 </div>
 
 <button id="logoutButton" class="logout-button" type="button">
@@ -883,7 +982,7 @@ Buscar medicamento o patología
 <input
 id="medicineSearch"
 type="search"
-placeholder="Ej.: amoxi, OMA, otitis, OMAR, SBA, paracetamol..."
+placeholder="Ej.: amoxi, OMA, NAC, neumonía, SBA..."
 autocomplete="off"
 >
 
@@ -979,7 +1078,7 @@ value="15"
 
 </div>
 
-<div>
+<div id="doseContainer">
 
 <label>Dosis</label>
 
@@ -987,7 +1086,7 @@ value="15"
 
 </div>
 
-<div>
+<div id="frequencyContainer">
 
 <label>Frecuencia</label>
 
@@ -995,7 +1094,7 @@ value="15"
 
 </div>
 
-<div>
+<div id="formContainer">
 
 <label>Presentación</label>
 
@@ -1010,6 +1109,8 @@ value="15"
 <select id="concentration"></select>
 
 </div>
+
+<div id="regimenContainer" class="regimen-container hidden"></div>
 
 <div id="ageNote" class="full age-note hidden"></div>
 
@@ -1087,6 +1188,59 @@ Ver cómo se calculó
 indicación, edad, peso, vía, alergias, función renal,
 contraindicaciones, dosis máxima, concentración disponible
 y prescripción profesional.
+
+Esta herramienta es educativa y no reemplaza la indicación médica.
+
+</div>
+
+</section>
+
+
+<section class="card regimen-result" id="regimenResult">
+
+<div class="regimen-result-main">
+
+<div class="regimen-result-title" id="regimenResultTitle">
+Régimen combinado
+</div>
+
+<div class="regimen-result-subtitle" id="regimenResultSubtitle">
+—
+</div>
+
+<div class="regimen-result-components" id="regimenResultComponents">
+</div>
+
+<div class="regimen-result-warning">
+<strong>⚠️ Importante:</strong>
+este resultado representa un <strong>régimen combinado</strong>.
+Los componentes deben administrarse conjuntamente según la indicación,
+vía, intervalo y protocolo correspondiente. No interpretar cada componente
+como monoterapia para esta indicación.
+</div>
+
+</div>
+
+<details>
+
+<summary>
+Ver cómo se calculó
+</summary>
+
+<div class="formula" id="regimenFormula"></div>
+
+</details>
+
+<div class="warning">
+
+<strong>⚠️ Verificar antes de administrar:</strong>
+
+indicación, edad, peso, vía, alergias, función renal,
+dosis máximas, interacciones, presentación disponible,
+reconstitución y prescripción profesional.
+
+En antibióticos parenterales no se muestra conversión a mL cuando
+la concentración final depende de la presentación y reconstitución.
 
 Esta herramienta es educativa y no reemplaza la indicación médica.
 
@@ -1183,6 +1337,20 @@ En <strong>OMA recurrente (OMAR)</strong> se incorporaron esquemas específicos 
 
 En SBA se mantienen los esquemas específicos previamente cargados para
 <strong>amoxicilina, amoxicilina-clavulanato, cefuroxima, TMP-SMX, claritromicina, azitromicina y ceftriaxona</strong>.
+
+<br><br>
+
+En <strong>NAC</strong>, los esquemas combinados se cargan como
+<strong>regímenes únicos</strong> para evitar interpretar accidentalmente uno de sus componentes como monoterapia. La calculadora muestra cada componente por separado, con su dosis, vía e intervalo cuando están definidos.
+
+<br><br>
+
+En los esquemas parenterales combinados de NAC no se realiza conversión automática a mL cuando la concentración final depende de la presentación, dilución o reconstitución del medicamento.
+
+<br><br>
+
+Los esquemas de NAC deben verificarse especialmente según
+<strong>edad, gravedad, etiología probable, complicaciones, alergias, función renal y protocolo hospitalario local</strong>.
 
 <br><br>
 
@@ -1655,17 +1823,11 @@ indication:"SBA",
 type:"mgkgday",
 
 doses:[
-{
-value:40,
-label:"40 mg/kg/día"
-}
+{value:40,label:"40 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:8,
-label:"Cada 8 horas"
-}
+{hours:8,label:"Cada 8 horas"}
 ],
 
 forms:{
@@ -1707,17 +1869,11 @@ indication:"OMAR / profilaxis",
 type:"mgkgday",
 
 doses:[
-{
-value:20,
-label:"20 mg/kg/día"
-}
+{value:20,label:"20 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:24,
-label:"Cada 24 horas · 1 toma diaria"
-}
+{hours:24,label:"Cada 24 horas · 1 toma diaria"}
 ],
 
 forms:{
@@ -1762,17 +1918,11 @@ indication:"OMA",
 type:"mgkgday",
 
 doses:[
-{
-value:80,
-label:"80 mg/kg/día de amoxicilina"
-}
+{value:80,label:"80 mg/kg/día de amoxicilina"}
 ],
 
 frequencies:[
-{
-hours:8,
-label:"Cada 8 horas"
-}
+{hours:8,label:"Cada 8 horas"}
 ],
 
 forms:{
@@ -1818,21 +1968,12 @@ indication:"SBA",
 type:"mgkgday",
 
 doses:[
-{
-value:80,
-label:"80 mg/kg/día de amoxicilina"
-},
-{
-value:90,
-label:"90 mg/kg/día de amoxicilina"
-}
+{value:80,label:"80 mg/kg/día de amoxicilina"},
+{value:90,label:"90 mg/kg/día de amoxicilina"}
 ],
 
 frequencies:[
-{
-hours:8,
-label:"Cada 8 horas"
-}
+{hours:8,label:"Cada 8 horas"}
 ],
 
 forms:{
@@ -1878,35 +2019,20 @@ indication:"OMA / alergia a penicilina no tipo I",
 type:"mgkgday",
 
 doses:[
-{
-value:30,
-label:"30 mg/kg/día"
-},
-{
-value:40,
-label:"40 mg/kg/día"
-}
+{value:30,label:"30 mg/kg/día"},
+{value:40,label:"40 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:12,
-label:"Cada 12 horas"
-}
+{hours:12,label:"Cada 12 horas"}
 ],
 
 forms:{
 suspension:{
 label:"Suspensión oral",
 concentrations:[
-{
-value:125,
-label:"125 mg / 5 mL"
-},
-{
-value:250,
-label:"250 mg / 5 mL"
-}
+{value:125,label:"125 mg / 5 mL"},
+{value:250,label:"250 mg / 5 mL"}
 ]
 }
 },
@@ -1938,35 +2064,20 @@ indication:"SBA / alergia a penicilina no tipo I",
 type:"mgkgday",
 
 doses:[
-{
-value:20,
-label:"20 mg/kg/día"
-},
-{
-value:40,
-label:"40 mg/kg/día"
-}
+{value:20,label:"20 mg/kg/día"},
+{value:40,label:"40 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:12,
-label:"Cada 12 horas"
-}
+{hours:12,label:"Cada 12 horas"}
 ],
 
 forms:{
 suspension:{
 label:"Suspensión oral",
 concentrations:[
-{
-value:125,
-label:"125 mg / 5 mL"
-},
-{
-value:250,
-label:"250 mg / 5 mL"
-}
+{value:125,label:"125 mg / 5 mL"},
+{value:250,label:"250 mg / 5 mL"}
 ]
 }
 },
@@ -1998,31 +2109,19 @@ indication:"SBA / 2.ª elección",
 type:"mgkgday",
 
 doses:[
-{
-value:6,
-label:"6 mg/kg/día de trimetoprima"
-},
-{
-value:8,
-label:"8 mg/kg/día de trimetoprima"
-}
+{value:6,label:"6 mg/kg/día de trimetoprima"},
+{value:8,label:"8 mg/kg/día de trimetoprima"}
 ],
 
 frequencies:[
-{
-hours:12,
-label:"Cada 12 horas"
-}
+{hours:12,label:"Cada 12 horas"}
 ],
 
 forms:{
 suspension:{
 label:"Suspensión oral",
 concentrations:[
-{
-value:40,
-label:"40 mg TMP + 200 mg SMX / 5 mL"
-}
+{value:40,label:"40 mg TMP + 200 mg SMX / 5 mL"}
 ]
 }
 },
@@ -2112,31 +2211,19 @@ indication:"SBA / alergia tipo I",
 type:"mgkgday",
 
 doses:[
-{
-value:15,
-label:"15 mg/kg/día"
-}
+{value:15,label:"15 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:12,
-label:"Cada 12 horas"
-}
+{hours:12,label:"Cada 12 horas"}
 ],
 
 forms:{
 suspension:{
 label:"Suspensión oral",
 concentrations:[
-{
-value:125,
-label:"125 mg / 5 mL"
-},
-{
-value:250,
-label:"250 mg / 5 mL"
-}
+{value:125,label:"125 mg / 5 mL"},
+{value:250,label:"250 mg / 5 mL"}
 ]
 }
 },
@@ -2169,27 +2256,18 @@ indication:"SBA / alergia tipo I",
 type:"mgkgday",
 
 doses:[
-{
-value:10,
-label:"10 mg/kg/día"
-}
+{value:10,label:"10 mg/kg/día"}
 ],
 
 frequencies:[
-{
-hours:24,
-label:"Cada 24 horas"
-}
+{hours:24,label:"Cada 24 horas"}
 ],
 
 forms:{
 suspension:{
 label:"Suspensión oral",
 concentrations:[
-{
-value:200,
-label:"200 mg / 5 mL"
-}
+{value:200,label:"200 mg / 5 mL"}
 ]
 }
 },
@@ -2222,27 +2300,18 @@ indication:"OMA / mala tolerancia oral",
 type:"mgkgdose",
 
 doses:[
-{
-value:50,
-label:"50 mg/kg/dosis"
-}
+{value:50,label:"50 mg/kg/dosis"}
 ],
 
 frequencies:[
-{
-hours:24,
-label:"Cada 24 horas"
-}
+{hours:24,label:"Cada 24 horas"}
 ],
 
 forms:{
 injection:{
 label:"IM · Solución inyectable",
 concentrations:[
-{
-value:100,
-label:"100 mg / mL"
-}
+{value:100,label:"100 mg / mL"}
 ]
 }
 },
@@ -2274,27 +2343,18 @@ indication:"SBA / mala tolerancia oral",
 type:"mgkgdose",
 
 doses:[
-{
-value:50,
-label:"50 mg/kg/dosis"
-}
+{value:50,label:"50 mg/kg/dosis"}
 ],
 
 frequencies:[
-{
-hours:24,
-label:"Cada 24 horas"
-}
+{hours:24,label:"Cada 24 horas"}
 ],
 
 forms:{
 injection:{
 label:"IM · Solución inyectable",
 concentrations:[
-{
-value:100,
-label:"100 mg / mL"
-}
+{value:100,label:"100 mg / mL"}
 ]
 }
 },
@@ -2308,6 +2368,462 @@ keywords:[
 "sinusitis bacteriana aguda",
 "mala tolerancia oral",
 "ceftriaxona"
+]
+
+},
+
+
+/* ============================================================
+   NAC - NEUMONÍA ADQUIRIDA EN LA COMUNIDAD
+   ============================================================ */
+
+/*
+   IMPORTANTE:
+   Los esquemas combinados de NAC se representan como un único
+   régimen. Esto evita que un componente pueda ser seleccionado
+   accidentalmente como si fuera monoterapia.
+
+   En los componentes parenterales no se cargan concentraciones
+   para conversión automática a mL porque dependen de la
+   presentación/reconstitución utilizada.
+*/
+
+
+nac:{
+
+name:"NAC",
+
+indication:"Neumonía adquirida en la comunidad",
+
+type:"regimen",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"neumonia adquirida en la comunidad",
+"neumonía adquirida en la comunidad",
+"neumonia comunitaria",
+"neumonía comunitaria",
+"ampicilina",
+"gentamicina",
+"cefotaxima",
+"ceftriaxona",
+"vancomicina",
+"samr",
+"sepsis"
+],
+
+regimens:[
+
+{
+id:"nacMenor3AmpGent",
+
+label:"≤3 meses · internado · ampicilina + gentamicina",
+
+shortLabel:"≤3 meses · internado",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Gentamicina",
+dose:5,
+unit:"mg/kg/día",
+frequency:12,
+frequencyLabel:"Cada 12 horas",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"NAC en menores de 3 meses internados: ampicilina 200 mg/kg/día EV cada 6 horas + gentamicina 5 mg/kg/día EV cada 12 horas. La dosis de gentamicina requiere especial atención a función renal, edad, intervalo y monitorización según protocolo institucional. No interpretar ninguno de los componentes como monoterapia en este régimen.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"menor 3 meses",
+"internado",
+"ampicilina",
+"gentamicina"
+]
+
+},
+
+{
+id:"nacMenor3AmpCefotax",
+
+label:"≤3 meses · internado · ampicilina + cefotaxima",
+
+shortLabel:"≤3 meses · internado",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Cefotaxima",
+dose:200,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo según protocolo",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"NAC en menores de 3 meses internados: alternativa con ampicilina 200 mg/kg/día + cefotaxima 200 mg/kg/día. La fuente de referencia expresa la dosis diaria de cefotaxima; no se fuerza un intervalo en la calculadora cuando no está definido para este esquema específico. Verificar el protocolo institucional y la ficha técnica.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"menor 3 meses",
+"internado",
+"ampicilina",
+"cefotaxima"
+]
+
+},
+
+{
+id:"nacMenor3AmpCeftriaxona",
+
+label:"≤3 meses · internado · ampicilina + ceftriaxona",
+
+shortLabel:"≤3 meses · internado",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Ceftriaxona",
+dose:50,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo según protocolo",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"NAC en menores de 3 meses internados: alternativa con ampicilina 200 mg/kg/día + ceftriaxona 50 mg/kg/día. No se fuerza un intervalo de ceftriaxona en este esquema porque la fuente de referencia expresa la dosis diaria. Verificar indicación, edad exacta, hiperbilirrubinemia y protocolo institucional antes de utilizar ceftriaxona en neonatos/lactantes pequeños.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"menor 3 meses",
+"internado",
+"ampicilina",
+"ceftriaxona"
+]
+
+},
+
+{
+id:"nacMayor3AmbAmoxi",
+
+label:">3 meses · ambulatorio · amoxicilina",
+
+shortLabel:">3 meses · ambulatorio",
+
+components:[
+
+{
+name:"Amoxicilina",
+doseOptions:[
+{value:80,label:"80 mg/kg/día"},
+{value:90,label:"90 mg/kg/día"}
+],
+unit:"mg/kg/día",
+frequencyOptions:[
+{value:6,label:"Cada 6 horas"},
+{value:8,label:"Cada 8 horas"}
+],
+route:"VO",
+dailyDose:true,
+oral:true
+}
+
+],
+
+note:
+"NAC en mayores de 3 meses ambulatorios: amoxicilina 80–90 mg/kg/día por vía oral, dividida cada 6–8 horas. Duración cargada: 10 días según el esquema solicitado para esta herramienta. Verificar gravedad, tolerancia oral, evolución y protocolo local.",
+
+duration:"10 días",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"mayor 3 meses",
+"ambulatorio",
+"amoxicilina",
+"vo",
+"oral"
+]
+
+},
+
+{
+id:"nacMayor3InternadoAmp",
+
+label:">3 meses · internado · ampicilina",
+
+shortLabel:">3 meses · internado",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"NAC en mayores de 3 meses internados: ampicilina 200 mg/kg/día EV cada 6 horas. Ante evolución desfavorable debe reevaluarse el diagnóstico, etiología, complicaciones y necesidad de ampliar el esquema antibiótico según protocolo.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"mayor 3 meses",
+"internado",
+"ampicilina"
+]
+
+},
+
+{
+id:"nacComplicadaAmpCefotax",
+
+label:">3 meses · NAC complicada / evolución desfavorable · ampicilina + cefotaxima",
+
+shortLabel:"NAC complicada",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Cefotaxima",
+dose:200,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo según protocolo",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"Esquema combinado para NAC complicada o evolución desfavorable según el escenario clínico. Ampicilina 200 mg/kg/día + cefotaxima 200 mg/kg/día. La complicación requiere reevaluación clínica y búsqueda de derrame/empiema u otra etiología; el antibiótico no reemplaza el manejo de una posible complicación pleural.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"complicada",
+"evolucion desfavorable",
+"evolución desfavorable",
+"ampicilina",
+"cefotaxima"
+]
+
+},
+
+{
+id:"nacComplicadaAmpCeftriaxona",
+
+label:">3 meses · NAC complicada / evolución desfavorable · ampicilina + ceftriaxona",
+
+shortLabel:"NAC complicada",
+
+components:[
+
+{
+name:"Ampicilina",
+dose:200,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Ceftriaxona",
+dose:50,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo según protocolo",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"Esquema combinado para NAC complicada o evolución desfavorable. Ampicilina 200 mg/kg/día + ceftriaxona 50 mg/kg/día. Requiere reevaluación de etiología y complicaciones. Verificar protocolo hospitalario, función renal, alergias y condiciones particulares para el uso de ceftriaxona.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"complicada",
+"evolucion desfavorable",
+"evolución desfavorable",
+"ampicilina",
+"ceftriaxona"
+]
+
+},
+
+{
+id:"nacGraveCeftriaxonaVanco",
+
+label:"NAC grave / sepsis / sospecha de SAMR · ceftriaxona + vancomicina",
+
+shortLabel:"NAC grave · sepsis / SAMR",
+
+components:[
+
+{
+name:"Ceftriaxona",
+dose:80,
+unit:"mg/kg/día",
+frequency:12,
+frequencyLabel:"Cada 12 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Vancomicina",
+dose:60,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo individualizado según protocolo y función renal",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"Esquema para NAC grave/sepsis o sospecha de SAMR según el escenario clínico. Ceftriaxona 80 mg/kg/día se expresa como dosis diaria total; no debe interpretarse como 80 mg/kg/dosis cada 12 horas. Vancomicina 60 mg/kg/día se muestra como dosis diaria total sin imponer un intervalo fijo: el intervalo debe individualizarse según edad, función renal, monitorización y protocolo institucional.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"grave",
+"sepsis",
+"samr",
+"mrsa",
+"ceftriaxona",
+"vancomicina"
+]
+
+},
+
+{
+id:"nacGraveCefotaxVanco",
+
+label:"NAC grave / sepsis / sospecha de SAMR · cefotaxima + vancomicina",
+
+shortLabel:"NAC grave · sepsis / SAMR",
+
+components:[
+
+{
+name:"Cefotaxima",
+dose:150,
+unit:"mg/kg/día",
+frequency:6,
+frequencyLabel:"Cada 6 horas",
+route:"EV",
+dailyDose:true
+},
+
+{
+name:"Vancomicina",
+dose:60,
+unit:"mg/kg/día",
+frequency:null,
+frequencyLabel:"Intervalo individualizado según protocolo y función renal",
+route:"EV",
+dailyDose:true
+}
+
+],
+
+note:
+"Esquema cargado según el esquema solicitado para NAC grave/sepsis con sospecha de SAMR: cefotaxima 150 mg/kg/día EV cada 6 horas + vancomicina 60 mg/kg/día EV. La dosis de cefotaxima se expresa como dosis diaria total dividida cada 6 horas. Vancomicina requiere individualización del intervalo y monitorización según función renal/protocolo. Verificar siempre el esquema institucional.",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"grave",
+"sepsis",
+"samr",
+"mrsa",
+"cefotaxima",
+"vancomicina"
+]
+
+}
+
 ]
 
 },
@@ -2982,6 +3498,13 @@ indications:[
 ]
 },
 
+nac:{
+label:"NAC · Neumonía adquirida en la comunidad",
+indications:[
+"nac"
+]
+},
+
 paracetamol:{
 label:"Paracetamol",
 indications:["paracetamol"]
@@ -3048,6 +3571,15 @@ document.getElementById("routeContainer");
 const routeSelect=
 document.getElementById("route");
 
+const doseContainer=
+document.getElementById("doseContainer");
+
+const frequencyContainer=
+document.getElementById("frequencyContainer");
+
+const formContainer=
+document.getElementById("formContainer");
+
 const doseSelect=
 document.getElementById("dose");
 
@@ -3063,6 +3595,9 @@ document.getElementById("concentration");
 const concentrationContainer=
 document.getElementById("concentrationContainer");
 
+const regimenContainer=
+document.getElementById("regimenContainer");
+
 const ageNote=
 document.getElementById("ageNote");
 
@@ -3071,6 +3606,9 @@ document.getElementById("calculate");
 
 const result=
 document.getElementById("result");
+
+const regimenResult=
+document.getElementById("regimenResult");
 
 const blueThemeButton=
 document.getElementById("blueTheme");
@@ -3208,6 +3746,34 @@ if(!group){
 return;
 }
 
+if(groupKey==="nac"){
+
+group.indications.forEach(
+medicineKey=>{
+
+const medicine=
+medicines[medicineKey];
+
+medicine.regimens.forEach(
+(regimen,index)=>{
+
+const option=
+document.createElement("option");
+
+option.value=
+medicineKey+"::"+index;
+
+option.textContent=
+regimen.label;
+
+indicationSelect.appendChild(option);
+
+});
+
+});
+
+}else{
+
 group.indications.forEach(
 medicineKey=>{
 
@@ -3228,9 +3794,12 @@ indicationSelect.appendChild(option);
 
 });
 
+}
+
 if(
 preferredKey &&
-group.indications.includes(preferredKey)
+Array.from(indicationSelect.options)
+.some(option=>option.value===preferredKey)
 ){
 
 indicationSelect.value=preferredKey;
@@ -3238,6 +3807,34 @@ indicationSelect.value=preferredKey;
 }
 
 updateSelectState(indicationSelect);
+
+}
+
+
+/* ============================================================
+   OBTENER REGIMEN NAC ACTUAL
+   ============================================================ */
+
+function getCurrentRegimen(){
+
+const value=indicationSelect.value;
+
+if(!value.includes("::")){
+return null;
+}
+
+const parts=value.split("::");
+
+const medicineKey=parts[0];
+const index=parseInt(parts[1]);
+
+const medicine=medicines[medicineKey];
+
+if(!medicine||!medicine.regimens[index]){
+return null;
+}
+
+return medicine.regimens[index];
 
 }
 
@@ -3270,6 +3867,7 @@ return;
 
 let firstGroup=null;
 let firstMedicine=null;
+let firstIndicationValue=null;
 
 Object.entries(medicineGroups).forEach(
 ([groupKey,group])=>{
@@ -3281,6 +3879,52 @@ let groupMatch=
 groupText.includes(search);
 
 let indicationMatch=false;
+
+if(groupKey==="nac"){
+
+group.indications.forEach(
+medicineKey=>{
+
+const medicine=
+medicines[medicineKey];
+
+if(!medicine){
+return;
+}
+
+medicine.regimens.forEach(
+(regimen,index)=>{
+
+const text=
+normalizeText(
+medicine.name+
+" "+
+regimen.label+
+" "+
+(regimen.keywords||[]).join(" ")+
+" "+
+(medicine.keywords||[]).join(" ")
+);
+
+if(text.includes(search)){
+
+indicationMatch=true;
+
+if(firstMedicine===null){
+
+firstMedicine=medicineKey;
+firstIndicationValue=
+medicineKey+"::"+index;
+
+}
+
+}
+
+});
+
+});
+
+}else{
 
 group.indications.forEach(
 medicineKey=>{
@@ -3315,6 +3959,8 @@ firstMedicine=medicineKey;
 
 });
 
+}
+
 if(groupMatch||indicationMatch){
 
 if(firstGroup===null){
@@ -3344,7 +3990,7 @@ medicationSelect.value=firstGroup;
 
 populateIndications(
 firstGroup,
-firstMedicine
+firstIndicationValue||firstMedicine
 );
 
 updateMedicine();
@@ -3487,17 +4133,193 @@ return route?route.label:"";
 
 
 /* ============================================================
+   ACTUALIZAR VISIBILIDAD DE CONTROLES
+   ============================================================ */
+
+function hideRegimenControls(){
+
+doseContainer.classList.remove("hidden");
+frequencyContainer.classList.remove("hidden");
+formContainer.classList.remove("hidden");
+concentrationContainer.classList.remove("hidden");
+
+regimenContainer.classList.add("hidden");
+
+}
+
+function showRegimenControls(){
+
+doseContainer.classList.add("hidden");
+frequencyContainer.classList.add("hidden");
+formContainer.classList.add("hidden");
+concentrationContainer.classList.add("hidden");
+routeContainer.classList.add("hidden");
+
+regimenContainer.classList.remove("hidden");
+
+}
+
+
+/* ============================================================
+   RENDERIZAR SELECTOR DE REGÍMENES NAC
+   ============================================================ */
+
+function renderRegimenSelector(){
+
+const regimen=
+getCurrentRegimen();
+
+regimenContainer.innerHTML="";
+
+if(!regimen){
+return;
+}
+
+const title=
+document.createElement("div");
+
+title.className="section-title";
+title.textContent="Esquema seleccionado";
+
+regimenContainer.appendChild(title);
+
+regimen.components.forEach(
+component=>{
+
+const box=
+document.createElement("div");
+
+box.className="regimen-component";
+
+const title=
+document.createElement("div");
+
+title.className="regimen-component-title";
+
+title.textContent=
+component.name;
+
+box.appendChild(title);
+
+const line=
+document.createElement("div");
+
+line.className="regimen-component-line";
+
+let text=
+"<strong>Dosis:</strong> ";
+
+if(component.doseOptions){
+
+text+=
+component.doseOptions
+.map(option=>option.label)
+.join(" · ");
+
+}else{
+
+text+=
+formatNumber(component.dose)+
+" "+
+component.unit;
+
+}
+
+text+=
+"<br><strong>Vía:</strong> "+
+component.route;
+
+if(component.frequencyOptions){
+
+text+=
+"<br><strong>Frecuencia:</strong> "+
+component.frequencyOptions
+.map(option=>option.label)
+.join(" · ");
+
+}else if(component.frequency){
+
+text+=
+"<br><strong>Frecuencia:</strong> "+
+component.frequencyLabel;
+
+}else{
+
+text+=
+"<br><strong>Frecuencia:</strong> "+
+component.frequencyLabel;
+
+}
+
+box.appendChild(line);
+
+regimenContainer.appendChild(box);
+
+});
+
+if(regimen.duration){
+
+const duration=
+document.createElement("div");
+
+duration.className="regimen-note";
+
+duration.innerHTML=
+"<strong>Duración cargada:</strong> "+
+regimen.duration;
+
+regimenContainer.appendChild(duration);
+
+}
+
+const note=
+document.createElement("div");
+
+note.className="regimen-note";
+
+note.textContent=regimen.note;
+
+regimenContainer.appendChild(note);
+
+}
+
+
+/* ============================================================
    ACTUALIZAR MEDICAMENTO
    ============================================================ */
 
 function updateMedicine(){
 
+const currentValue=
+indicationSelect.value;
+
+const medicineKey=
+currentValue.split("::")[0];
+
 const medicine=
-getCurrentMedicine();
+medicines[medicineKey];
 
 if(!medicine){
 return;
 }
+
+result.style.display="none";
+regimenResult.style.display="none";
+
+if(medicine.type==="regimen"){
+
+showRegimenControls();
+
+renderRegimenSelector();
+
+ageNote.classList.add("hidden");
+ageNote.textContent="";
+
+return;
+
+}
+
+hideRegimenControls();
 
 clearSelect(routeSelect);
 clearSelect(doseSelect);
@@ -3882,6 +4704,13 @@ if(!medicine){
 return;
 }
 
+if(medicine.type==="regimen"){
+
+renderRegimenSelector();
+return;
+
+}
+
 if(medicine.routes){
 
 updateRoute();
@@ -3920,6 +4749,10 @@ const medicine=
 getCurrentMedicine();
 
 if(!medicine){
+return;
+}
+
+if(medicine.type==="regimen"){
 return;
 }
 
@@ -3976,6 +4809,380 @@ updateConcentrations
 
 
 /* ============================================================
+   ACTUALIZAR RESULTADO NAC
+   ============================================================ */
+
+function calculateRegimenDose(){
+
+const medicine=
+getCurrentMedicine();
+
+const regimen=
+getCurrentRegimen();
+
+const weight=
+parseFloat(weightInput.value);
+
+if(!medicine||!regimen){
+alert("Seleccioná un esquema de NAC.");
+return;
+}
+
+if(!weight||weight<=0){
+
+alert(
+"Completá correctamente el peso."
+);
+
+return;
+
+}
+
+const ageMonths=
+getAgeMonths();
+
+if(ageMonths===null){
+
+alert(
+"Completá correctamente la edad."
+);
+
+return;
+
+}
+
+
+/* ------------------------------------------------------------
+   Validaciones específicas
+   ------------------------------------------------------------ */
+
+if(
+regimen.id==="nacMenor3AmpGent" ||
+regimen.id==="nacMenor3AmpCefotax" ||
+regimen.id==="nacMenor3AmpCeftriaxona"
+){
+
+if(ageMonths>3){
+
+alert(
+"Este esquema corresponde a menores de 3 meses."
+);
+
+return;
+
+}
+
+}
+
+if(
+regimen.id==="nacMayor3AmbAmoxi" ||
+regimen.id==="nacMayor3InternadoAmp" ||
+regimen.id==="nacComplicadaAmpCefotax" ||
+regimen.id==="nacComplicadaAmpCeftriaxona"
+){
+
+if(ageMonths<=3){
+
+alert(
+"Este esquema corresponde al escenario de mayores de 3 meses."
+);
+
+return;
+
+}
+
+}
+
+
+/* ------------------------------------------------------------
+   Calcular componentes
+   ------------------------------------------------------------ */
+
+const selectedComponents=[];
+
+regimen.components.forEach(component=>{
+
+let doseValue=component.dose;
+
+let frequency=component.frequency;
+let frequencyLabel=component.frequencyLabel;
+
+if(component.doseOptions){
+
+const doseValueForRegimen=
+component.doseOptions[0].value;
+
+doseValue=
+doseValueForRegimen;
+
+}
+
+if(
+regimen.id==="nacMayor3AmbAmoxi"
+){
+
+const doseOption=
+component.doseOptions[0];
+
+const frequencyOption=
+component.frequencyOptions[0];
+
+doseValue=
+doseOption.value;
+
+frequency=
+frequencyOption.value;
+
+frequencyLabel=
+frequencyOption.label;
+
+}
+
+const dailyMg=
+weight*doseValue;
+
+let mgPerDose=null;
+let numberOfDoses=null;
+
+if(frequency){
+
+numberOfDoses=
+24/frequency;
+
+mgPerDose=
+dailyMg/numberOfDoses;
+
+}
+
+selectedComponents.push({
+...component,
+doseValue:doseValue,
+dailyMg:dailyMg,
+mgPerDose:mgPerDose,
+numberOfDoses:numberOfDoses,
+frequency:frequency,
+frequencyLabel:frequencyLabel
+});
+
+});
+
+
+/* ------------------------------------------------------------
+   Resultado visual
+   ------------------------------------------------------------ */
+
+document.getElementById(
+"regimenResultTitle"
+).textContent=
+regimen.label;
+
+document.getElementById(
+"regimenResultSubtitle"
+).textContent=
+"Edad: "+
+getAgeLabel()+
+" · Peso: "+
+formatNumber(weight)+
+" kg";
+
+const componentsContainer=
+document.getElementById(
+"regimenResultComponents"
+);
+
+componentsContainer.innerHTML="";
+
+selectedComponents.forEach(component=>{
+
+const box=
+document.createElement("div");
+
+box.className=
+"regimen-result-component";
+
+const title=
+document.createElement("strong");
+
+title.textContent=
+component.name;
+
+box.appendChild(title);
+
+const detail=
+document.createElement("div");
+
+detail.className=
+"regimen-result-detail";
+
+let text="";
+
+text+=
+"Dosis diaria total: "+
+formatNumber(component.dailyMg)+
+" mg/día";
+
+text+="<br>";
+
+text+=
+"Equivalente: "+
+formatNumber(component.doseValue)+
+" "+
+component.unit;
+
+if(component.frequency){
+
+text+="<br>";
+
+text+=
+"Por administración: "+
+formatNumber(component.mgPerDose)+
+" mg";
+
+text+="<br>";
+
+text+=
+"Frecuencia: "+
+component.frequencyLabel;
+
+}else{
+
+text+="<br>";
+
+text+=
+"Frecuencia: "+
+component.frequencyLabel;
+
+}
+
+text+="<br>";
+
+text+=
+"Vía: "+
+component.route;
+
+if(
+component.name==="Amoxicilina" &&
+component.route==="VO" &&
+component.dailyDose
+){
+
+text+="<br>";
+
+text+=
+"Conversión a mL: disponible según concentración oral seleccionada.";
+
+}
+
+detail.innerHTML=text;
+
+box.appendChild(detail);
+
+componentsContainer.appendChild(box);
+
+});
+
+
+if(regimen.duration){
+
+document.getElementById(
+"regimenResultSubtitle"
+).textContent+=
+" · Duración: "+
+regimen.duration;
+
+}
+
+
+let formula="";
+
+formula+=
+"Medicamento: NAC\n";
+
+formula+=
+"Esquema: "+
+regimen.label+
+"\n";
+
+formula+=
+"Edad: "+
+getAgeLabel()+
+"\n";
+
+formula+=
+"Peso: "+
+formatNumber(weight)+
+" kg\n\n";
+
+selectedComponents.forEach(component=>{
+
+formula+=
+component.name+
+"\n";
+
+formula+=
+weight+
+" kg × "+
+formatNumber(component.doseValue)+
+" "+
+component.unit+
+" = "+
+formatNumber(component.dailyMg)+
+" mg/día\n";
+
+if(component.frequency){
+
+formula+=
+"24 ÷ "+
+component.frequency+
+" h = "+
+formatNumber(component.numberOfDoses)+
+" dosis/día\n";
+
+formula+=
+formatNumber(component.dailyMg)+
+" mg ÷ "+
+formatNumber(component.numberOfDoses)+
+" = "+
+formatNumber(component.mgPerDose)+
+" mg por administración\n";
+
+}else{
+
+formula+=
+"Intervalo: "+
+component.frequencyLabel+
+"\n";
+
+}
+
+formula+=
+"Vía: "+
+component.route+
+"\n\n";
+
+});
+
+formula+=
+"NOTA:\n"+
+regimen.note;
+
+document.getElementById(
+"regimenFormula"
+).textContent=
+formula;
+
+result.style.display="none";
+regimenResult.style.display="block";
+
+regimenResult.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+
+/* ============================================================
    CALCULAR
    ============================================================ */
 
@@ -3986,8 +5193,32 @@ calculateDose
 
 function calculateDose(){
 
+const currentValue=
+indicationSelect.value;
+
+const medicineKey=
+currentValue.split("::")[0];
+
 const medicine=
-getCurrentMedicine();
+medicines[medicineKey];
+
+if(!medicine){
+
+alert(
+"Seleccioná un medicamento e indicación."
+);
+
+return;
+
+}
+
+if(medicine.type==="regimen"){
+
+calculateRegimenDose();
+
+return;
+
+}
 
 const weight=
 parseFloat(weightInput.value);
@@ -4000,11 +5231,6 @@ parseInt(frequencySelect.value);
 
 const concentration=
 parseFloat(concentrationSelect.value);
-
-if(!medicine){
-alert("Seleccioná un medicamento e indicación.");
-return;
-}
 
 if(!weight||weight<=0){
 
@@ -4297,6 +5523,7 @@ formatNumber(mlPerDose)+
 document.getElementById("formula").textContent=
 formula;
 
+regimenResult.style.display="none";
 result.style.display="block";
 
 result.scrollIntoView({
