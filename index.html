@@ -432,6 +432,14 @@ select.single-option{
     padding-right:12px
 }
 
+/* Estilo para los selects dentro de componentes de régimen */
+.regimen-select{
+    margin-top:4px;
+    margin-bottom:8px;
+    height:40px;
+    font-size:14px;
+}
+
 .weight-wrapper{position:relative}
 
 .weight-wrapper input{padding-right:40px}
@@ -1213,10 +1221,10 @@ Régimen combinado
 
 <div class="regimen-result-warning">
 <strong>⚠️ Importante:</strong>
-este resultado representa un <strong>régimen combinado</strong>.
+este resultado representa un <strong>régimen combinado o protocolo específico</strong>.
 Los componentes deben administrarse conjuntamente según la indicación,
 vía, intervalo y protocolo correspondiente. No interpretar cada componente
-como monoterapia para esta indicación.
+como monoterapia para esta indicación si forma parte de un esquema combinado.
 </div>
 
 </div>
@@ -1340,8 +1348,7 @@ En SBA se mantienen los esquemas específicos previamente cargados para
 
 <br><br>
 
-En <strong>NAC</strong>, los esquemas combinados se cargan como
-<strong>regímenes únicos</strong> para evitar interpretar accidentalmente uno de sus componentes como monoterapia. La calculadora muestra cada componente por separado, con su dosis, vía e intervalo cuando están definidos.
+En <strong>NAC</strong>, se incorporaron esquemas especiales para <strong>gérmenes atípicos o alergia a penicilinas</strong> (eritromicina y claritromicina con sus duraciones y pautas específicas).
 
 <br><br>
 
@@ -2399,7 +2406,11 @@ keywords:[
 "ceftriaxona",
 "vancomicina",
 "samr",
-"sepsis"
+"sepsis",
+"eritromicina",
+"claritromicina",
+"atipicos",
+"alergia"
 ],
 
 regimens:[
@@ -2808,6 +2819,93 @@ keywords:[
 "mrsa",
 "cefotaxima",
 "vancomicina"
+]
+
+},
+
+{
+id:"nacAtipicosEritromicina",
+
+label:"NAC · Germen atípico / Alergia a penicilinas · Eritromicina",
+
+shortLabel:"Atípicos / Alergia · Eritromicina",
+
+components:[
+
+{
+name:"Eritromicina",
+dose:40,
+unit:"mg/kg/día",
+frequencyOptions:[
+{value:6,label:"Cada 6 horas"}
+],
+route:"VO",
+dailyDose:true,
+oral:true
+}
+
+],
+
+note:
+"Esquema para gérmenes atípicos o alergia a penicilinas: eritromicina 40 mg/kg/día por vía oral, dividida cada 6 horas. Duración cargada: 14 días. Verificar tolerancia digestiva e interacciones.",
+
+duration:"14 días",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"atipicos",
+"atipicos",
+"alergia",
+"penicilina",
+"eritromicina",
+"vo",
+"oral"
+]
+
+},
+
+{
+id:"nacAtipicosClaritromicina",
+
+label:"NAC · Germen atípico / Alergia a penicilinas · Claritromicina",
+
+shortLabel:"Atípicos / Alergia · Claritromicina",
+
+components:[
+
+{
+name:"Claritromicina",
+dose:15,
+unit:"mg/kg/día",
+frequencyOptions:[
+{value:24,label:"Cada 24 horas (1 toma diaria)"},
+{value:12,label:"Cada 12 horas (fraccionado)"}
+],
+route:"VO",
+dailyDose:true,
+oral:true
+}
+
+],
+
+note:
+"Esquema para gérmenes atípicos o alergia a penicilinas: claritromicina 15 mg/kg/día por vía oral. Duración cargada: 5 días. Verificar pautas locales y ficha técnica.",
+
+duration:"5 días",
+
+keywords:[
+"nac",
+"neumonia",
+"neumonía",
+"atipicos",
+"atipicos",
+"alergia",
+"penicilina",
+"claritromicina",
+"vo",
+"oral"
 ]
 
 }
@@ -4173,7 +4271,7 @@ title.textContent="Esquema seleccionado";
 regimenContainer.appendChild(title);
 
 regimen.components.forEach(
-component=>{
+(component, compIndex)=>{
 
 const box=
 document.createElement("div");
@@ -4195,49 +4293,34 @@ document.createElement("div");
 
 line.className="regimen-component-line";
 
-let text=
-"<strong>Dosis:</strong> ";
-
+// Opciones múltiples de dosis
 if(component.doseOptions){
-
-text+=
-component.doseOptions
-.map(option=>option.label)
-.join(" · ");
-
-}else{
-
-text+=
-formatNumber(component.dose)+
-" "+
-component.unit;
-
+let html = '<label style="margin-top:6px;">Dosis:</label>';
+html += `<select id="regimenDose_${compIndex}" class="regimen-select" data-comp="${compIndex}">`;
+component.doseOptions.forEach(opt => {
+html += `<option value="${opt.value}">${opt.label}</option>`;
+});
+html += '</select>';
+line.innerHTML = html;
+} else {
+line.innerHTML = "<strong>Dosis:</strong> " + formatNumber(component.dose) + " " + component.unit;
 }
 
-text+=
-"<br><strong>Vía:</strong> "+
-component.route;
+line.innerHTML += "<br><strong>Vía:</strong> " + component.route;
 
+// Opciones múltiples de frecuencia
 if(component.frequencyOptions){
-
-text+=
-"<br><strong>Frecuencia:</strong> "+
-component.frequencyOptions
-.map(option=>option.label)
-.join(" · ");
-
-}else if(component.frequency){
-
-text+=
-"<br><strong>Frecuencia:</strong> "+
-component.frequencyLabel;
-
-}else{
-
-text+=
-"<br><strong>Frecuencia:</strong> "+
-component.frequencyLabel;
-
+let html = '<label style="margin-top:6px;">Frecuencia:</label>';
+html += `<select id="regimenFreq_${compIndex}" class="regimen-select" data-comp="${compIndex}">`;
+component.frequencyOptions.forEach(opt => {
+html += `<option value="${opt.value}">${opt.label}</option>`;
+});
+html += '</select>';
+line.innerHTML += html;
+} else if(component.frequency){
+line.innerHTML += "<br><strong>Frecuencia:</strong> " + component.frequencyLabel;
+} else {
+line.innerHTML += "<br><strong>Frecuencia:</strong> " + component.frequencyLabel;
 }
 
 box.appendChild(line);
@@ -4883,42 +4966,28 @@ return;
 
 const selectedComponents=[];
 
-regimen.components.forEach(component=>{
+regimen.components.forEach((component, compIndex)=>{
 
 let doseValue=component.dose;
-
 let frequency=component.frequency;
 let frequencyLabel=component.frequencyLabel;
 
-if(component.doseOptions){
-
-const doseValueForRegimen=
-component.doseOptions[0].value;
-
-doseValue=
-doseValueForRegimen;
-
+// Leer selectores interactivos de dosis si existen
+const doseSelectElem = document.getElementById(`regimenDose_${compIndex}`);
+if(doseSelectElem){
+doseValue = parseFloat(doseSelectElem.value);
+} else if(component.doseOptions){
+doseValue = component.doseOptions[0].value;
 }
 
-if(
-regimen.id==="nacMayor3AmbAmoxi"
-){
-
-const doseOption=
-component.doseOptions[0];
-
-const frequencyOption=
-component.frequencyOptions[0];
-
-doseValue=
-doseOption.value;
-
-frequency=
-frequencyOption.value;
-
-frequencyLabel=
-frequencyOption.label;
-
+// Leer selectores interactivos de frecuencia si existen
+const freqSelectElem = document.getElementById(`regimenFreq_${compIndex}`);
+if(freqSelectElem){
+frequency = parseInt(freqSelectElem.value);
+frequencyLabel = "Cada " + frequency + " horas";
+} else if(component.frequencyOptions){
+frequency = component.frequencyOptions[0].value;
+frequencyLabel = component.frequencyOptions[0].label;
 }
 
 const dailyMg=
@@ -5044,15 +5113,14 @@ text+=
 component.route;
 
 if(
-component.name==="Amoxicilina" &&
-component.route==="VO" &&
-component.dailyDose
+(component.name==="Amoxicilina" || component.name==="Eritromicina" || component.name==="Claritromicina") &&
+component.route==="VO"
 ){
 
 text+="<br>";
 
 text+=
-"Conversión a mL: disponible según concentración oral seleccionada.";
+"Dosis oral calculada para el régimen seleccionado.";
 
 }
 
