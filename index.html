@@ -2307,7 +2307,7 @@ oral:true
 }
 ],
 note:"Esquema para gérmenes atípicos o alergia a penicilinas: eritromicina.",
-duration:"14 días",
+duration:"14 days",
 keywords:["nac","neumonia","atipicos","alergia","eritromicina","vo"]
 },
 {
@@ -2545,7 +2545,7 @@ type:"fixedAge",
 keywords:["fexofenadina","rinitis"],
 ageRules:[
 {minMonths:24,maxMonths:71,dose:30,label:"30 mg/dosis · 2–5 años",frequency:12},
-{minMonths:72,maxMonths:143,dose:30,label:"30 mg/dosis · 6–11 años",frequency:12},
+{minMonths:72,maxMonths:143,label:"30 mg/dosis · 6–11 años",dose:30,frequency:12},
 {minMonths:144,maxMonths:Infinity,dose:60,label:"60 mg/dosis · ≥12 años",frequency:12}
 ],
 forms:{
@@ -2621,10 +2621,14 @@ indications:[
 ]
 },
 
-nac:{
-label:"NAC · Neumonía Adquirida en la Comunidad (Protocolos)",
+esquemasProtocolos:{
+label:"📋 Esquemas y Protocolos",
 isRegimenGroup:true,
 indications:[
+{
+value:"nac",
+label:"NAC (Neumonía Adquirida en la Comunidad)",
+regimens:[
 {value:"nac::0", label:"≤3 meses · internado · ampicilina + gentamicina"},
 {value:"nac::1", label:"≤3 meses · internado · ampicilina + cefotaxima"},
 {value:"nac::2", label:"≤3 meses · internado · ampicilina + ceftriaxona"},
@@ -2636,6 +2640,8 @@ indications:[
 {value:"nac::8", label:"NAC grave / sepsis / SAMR · cefotaxima + vancomicina"},
 {value:"nac::9", label:"NAC · Germen atípico / Alergia · Eritromicina"},
 {value:"nac::10", label:"NAC · Germen atípico / Alergia · Claritromicina"}
+]
+}
 ]
 },
 
@@ -2792,12 +2798,21 @@ const group = medicineGroups[groupKey];
 clearSelect(pathologySelect);
 if(!group) return;
 
+if(group.isRegimenGroup){
+group.indications.forEach(pat=>{
+const option=document.createElement("option");
+option.value=pat.value;
+option.textContent=pat.label;
+pathologySelect.appendChild(option);
+});
+}else{
 group.indications.forEach(ind=>{
 const option=document.createElement("option");
 option.value=ind.value;
 option.textContent=ind.label;
 pathologySelect.appendChild(option);
 });
+}
 updateSelectState(pathologySelect);
 populateIndicationSelect();
 }
@@ -2808,12 +2823,27 @@ const group = medicineGroups[groupKey];
 clearSelect(indicationSelect);
 
 if(group && group.isRegimenGroup){
+const selectedPat = pathologySelect.value;
+const pathologyObj = group.indications.find(p => p.value === selectedPat);
+
+if(pathologyObj && pathologyObj.regimens){
+indicationSelect.style.display="block";
+if(indicationLabel) indicationLabel.style.display="block";
+pathologyObj.regimens.forEach(reg=>{
+const option=document.createElement("option");
+option.value=reg.value;
+option.textContent=reg.label;
+indicationSelect.appendChild(option);
+});
+updateSelectState(indicationSelect);
+} else {
 indicationSelect.style.display="none";
 if(indicationLabel) indicationLabel.style.display="none";
 const option=document.createElement("option");
-option.value=pathologySelect.value;
+option.value=selectedPat;
 indicationSelect.appendChild(option);
-indicationSelect.value=pathologySelect.value;
+indicationSelect.value=selectedPat;
+}
 } else {
 indicationSelect.style.display="block";
 if(indicationLabel) indicationLabel.style.display="block";
@@ -2856,9 +2886,29 @@ return;
 }
 
 let foundGroup=null;
+let foundPathologyVal=null;
 let foundIndicationVal=null;
 
 Object.entries(medicineGroups).forEach(([groupKey,group])=>{
+if(group.isRegimenGroup){
+group.indications.forEach(pat=>{
+const patText = normalizeText(group.label+" "+pat.label);
+if(patText.includes(search)){
+if(!foundGroup) foundGroup=groupKey;
+if(!foundPathologyVal) foundPathologyVal=pat.value;
+}
+if(pat.regimens){
+pat.regimens.forEach(reg=>{
+const regText = normalizeText(pat.label+" "+reg.label);
+if(regText.includes(search)){
+if(!foundGroup) foundGroup=groupKey;
+if(!foundPathologyVal) foundPathologyVal=pat.value;
+if(!foundIndicationVal) foundIndicationVal=reg.value;
+}
+});
+}
+});
+}else{
 group.indications.forEach(ind=>{
 const text = normalizeText(group.label+" "+ind.label);
 if(text.includes(search)){
@@ -2866,14 +2916,19 @@ if(!foundGroup) foundGroup=groupKey;
 if(!foundIndicationVal) foundIndicationVal=ind.value;
 }
 });
+}
 });
 
 if(foundGroup){
 medicationSelect.value=foundGroup;
 populatePathologySelect(foundGroup);
-if(foundIndicationVal){
-pathologySelect.value=foundIndicationVal;
+if(foundPathologyVal){
+pathologySelect.value=foundPathologyVal;
 populateIndicationSelect();
+}
+if(foundIndicationVal){
+indicationSelect.value=foundIndicationVal;
+updateMedicine();
 }
 }
 });
