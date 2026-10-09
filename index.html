@@ -2189,6 +2189,8 @@ regimens:[
 id:"nacMenor3AmpGent",
 label:"≤3 meses · internado · ampicilina + gentamicina",
 shortLabel:"≤3 meses · internado",
+minMonths:0,
+maxMonths:3,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Gentamicina",dose:5,unit:"mg/kg/día",frequency:12,frequencyLabel:"Cada 12 horas",route:"EV",dailyDose:true}
@@ -2200,6 +2202,8 @@ keywords:["nac","neumonia","neumonía","menor 3 meses","internado","ampicilina",
 id:"nacMenor3AmpCefotax",
 label:"≤3 meses · internado · ampicilina + cefotaxima",
 shortLabel:"≤3 meses · internado",
+minMonths:0,
+maxMonths:3,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Cefotaxima",dose:200,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo según protocolo",route:"EV",dailyDose:true}
@@ -2211,6 +2215,8 @@ keywords:["nac","neumonia","neumonía","menor 3 meses","internado","ampicilina",
 id:"nacMenor3AmpCeftriaxona",
 label:"≤3 meses · internado · ampicilina + ceftriaxona",
 shortLabel:"≤3 meses · internado",
+minMonths:0,
+maxMonths:3,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Ceftriaxona",dose:50,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo según protocolo",route:"EV",dailyDose:true}
@@ -2222,6 +2228,8 @@ keywords:["nac","neumonia","neumonía","menor 3 meses","internado","ampicilina",
 id:"nacMayor3AmbAmoxi",
 label:">3 meses · ambulatorio · amoxicilina",
 shortLabel:">3 meses · ambulatorio",
+minMonths:3.0001,
+maxMonths:Infinity,
 components:[
 {
 name:"Amoxicilina",
@@ -2241,6 +2249,8 @@ keywords:["nac","neumonia","neumonía","mayor 3 meses","ambulatorio","amoxicilin
 id:"nacMayor3InternadoAmp",
 label:">3 meses · internado · ampicilina",
 shortLabel:">3 meses · internado",
+minMonths:3.0001,
+maxMonths:Infinity,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true}
 ],
@@ -2251,6 +2261,8 @@ keywords:["nac","neumonia","neumonía","mayor 3 meses","internado","ampicilina"]
 id:"nacComplicadaAmpCefotax",
 label:">3 meses · NAC complicada / evolución desfavorable · ampicilina + cefotaxima",
 shortLabel:"NAC complicada",
+minMonths:3.0001,
+maxMonths:Infinity,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Cefotaxima",dose:200,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo según protocolo",route:"EV",dailyDose:true}
@@ -2262,6 +2274,8 @@ keywords:["nac","neumonia","complicada","ampicilina","cefotaxima"]
 id:"nacComplicadaAmpCeftriaxona",
 label:">3 meses · NAC complicada / evolución desfavorable · ampicilina + ceftriaxona",
 shortLabel:"NAC complicada",
+minMonths:3.0001,
+maxMonths:Infinity,
 components:[
 {name:"Ampicilina",dose:200,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Ceftriaxona",dose:50,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo según protocolo",route:"EV",dailyDose:true}
@@ -2273,6 +2287,8 @@ keywords:["nac","neumonia","complicada","ampicilina","ceftriaxona"]
 id:"nacGraveCeftriaxonaVanco",
 label:"NAC grave / sepsis / sospecha de SAMR · ceftriaxona + vancomicina",
 shortLabel:"NAC grave · sepsis / SAMR",
+minMonths:1,
+maxMonths:Infinity,
 components:[
 {name:"Ceftriaxona",dose:80,unit:"mg/kg/día",frequency:12,frequencyLabel:"Cada 12 horas",route:"EV",dailyDose:true},
 {name:"Vancomicina",dose:60,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo individualizado",route:"EV",dailyDose:true}
@@ -2284,6 +2300,8 @@ keywords:["nac","neumonia","grave","sepsis","samr","ceftriaxona","vancomicina"]
 id:"nacGraveCefotaxVanco",
 label:"NAC grave / sepsis / sospecha de SAMR · cefotaxima + vancomicina",
 shortLabel:"NAC grave · sepsis / SAMR",
+minMonths:1,
+maxMonths:Infinity,
 components:[
 {name:"Cefotaxima",dose:150,unit:"mg/kg/día",frequency:6,frequencyLabel:"Cada 6 horas",route:"EV",dailyDose:true},
 {name:"Vancomicina",dose:60,unit:"mg/kg/día",frequency:null,frequencyLabel:"Intervalo individualizado",route:"EV",dailyDose:true}
@@ -2295,6 +2313,8 @@ keywords:["nac","neumonia","grave","sepsis","samr","cefotaxima","vancomicina"]
 id:"nacAtipicosEritromicina",
 label:"NAC · Germen atípico / Alergia a penicilinas · Eritromicina",
 shortLabel:"Atípicos / Alergia · Eritromicina",
+minMonths:6,
+maxMonths:Infinity,
 components:[
 {
 name:"Eritromicina",
@@ -2307,13 +2327,15 @@ oral:true
 }
 ],
 note:"Esquema para gérmenes atípicos o alergia a penicilinas: eritromicina.",
-duration:"14 days",
+duration:"14 días",
 keywords:["nac","neumonia","atipicos","alergia","eritromicina","vo"]
 },
 {
 id:"nacAtipicosClaritromicina",
 label:"NAC · Germen atípico / Alergia a penicilinas · Claritromicina",
 shortLabel:"Atípicos / Alergia · Claritromicina",
+minMonths:6,
+maxMonths:Infinity,
 components:[
 {
 name:"Claritromicina",
@@ -2622,7 +2644,7 @@ indications:[
 },
 
 esquemasProtocolos:{
-label:"📋 Esquemas y Protocolos",
+label:"Esquemas y Protocolos",
 isRegimenGroup:true,
 indications:[
 {
@@ -3008,6 +3030,30 @@ const regimen=getCurrentRegimen();
 regimenContainer.innerHTML="";
 if(!regimen) return;
 
+const ageMonths=getAgeMonths();
+let isValidAge = true;
+if(ageMonths!==null && regimen.minMonths!==undefined && regimen.maxMonths!==undefined){
+if(ageMonths < regimen.minMonths || ageMonths > regimen.maxMonths){
+isValidAge = false;
+}
+}
+
+if(!isValidAge){
+const outOfRange = document.createElement("div");
+outOfRange.className="regimen-note";
+outOfRange.style.background="#fef2f2";
+outOfRange.style.borderColor="#fecaca";
+outOfRange.style.color="#991b1b";
+outOfRange.innerHTML="<strong>⚠️ Edad fuera del esquema cargado:</strong> La edad ingresada no corresponde a este protocolo de NAC.";
+regimenContainer.appendChild(outOfRange);
+ageNote.classList.remove("hidden");
+ageNote.textContent="La edad ingresada no corresponde a un esquema cargado para este protocolo.";
+return;
+}
+
+ageNote.classList.add("hidden");
+ageNote.textContent="";
+
 const title=document.createElement("div");
 title.className="section-title";
 title.textContent="Esquema seleccionado";
@@ -3083,8 +3129,6 @@ regimenResult.style.display="none";
 if(medicine.type==="regimen"){
 showRegimenControls();
 renderRegimenSelector();
-ageNote.classList.add("hidden");
-ageNote.textContent="";
 return;
 }
 
@@ -3356,13 +3400,22 @@ if(!medicine||!regimen){
 alert("Seleccioná un esquema de NAC válido.");
 return;
 }
-if(!weight||weight<=0){
-alert("Completá correctamente el peso.");
-return;
-}
+
 const ageMonths=getAgeMonths();
 if(ageMonths===null){
 alert("Completá correctamente la edad.");
+return;
+}
+
+if(regimen.minMonths!==undefined && regimen.maxMonths!==undefined){
+if(ageMonths < regimen.minMonths || ageMonths > regimen.maxMonths){
+alert("La edad ingresada no corresponde a este protocolo de NAC.");
+return;
+}
+}
+
+if(!weight||weight<=0){
+alert("Completá correctamente el peso.");
 return;
 }
 
